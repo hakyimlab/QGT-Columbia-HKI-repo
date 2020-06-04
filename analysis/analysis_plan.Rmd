@@ -1,5 +1,5 @@
 ---
-title: "predixcan_analysis"
+title: "QGT-Columbia-analysis-plan"
 author: "Hae Kyung Im"
 date: "2020-06-03"
 output: workflowr::wflow_html
@@ -7,13 +7,18 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Preliminary information
+Data and copies of repositories can be downloaded from [Box here](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum)
+
+The latest version of the analysis plan is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+
 # Transcriptome-wide association methods
 
 ```{r testing}
 
 print(getwd())
-```
 
+```
 
 ## predict expression 
 
@@ -23,11 +28,6 @@ export DATA=$PRE/s-predixcan/data
 export MODEL=$PRE/models
 export METAXCAN=$PRE/MetaXcan-master/software
 export OUTPUT=$PRE/results
-
-<!-- export METAXCAN=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/MetaXcan-master/software -->
-<!-- export DATA=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/data -->
-<!-- export RESULTS=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/results -->
-<!-- mkdir $RESULTS -->
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -76,7 +76,6 @@ echo $DATA
 echo $MODEL
 echo $METAXCAN
 echo $OUTPUT
-
 
 ```
 
@@ -133,7 +132,7 @@ python $METAXCAN/SMulTiXcan.py \
 # Colocalization methods
 
 ## fine-map GWAS results - 
-We will run torus due to time limitation
+We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
 
 ```{bash, eval=FALSE}
 
