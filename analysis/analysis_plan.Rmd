@@ -9,6 +9,12 @@ editor_options:
 
 # Transcriptome-wide association methods
 
+```{r testing}
+
+print(getwd())
+```
+
+
 ## predict expression 
 
 ```{bash predict genetic component of expression,eval=FALSE}
@@ -126,7 +132,8 @@ python $METAXCAN/SMulTiXcan.py \
 
 # Colocalization methods
 
-## fine-map GWAS results - torus due to time limitation
+## fine-map GWAS results - 
+We will run torus due to time limitation
 
 ```{bash, eval=FALSE}
 
@@ -139,7 +146,7 @@ gzip Height.gwas.pip
 ```
 
 ## estimate priors
-
+is this done internally by fastENLOC?
 ```{r}
 
 
@@ -153,7 +160,7 @@ gzip Height.gwas.pip
 
 export EQTLGZ=eqtl_annotation_gzipped
 export GWASGZ=gwas_data_gzipped
-export TISSUE=
+export TISSUE=Whole_Blood
 fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
 
 ```
