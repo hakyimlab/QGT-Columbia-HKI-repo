@@ -1,0 +1,180 @@
+---
+title: "predixcan_analysis"
+author: "Hae Kyung Im"
+date: "2020-06-03"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Transcriptome-wide association methods
+
+## predict expression 
+
+```{bash predict genetic component of expression,eval=FALSE}
+
+export DATA=$PRE/s-predixcan/data
+export MODEL=$PRE/models
+export METAXCAN=$PRE/MetaXcan-master/software
+export OUTPUT=$PRE/results
+
+<!-- export METAXCAN=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/MetaXcan-master/software -->
+<!-- export DATA=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/data -->
+<!-- export RESULTS=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/results -->
+<!-- mkdir $RESULTS -->
+
+printf "Predict expression\n\n"
+python3 $METAXCAN/Predict.py \
+--model_db_path $DATA/models/gtex_v8_en/en_Whole_Blood.db \
+--vcf_genotypes $DATA/1000G_hg38/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+--vcf_mode genotyped \
+--variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
+--on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
+--prediction_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__summary.txt \
+--verbosity 9 \
+--throw
+
+printf "association\n\n"
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/1000G_hg38/random_pheno_1000G_hg38.txt \
+--input_phenos_column pheno \
+--output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__association.txt \
+--verbosity 9 \
+--throw
+
+```
+
+# Summary PrediXcan
+
+## download harmonized and imputed GWAS result for coronary artery disease
+
+```{r}
+
+
+
+```
+
+
+```{bash, eval=TRUE}
+
+export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
+export DATA=$PRE/s-predixcan/data
+export MODEL=$PRE/models
+export METAXCAN=$PRE/MetaXcan-master/software
+export OUTPUT=$PRE/results
+
+echo $PRE
+echo $DATA
+echo $MODEL
+echo $METAXCAN
+echo $OUTPUT
+
+
+```
+
+## run s-predixcan
+
+```{bash, eval=FALSE}
+
+export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
+export DATA=$PRE/s-predixcan/data
+export MODEL=$PRE/models
+export METAXCAN=$PRE/MetaXcan-master/software
+export OUTPUT=$PRE/results
+
+python $METAXCAN/SPrediXcan.py \
+--gwas_file  $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore \
+--model_db_path $MODEL/gtex_v8_mashr/mashr_Whole_Blood.db \
+--covariance $MODEL/gtex_v8_mashr/mashr_Whole_Blood.txt.gz \
+--keep_non_rsid --additional_output --model_db_snp_key varID \
+--throw \
+--output_file $OUTPUT/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
+
+```
+
+## plot and interpret s-predixcan results
+
+```{r}
+
+
+
+```
+
+
+## run multixcan (optional)
+
+```{bash, eval=FALSE}
+
+python $METAXCAN/SMulTiXcan.py \
+--models_folder $DATA/models/eqtl/mashr \
+--models_name_pattern "mashr_(.*).db" \
+--snp_covariance $DATA/models/gtex_v8_expression_mashr_snp_covariance.txt.gz \
+--metaxcan_folder $OUTPUT/spredixcan/eqtl/ \
+--metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
+--metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
+--gwas_file $OUTPUT/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
+--cutoff_condition_number 30 \
+--verbosity 7 \
+--throw \
+--output $OUTPUT/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
+
+```
+
+# Colocalization methods
+
+## fine-map GWAS results - torus due to time limitation
+
+```{bash, eval=FALSE}
+
+#torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
+#gzip Height.gwas.pip
+
+torus -d /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.gwas.pip
+gzip Height.gwas.pip
+
+```
+
+## estimate priors
+
+```{r}
+
+
+
+```
+
+## calculate colocalization with fastENLOC 
+
+```{bash, eval=FALSE}
+## tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+
+export EQTLGZ=eqtl_annotation_gzipped
+export GWASGZ=gwas_data_gzipped
+export TISSUE=
+fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
+
+```
+
+## analyze results compare with s-predixcan results
+
+```{r}
+
+
+
+```
+
+# Mendelian randomization methods
+
+## run SMR (optional)
+```{bash, eval=FALSE}
+
+```
+
+## run  TWMR (for a locus)
+```{bash, eval=FALSE}
+
+```
+
