@@ -6,11 +6,18 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
+```{r preliminary definitions}
+
+library(tidyverse)
+
+```
 
 # Preliminary information
 Data and copies of repositories can be downloaded from [Box here](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum)
 
-The latest version of the analysis plan is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+
+
 
 # Transcriptome-wide association methods
 
@@ -27,7 +34,7 @@ print(getwd())
 export DATA=$PRE/s-predixcan/data
 export MODEL=$PRE/models
 export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
+export RESULTS=$PRE/results
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -40,7 +47,23 @@ python3 $METAXCAN/Predict.py \
 --prediction_summary_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__summary.txt \
 --verbosity 9 \
 --throw
+```
 
+## assess prediction performance (optional)
+
+```{r}
+
+## merge with GEUVADIS expression data
+
+## calculate spearman correlation
+
+## select a few genes and plot predicted vs observed expression
+
+```
+
+## run association with phenotype
+
+```{bash, eval=FALSE}
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
@@ -164,12 +187,12 @@ fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] 
 
 ```
 
-## analyze results compare with s-predixcan results
+## analyze results 
 
 ```{r}
 
 
-
+## optional - compare with s-predixcan results
 ```
 
 # Mendelian randomization methods
@@ -180,7 +203,19 @@ fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] 
 ```
 
 ## run  TWMR (for a locus)
+
 ```{bash, eval=FALSE}
+
+cd $TWMR
+export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
+export TWMR=$PRE/repos/TWMR-master
+export OUTPUT=$PRE/results
+GENE=ENSG00000002919
+
+R < $TWMR/MR.R --no-save $GENE
+
+cd $PRE
 
 ```
 
+-[ ] todo: write an R function  
