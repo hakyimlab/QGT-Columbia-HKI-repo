@@ -15,7 +15,6 @@
 
 <title>QGT-Columbia-analysis-plan</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -30,16 +29,6 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
-
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -385,6 +374,13 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <div class="fluid-row" id="header">
 
 
@@ -426,7 +422,7 @@ div.tocify {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -464,7 +460,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20200603code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20200603)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20200603)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -507,29 +503,17 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree064f6eeb8a042a0f96f0198269cd6dde92a1a1datargetblank064f6eea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/064f6eeb8a042a0f96f0198269cd6dde92a1a1da" target="_blank">064f6ee</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree0deee3c4ef98fdd2ee955d953a93ef4a8f1e25a3targetblank0deee3ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/0deee3c4ef98fdd2ee955d953a93ef4a8f1e25a3" target="_blank">0deee3c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree064f6eeb8a042a0f96f0198269cd6dde92a1a1datargetblank064f6eea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree0deee3c4ef98fdd2ee955d953a93ef4a8f1e25a3targetblank0deee3ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
-</p>
-<p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/064f6eeb8a042a0f96f0198269cd6dde92a1a1da" target="_blank">064f6ee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
-</p>
-<p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    extras/.DS_Store
-
-Untracked files:
-    Untracked:  extras/figures/TWMR.png
 
 Unstaged changes:
     Modified:   analysis/analysis_plan.Rmd
@@ -547,7 +531,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/analysis_plan.Rmd</code>) and HTML (<code>docs/analysis_plan.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -571,6 +555,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/0deee3c4ef98fdd2ee955d953a93ef4a8f1e25a3/analysis/analysis_plan.Rmd" target="_blank">0deee3c</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+added TWMR
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/0deee3c4ef98fdd2ee955d953a93ef4a8f1e25a3/docs/analysis_plan.html" target="_blank">0deee3c</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+added TWMR
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -946,12 +964,12 @@ wflow_rename(“analysis/predixcan_analysis.Rmd”, “analysis/analysis_plan.Rm
 <li>run transcriptome-wide mendelian randomization in one locus of interest</li>
 </ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.4
-✓ tibble  3.0.0     ✓ dplyr   0.8.5
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+✓ tibble  2.1.3     ✓ dplyr   0.8.3
 ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -963,8 +981,8 @@ x dplyr::lag()    masks stats::lag()</code></pre>
 <div id="transcriptome-wide-association-methods" class="section level1">
 <h1>Transcriptome-wide association methods</h1>
 <pre class="r"><code>print(getwd())</code></pre>
-<pre><code>[1] &quot;/Users/haekyungim/Github/QGT-Columbia-HKI&quot;</code></pre>
-<pre class="r"><code>pre=&quot;/home/rstudio/QGT-Columbia-HKI&quot;
+<pre><code>[1] &quot;/Users/yanyul/Documents/repo/github/QGT-Columbia-HKI&quot;</code></pre>
+<pre class="r"><code>pre=&quot;/home/student/QGT-Columbia-HKI&quot;
 model.dir=glue::glue(&quot;{pre}/models&quot;)
 metaxcan.dir=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
 fastenloc.dir=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
@@ -974,12 +992,14 @@ results.dir=glue::glue(&quot;{pre}/results&quot;)</code></pre>
 <div id="predict-expression" class="section level2">
 <h2>predict expression</h2>
 <div class="figure">
-<img src="../extras/figures/predixcan-run.png" alt="" />
+<img src="../extras/figures/PrediXcan-run.png" alt="Visual summary of predixcan runs" />
 <p class="caption">Visual summary of predixcan runs</p>
 </div>
 <pre class="bash"><code>
-export PRE=&quot;/home/rstudio/QGT-Columbia-HKI&quot;
-export DATA=$PRE/predixcan/data
+conda activate imlabtools
+
+export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -1014,8 +1034,8 @@ head(prediction_summary)
 <div id="run-association-with-phenotype" class="section level2">
 <h2>run association with phenotype</h2>
 <pre class="bash"><code>
-export PRE=&quot;/home/rstudio/QGT-Columbia-HKI&quot;
-export DATA=$PRE/predixcan/data
+export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -1049,7 +1069,7 @@ predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_h
 <div id="summary-predixcan" class="section level1">
 <h1>Summary PrediXcan</h1>
 <div class="figure">
-<img src="../extras/figures/gwas-PrediXcan-spredixcan.png" alt="" />
+<img src="../extras/figures/gwas-PrediXcan-spredixcan.png" alt="Visual summary of s-predixcan" />
 <p class="caption">Visual summary of s-predixcan</p>
 </div>
 <pre class="r"><code>## harmonized and imputed GWAS result for coronary artery disease is available in 
@@ -1057,8 +1077,8 @@ predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_h
 <div id="run-s-predixcan" class="section level2">
 <h2>run s-predixcan</h2>
 <pre class="bash"><code>
-export PRE=&quot;/home/rstudio/QGT-Columbia-HKI&quot;
-export DATA=$PRE/s-predixcan/data
+export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+export DATA=$PRE/data/s-predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -1084,14 +1104,17 @@ spredixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_
 <div id="run-multixcan-optional" class="section level2">
 <h2>run multixcan (optional)</h2>
 <pre class="bash"><code>
+export MODEL=$PRE/models
+export DATA=$PRE/data/s-predixcan
+
 python $METAXCAN/SMulTiXcan.py \
---models_folder $DATA/models/eqtl/mashr \
+--models_folder $MODEL/gtex_v8_mashr \
 --models_name_pattern &quot;mashr_(.*).db&quot; \
---snp_covariance $DATA/models/gtex_v8_expression_mashr_snp_covariance.txt.gz \
+--snp_covariance $MODEL/gtex_v8_expression_mashr_snp_covariance.txt.gz \
 --metaxcan_folder $RESULTS/spredixcan/eqtl/ \
 --metaxcan_filter &quot;CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv&quot; \
 --metaxcan_file_name_parse_pattern &quot;(.*)__PM__(.*).csv&quot; \
---gwas_file $RESULTS/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
 --cutoff_condition_number 30 \
 --verbosity 7 \
@@ -1103,7 +1126,7 @@ python $METAXCAN/SMulTiXcan.py \
 <div id="colocalization-methods" class="section level1">
 <h1>Colocalization methods</h1>
 <div class="figure">
-<img src="../extras/figures/colocalization-run.png" alt="" />
+<img src="../extras/figures/colocalization-run.png" alt="Visual summary of colocalization" />
 <p class="caption">Visual summary of colocalization</p>
 </div>
 <div id="fine-map-gwas-results" class="section level2">
@@ -1112,10 +1135,10 @@ python $METAXCAN/SMulTiXcan.py \
 <pre class="bash"><code>
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
-TORUSOFT=$PRE/repos/torus-master/src/torus.static
+TORUSOFT=torus
 
-$TORUSOFT -d $PRE/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip $PRE/fastenloc/data/Height.gwas.pip
-cd $PRE/fastenloc/data
+$TORUSOFT -d $PRE/data/fastenloc/Height.torus.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
+cd $PRE/data/fastenloc
 gzip Height.gwas.pip
 cd $PRE 
 </code></pre>
@@ -1124,11 +1147,12 @@ cd $PRE
 <h2>calculate colocalization with fastENLOC</h2>
 <pre class="bash"><code>## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
-export eqtl_annotation_gzipped=$PRE/fastenloc/data/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
-export gwas_data_gzipped=$PRE/fastenloc/data/Height.gwas.pip.gz
+export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/data/fastenloc/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-export FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
+export FASTENLOCSOFT=fastenloc
 
+mkdir $RESULTS/fastenloc/
 cd $RESULTS/fastenloc/
 $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
 
@@ -1151,19 +1175,21 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 <div id="run-twmr-for-a-locus" class="section level2">
 <h2>run TWMR (for a locus)</h2>
 <div class="figure">
-<img src="../extras/figures/TWMR.png" alt="" />
+<img src="../extras/figures/TWMR.png" alt="TWMR" />
 <p class="caption">TWMR</p>
 </div>
 <pre class="bash"><code>
-cd $TWMR
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
 export TWMR=$PRE/repos/TWMR-master
 export OUTPUT=$PRE/results
 GENE=ENSG00000002919
 
+cd $TWMR
+
 R &lt; $TWMR/MR.R --no-save $GENE
 
 cd $PRE
+
+## output: /home/student/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000002919.alpha
 </code></pre>
 <br>
 <p>
@@ -1173,9 +1199,9 @@ cd $PRE
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.3 (2020-02-29)
+<pre><code>R version 3.6.2 (2019-12-12)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Catalina 10.15.2
+Running under: macOS High Sierra 10.13.6
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
@@ -1188,26 +1214,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5     purrr_0.3.4    
-[5] readr_1.3.1     tidyr_1.0.2     tibble_3.0.0    ggplot2_3.3.0  
-[9] tidyverse_1.3.0
+ [1] forcats_0.4.0   stringr_1.4.0   dplyr_0.8.3     purrr_0.3.3    
+ [5] readr_1.3.1     tidyr_1.0.2     tibble_2.1.3    ggplot2_3.2.1  
+ [9] tidyverse_1.3.0 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.0.0 xfun_0.13        haven_2.2.0      lattice_0.20-41 
- [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
- [9] yaml_2.2.1       rlang_0.4.5      later_1.0.0      pillar_1.4.3    
-[13] withr_2.1.2      glue_1.4.1       DBI_1.1.0        dbplyr_1.4.2    
-[17] readxl_1.3.1     modelr_0.1.6     lifecycle_0.2.0  cellranger_1.1.0
-[21] munsell_0.5.0    gtable_0.3.0     workflowr_1.6.2  rvest_0.3.5     
-[25] evaluate_0.14    knitr_1.28       httpuv_1.5.2     fansi_0.4.1     
-[29] broom_0.5.5      Rcpp_1.0.4.6     promises_1.1.0   backports_1.1.6 
-[33] scales_1.1.0     jsonlite_1.6.1   fs_1.4.1         hms_0.5.3       
-[37] digest_0.6.25    stringi_1.4.6    rprojroot_1.3-2  grid_3.6.3      
-[41] cli_2.0.2        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
-[45] whisker_0.4      pkgconfig_2.0.3  ellipsis_0.3.0   xml2_1.3.1      
-[49] reprex_0.3.0     lubridate_1.7.8  rstudioapi_0.11  assertthat_0.2.1
-[53] rmarkdown_2.1    httr_1.4.1       R6_2.4.1         nlme_3.1-147    
-[57] git2r_0.26.1     compiler_3.6.3  </code></pre>
+ [1] tidyselect_1.0.0 xfun_0.12        haven_2.2.0      lattice_0.20-38 
+ [5] colorspace_1.4-1 vctrs_0.2.2      generics_0.0.2   htmltools_0.4.0 
+ [9] yaml_2.2.0       rlang_0.4.3      later_1.0.0      pillar_1.4.3    
+[13] withr_2.1.2      glue_1.3.1       DBI_1.1.0        dbplyr_1.4.2    
+[17] modelr_0.1.5     readxl_1.3.1     lifecycle_0.1.0  munsell_0.5.0   
+[21] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.5      evaluate_0.14   
+[25] knitr_1.27       httpuv_1.5.2     fansi_0.4.1      broom_0.5.4     
+[29] Rcpp_1.0.3       promises_1.1.0   backports_1.1.5  scales_1.1.0    
+[33] jsonlite_1.6     fs_1.3.1         hms_0.5.3        digest_0.6.23   
+[37] stringi_1.4.5    grid_3.6.2       rprojroot_1.3-2  cli_2.0.1       
+[41] tools_3.6.2      magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4    
+[45] whisker_0.4      pkgconfig_2.0.3  xml2_1.2.2       reprex_0.3.0    
+[49] lubridate_1.7.4  rstudioapi_0.10  assertthat_0.2.1 rmarkdown_2.1   
+[53] httr_1.4.1       R6_2.4.1         nlme_3.1-143     git2r_0.26.1    
+[57] compiler_3.6.2  </code></pre>
 </div>
 </div>
 </div>
@@ -1224,8 +1250,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-
 
 
 </div>

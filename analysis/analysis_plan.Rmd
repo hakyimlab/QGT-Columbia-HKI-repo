@@ -53,7 +53,7 @@ The latest version of the analysis plan that generated this page is on [github h
 
 print(getwd())
 
-pre="/home/rstudio/QGT-Columbia-HKI"
+pre="/home/student/QGT-Columbia-HKI"
 model.dir=glue::glue("{pre}/models")
 metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
 fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
@@ -66,12 +66,14 @@ results.dir=glue::glue("{pre}/results")
 
 ## predict expression 
 
-![Visual summary of predixcan runs](../extras/figures/predixcan-run.png)
+![Visual summary of predixcan runs](../extras/figures/PrediXcan-run.png)
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
-export PRE="/home/rstudio/QGT-Columbia-HKI"
-export DATA=$PRE/predixcan/data
+conda activate imlabtools
+
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -112,8 +114,8 @@ head(prediction_summary)
 
 ```{bash, eval=FALSE}
 
-export PRE="/home/rstudio/QGT-Columbia-HKI"
-export DATA=$PRE/predixcan/data
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -173,8 +175,8 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 ```{bash, eval=FALSE}
 
-export PRE="/home/rstudio/QGT-Columbia-HKI"
-export DATA=$PRE/s-predixcan/data
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/s-predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -208,14 +210,17 @@ SORT1, considered to be a causal gene for LDL cholesterol and as a consequence o
 
 ```{bash, eval=FALSE}
 
+export MODEL=$PRE/models
+export DATA=$PRE/data/s-predixcan
+
 python $METAXCAN/SMulTiXcan.py \
---models_folder $DATA/models/eqtl/mashr \
+--models_folder $MODEL/gtex_v8_mashr \
 --models_name_pattern "mashr_(.*).db" \
---snp_covariance $DATA/models/gtex_v8_expression_mashr_snp_covariance.txt.gz \
+--snp_covariance $MODEL/gtex_v8_expression_mashr_snp_covariance.txt.gz \
 --metaxcan_folder $RESULTS/spredixcan/eqtl/ \
 --metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
 --metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
---gwas_file $RESULTS/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
 --cutoff_condition_number 30 \
 --verbosity 7 \
@@ -236,10 +241,10 @@ We will run torus due to time limitation but ideally we would like to run a meth
 
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
-TORUSOFT=$PRE/repos/torus-master/src/torus.static
+TORUSOFT=torus
 
-$TORUSOFT -d $PRE/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip $PRE/fastenloc/data/Height.gwas.pip
-cd $PRE/fastenloc/data
+$TORUSOFT -d $PRE/data/fastenloc/Height.torus.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
+cd $PRE/data/fastenloc
 gzip Height.gwas.pip
 cd $PRE 
 
@@ -250,11 +255,12 @@ cd $PRE
 ```{bash, eval=FALSE}
 ## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
-export eqtl_annotation_gzipped=$PRE/fastenloc/data/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
-export gwas_data_gzipped=$PRE/fastenloc/data/Height.gwas.pip.gz
+export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/data/fastenloc/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-export FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
+export FASTENLOCSOFT=fastenloc
 
+mkdir $RESULTS/fastenloc/
 cd $RESULTS/fastenloc/
 $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
 
@@ -287,15 +293,17 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 
 ```{bash, eval=FALSE}
 
-cd $TWMR
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
 export TWMR=$PRE/repos/TWMR-master
 export OUTPUT=$PRE/results
 GENE=ENSG00000002919
 
+cd $TWMR
+
 R < $TWMR/MR.R --no-save $GENE
 
 cd $PRE
+
+## output: /home/student/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000002919.alpha
 
 ```
 
