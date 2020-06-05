@@ -91,24 +91,45 @@ export RESULTS=$PRE/results
 
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
---expression_file $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
---input_phenos_file $DATA/1000G_hg38/random_pheno_1000G_hg38.txt \
+--expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/phenotype/random_pheno_1000G_hg38.txt \
 --input_phenos_column pheno \
---output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__association.txt \
+--output $RESULTS/predixcan/random_pheno/Whole_Blood__association.txt \
 --verbosity 9 \
 --throw
 
 ```
 
-# Summary PrediXcan
+## read results
 
+```{r, eval=FALSE}
+
+predixcan_association = read_tsv(glue::glue("{results.dir}/predixcan/random_pheno/Whole_Blood__association.txt"))
+dim(predixcan_association)
+predixcan_association %>% arrange(pvalue) %>% head
+predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
+
+
+```
+
+
+## Exercise
+-[  ] Run association with another phenotype 
+in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38_x_en_Whole_Blood.simulated_phenotype.spike_n_slab_0.5_x_pve0.6.txt
+
+
+
+
+# Summary PrediXcan
 
 ```{r}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
 # $PRE/s-predixcan/data/
+
 ```
 
+## testing 
 
 ```{bash, eval=TRUE}
 
@@ -126,7 +147,7 @@ echo $OUTPUT
 
 ```
 
-## run s-predixcan
+## run s-predixcan 
 
 ```{bash, eval=FALSE}
 
@@ -154,7 +175,6 @@ python $METAXCAN/SPrediXcan.py \
 
 
 ```
-
 
 ## run multixcan (optional)
 
@@ -215,13 +235,14 @@ fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] 
 
 ```{r}
 
-
 ## optional - compare with s-predixcan results
+
 ```
 
 # Mendelian randomization methods
 
 ## run SMR (optional)
+
 ```{bash, eval=FALSE}
 
 ```
@@ -242,4 +263,4 @@ cd $PRE
 
 ```
 
--[ ] todo: write an R function  
+
