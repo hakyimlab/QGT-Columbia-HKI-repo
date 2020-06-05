@@ -6,6 +6,7 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
+
 ```{r preliminary definitions}
 
 library(tidyverse)
@@ -21,9 +22,18 @@ The latest version of the analysis plan that generated this page is on [github h
 
 # Transcriptome-wide association methods
 
-```{r testing}
+```{r preliminaries}
 
 print(getwd())
+
+pre="/home/rstudio/QGT-Columbia-HKI"
+model.dir=glue::glue("{pre}/models")
+metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
+fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
+torus.dir=glue::glue("{pre}/repos/torus-master")
+twmr.dir=glue::glue("{pre}/repos/TWMR-master")
+results.dir=glue::glue("{pre}/results")
+
 
 ```
 
@@ -31,20 +41,21 @@ print(getwd())
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
-export DATA=$PRE/s-predixcan/data
+export PRE="/home/rstudio/QGT-Columbia-HKI"
+export DATA=$PRE/predixcan/data
 export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
+export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
---model_db_path $DATA/models/gtex_v8_en/en_Whole_Blood.db \
---vcf_genotypes $DATA/1000G_hg38/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+--model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
+--vcf_genotypes $DATA/genotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
 --vcf_mode genotyped \
 --variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
 --on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
---prediction_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
---prediction_summary_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__summary.txt \
+--prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
 --verbosity 9 \
 --throw
 ```
@@ -52,6 +63,13 @@ python3 $METAXCAN/Predict.py \
 ## assess prediction performance (optional)
 
 ```{r}
+
+predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
+dim(predicted_expression)
+head(predicted_expression[,1:5])
+prediction_summary = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__summary.txt"))
+dim(prediction_summary)
+head(prediction_summary)
 
 ## merge with GEUVADIS expression data
 
@@ -64,6 +82,13 @@ python3 $METAXCAN/Predict.py \
 ## run association with phenotype
 
 ```{bash, eval=FALSE}
+
+export PRE="/home/rstudio/QGT-Columbia-HKI"
+export DATA=$PRE/predixcan/data
+export MODEL=$PRE/models
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export RESULTS=$PRE/results
+
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
@@ -77,12 +102,11 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 
 # Summary PrediXcan
 
-## download harmonized and imputed GWAS result for coronary artery disease
 
 ```{r}
 
-
-
+## harmonized and imputed GWAS result for coronary artery disease is available in 
+# $PRE/s-predixcan/data/
 ```
 
 
