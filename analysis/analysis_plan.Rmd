@@ -11,14 +11,16 @@ editor_options:
 
 - install anaconda/miniconda
 - define imlabtools conda environment
-- download metaxcan repo
-- download torus repo
-- download fastenloc repo
-- download TMWR repo
-- download prediction models from predictdb.org
+- download the folder from [Box here]() -[ ] TODO: add box link with updated folder 
+this will have copies of all the software repositories and the models
+  - download metaxcan repo
+  - download torus repo
+  - download fastenloc repo
+  - download TMWR repo
+  - download prediction models from predictdb.org
 
 
-workaround: in the Rstudio server (http://104.154.186.85:8787/) For the terminal to work properly we need to run
+workaround: in the experimental Rstudio server (http://104.154.186.85) For the terminal to work properly we need to run
 > source /home/rstudio/.bashrc
 > conda activate imlabtools
 
@@ -228,7 +230,7 @@ TORUSOFT=$PRE/repos/torus-master/src/torus.static
 $TORUSOFT -d $PRE/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip $PRE/fastenloc/data/Height.gwas.pip
 cd $PRE/fastenloc/data
 gzip Height.gwas.pip
-cd $PRE
+cd $PRE 
 
 ```
 
