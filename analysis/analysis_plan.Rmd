@@ -60,7 +60,7 @@ python3 $METAXCAN/Predict.py \
 
 ## assess prediction performance (optional)
 
-```{r, eval=FALSE}
+```{r}
 
 predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
@@ -128,7 +128,7 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 # Summary PrediXcan
 
-```{r, eval=FALSE}
+```{r}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
 # $PRE/s-predixcan/data/
@@ -192,36 +192,35 @@ python $METAXCAN/SMulTiXcan.py \
 
 # Colocalization methods
 
-## fine-map GWAS results - 
+## fine-map GWAS results
 We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
 
 ```{bash, eval=FALSE}
 
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
+TORUSOFT=$PRE/repos/torus-master/src/torus.static
 
-torus -d /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.gwas.pip
+$TORUSOFT -d $PRE/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip $PRE/fastenloc/data/Height.gwas.pip
+cd $PRE/fastenloc/data
 gzip Height.gwas.pip
+cd $PRE
 
 ```
 
-## estimate priors
-is this done internally by fastENLOC?
-```{r}
-
-
-
-```
-
-## calculate colocalization with fastENLOC 
+## calculate colocalization with fastENLOC
 
 ```{bash, eval=FALSE}
 ## tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
-export EQTLGZ=eqtl_annotation_gzipped
-export GWASGZ=gwas_data_gzipped
+export eqtl_annotation_gzipped=$PRE/fastenloc/data/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/fastenloc/data/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
+FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
+
+$FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
+
+#[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
 
 ```
 
@@ -233,6 +232,10 @@ fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] 
 
 ```
 
+-[] prepare 
+
+
+----------
 # Mendelian randomization methods
 
 ## run SMR (optional)
