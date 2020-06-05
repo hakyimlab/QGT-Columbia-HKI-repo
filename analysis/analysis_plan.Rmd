@@ -7,6 +7,22 @@ editor_options:
   chunk_output_type: console
 ---
 
+## set up
+
+- install anaconda/miniconda
+- define imlabtools conda environment
+- download metaxcan repo
+- download torus repo
+- download fastenloc repo
+- download TMWR repo
+
+
+workaround: in the Rstudio server (http://104.154.186.85:8787/) For the terminal to work properly we need to run
+> source /home/rstudio/.bashrc
+> conda activate imlabtools
+
+
+
 ```{r preliminary definitions}
 
 library(tidyverse)
@@ -211,13 +227,14 @@ cd $PRE
 ## calculate colocalization with fastENLOC
 
 ```{bash, eval=FALSE}
-## tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
 export eqtl_annotation_gzipped=$PRE/fastenloc/data/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
 export gwas_data_gzipped=$PRE/fastenloc/data/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
+export FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
 
+cd $RESULTS/fastenloc/
 $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
 
 #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
