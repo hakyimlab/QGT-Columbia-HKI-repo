@@ -1,5 +1,5 @@
 ---
-title: "predixcan_analysis"
+title: "QGT-Columbia-analysis-plan"
 author: "Hae Kyung Im"
 date: "2020-06-03"
 output: workflowr::wflow_html
@@ -7,12 +7,59 @@ editor_options:
   chunk_output_type: console
 ---
 
+## set up 
+
+This information is also on the slides
+- download from Box data and software 
+
+- install anaconda/miniconda
+- define imlabtools conda environment
+- download the folder from [Box here]() -[ ] TODO: add box link with updated folder 
+this will have copies of all the software repositories and the models
+  - download metaxcan repo
+  - download torus repo
+  - download fastenloc repo
+  - download TMWR repo
+  - download prediction models from predictdb.org
+
+
+workaround: in the experimental Rstudio server (http://104.154.186.85) For the terminal to work properly we need to run
+> source /home/rstudio/.bashrc
+> conda activate imlabtools
+
+## analysis plan
+
+- predict whole blood expression
+- run association between predicted expression and a simulated phenotype
+- calculate association between expression levels and coronary artery disease risk using s-predixcan
+- fine-map the coronary artery disease gwas results using torus (need some preformatting)
+- calculate colocalization probability using fastenloc
+- run transcriptome-wide mendelian randomization in one locus of interest
+
+```{r preliminary definitions}
+
+library(tidyverse)
+
+```
+
+# Preliminary information
+Data and copies of repositories can be downloaded from [Box here](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum)
+
+The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+
 # Transcriptome-wide association methods
 
-```{r testing}
+```{r preliminaries}
 
 print(getwd())
-```
+
+pre="/home/student/QGT-Columbia-HKI"
+model.dir=glue::glue("{pre}/models")
+metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
+fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
+torus.dir=glue::glue("{pre}/repos/torus-master")
+twmr.dir=glue::glue("{pre}/repos/TWMR-master")
+results.dir=glue::glue("{pre}/results")
 
 ```{bash setup}
 cd ~
@@ -20,80 +67,124 @@ source .bashrc
 ```
 
 
+```
+
 ## predict expression 
+
+![Visual summary of predixcan runs](../extras/figures/PrediXcan-run.png)
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
-export DATA=$PRE/s-predixcan/data
-export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
+conda activate imlabtools
 
-<!-- export METAXCAN=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/MetaXcan-master/software -->
-<!-- export DATA=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/data -->
-<!-- export RESULTS=/Users/haekyungim/Desktop/local-analysis/QGT-Columbia-HKI/predixcan/results -->
-<!-- mkdir $RESULTS -->
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/predixcan
+export MODEL=$PRE/models
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export RESULTS=$PRE/results
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
---model_db_path $DATA/models/gtex_v8_en/en_Whole_Blood.db \
---vcf_genotypes $DATA/1000G_hg38/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+--model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
+--vcf_genotypes $DATA/genotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
 --vcf_mode genotyped \
 --variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
 --on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
---prediction_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
---prediction_summary_output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__summary.txt \
+--prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
 --verbosity 9 \
 --throw
+```
 
-printf "association\n\n"
-python3 $METAXCAN/PrediXcanAssociation.py \
---expression_file $RESULTS/vcf_1000G_hg38_en/Whole_Blood__predict.txt \
---input_phenos_file $DATA/1000G_hg38/random_pheno_1000G_hg38.txt \
---input_phenos_column pheno \
---output $RESULTS/vcf_1000G_hg38_en/Whole_Blood__association.txt \
---verbosity 9 \
---throw
+## assess prediction performance (optional)
+
+```{r, eval=FALSE}
+
+predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
+dim(predicted_expression)
+head(predicted_expression[,1:5])
+prediction_summary = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__summary.txt"))
+dim(prediction_summary)
+head(prediction_summary)
+
+## merge with GEUVADIS expression data
+
+## calculate spearman correlation
+
+## select a few genes and plot predicted vs observed expression
 
 ```
 
-# Summary PrediXcan
-
-## download harmonized and imputed GWAS result for coronary artery disease
-
-```{r}
-
-
-
-```
-
-
-```{bash, eval=TRUE}
-
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
-export DATA=$PRE/s-predixcan/data
-export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
-
-echo $PRE
-echo $DATA
-echo $MODEL
-echo $METAXCAN
-echo $OUTPUT
-
-
-```
-
-## run s-predixcan
+## run association with phenotype
 
 ```{bash, eval=FALSE}
 
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
-export DATA=$PRE/s-predixcan/data
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export RESULTS=$PRE/results
+
+printf "association\n\n"
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/phenotype/random_pheno_1000G_hg38.txt \
+--input_phenos_column pheno \
+--output $RESULTS/predixcan/random_pheno/Whole_Blood__association.txt \
+--verbosity 9 \
+--throw
+
+```
+
+## read results
+
+```{r, eval=FALSE}
+
+predixcan_association = read_tsv(glue::glue("{results.dir}/predixcan/random_pheno/Whole_Blood__association.txt"))
+dim(predixcan_association)
+predixcan_association %>% arrange(pvalue) %>% head
+predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
+
+
+```
+
+
+## Exercise
+-[  ] Run association with another phenotype 
+in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38_x_en_Whole_Blood.simulated_phenotype.spike_n_slab_0.5_x_pve0.6.txt
+
+```{bash, eval=FALSE}
+
+```
+
+```{r}
+
+```
+
+-------
+-------
+
+# Summary PrediXcan
+
+![Visual summary of s-predixcan](../extras/figures/gwas-PrediXcan-spredixcan.png)
+
+
+```{r}
+
+## harmonized and imputed GWAS result for coronary artery disease is available in 
+# $PRE/s-predixcan/data/
+
+```
+
+## run s-predixcan 
+
+```{bash, eval=FALSE}
+
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/s-predixcan
+export MODEL=$PRE/models
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export RESULTS=$PRE/results
 
 python $METAXCAN/SPrediXcan.py \
 --gwas_file  $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
@@ -102,91 +193,123 @@ python $METAXCAN/SPrediXcan.py \
 --covariance $MODEL/gtex_v8_mashr/mashr_Whole_Blood.txt.gz \
 --keep_non_rsid --additional_output --model_db_snp_key varID \
 --throw \
---output_file $OUTPUT/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
+--output_file $RESULTS/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
 
 ```
 
 ## plot and interpret s-predixcan results
 
-```{r}
+```{r, eval=FALSE}
 
-
+spredixcan_association = read_csv(glue::glue("{results.dir}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
+dim(spredixcan_association)
+spredixcan_association %>% arrange(pvalue) %>% head
+spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
 
 ```
+
+SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
 
 
 ## run multixcan (optional)
 
 ```{bash, eval=FALSE}
 
+export MODEL=$PRE/models
+export DATA=$PRE/data/s-predixcan
+
 python $METAXCAN/SMulTiXcan.py \
---models_folder $DATA/models/eqtl/mashr \
+--models_folder $MODEL/gtex_v8_mashr \
 --models_name_pattern "mashr_(.*).db" \
---snp_covariance $DATA/models/gtex_v8_expression_mashr_snp_covariance.txt.gz \
---metaxcan_folder $OUTPUT/spredixcan/eqtl/ \
+--snp_covariance $MODEL/gtex_v8_expression_mashr_snp_covariance.txt.gz \
+--metaxcan_folder $RESULTS/spredixcan/eqtl/ \
 --metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
 --metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
---gwas_file $OUTPUT/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
 --cutoff_condition_number 30 \
 --verbosity 7 \
 --throw \
---output $OUTPUT/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
+--output $RESULTS/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
 
 ```
 
 # Colocalization methods
 
-## fine-map GWAS results - 
-We will run torus due to time limitation
+![Visual summary of colocalization](../extras/figures/colocalization-run.png)
+
+
+## fine-map GWAS results
+We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
 
 ```{bash, eval=FALSE}
 
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
+TORUSOFT=torus
 
-torus -d /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.gwas.pip
+$TORUSOFT -d $PRE/data/fastenloc/Height.torus.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
+cd $PRE/data/fastenloc
 gzip Height.gwas.pip
+cd $PRE 
 
 ```
 
-## estimate priors
-is this done internally by fastENLOC?
-```{r}
-
-
-
-```
-
-## calculate colocalization with fastENLOC 
+## calculate colocalization with fastENLOC
 
 ```{bash, eval=FALSE}
-## tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
-export EQTLGZ=eqtl_annotation_gzipped
-export GWASGZ=gwas_data_gzipped
+export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/data/fastenloc/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
+export FASTENLOCSOFT=fastenloc
+
+mkdir $RESULTS/fastenloc/
+cd $RESULTS/fastenloc/
+$FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
+
+#[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
 
 ```
 
-## analyze results compare with s-predixcan results
+## analyze results 
 
 ```{r}
 
-
+## optional - compare with s-predixcan results
 
 ```
 
+-[] prepare 
+
+
+----------
 # Mendelian randomization methods
 
 ## run SMR (optional)
+
 ```{bash, eval=FALSE}
 
 ```
 
 ## run  TWMR (for a locus)
+![TWMR](../extras/figures/TWMR.png)
+
 ```{bash, eval=FALSE}
 
+export TWMR=$PRE/repos/TWMR-master
+export OUTPUT=$PRE/results
+GENE=ENSG00000002919
+
+cd $TWMR
+
+R < $TWMR/MR.R --no-save $GENE
+
+cd $PRE
+
+## output: /home/student/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000002919.alpha
+
 ```
+
 
