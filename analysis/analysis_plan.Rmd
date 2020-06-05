@@ -60,7 +60,7 @@ python3 $METAXCAN/Predict.py \
 
 ## assess prediction performance (optional)
 
-```{r}
+```{r, eval=FALSE}
 
 predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
@@ -128,7 +128,7 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 # Summary PrediXcan
 
-```{r}
+```{r, eval=FALSE}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
 # $PRE/s-predixcan/data/
