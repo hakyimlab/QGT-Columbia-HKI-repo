@@ -18,8 +18,6 @@ Data and copies of repositories can be downloaded from [Box here](https://uchica
 
 The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
 
-
-
 # Transcriptome-wide association methods
 
 ```{r preliminaries}
@@ -117,8 +115,16 @@ predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogr
 -[  ] Run association with another phenotype 
 in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38_x_en_Whole_Blood.simulated_phenotype.spike_n_slab_0.5_x_pve0.6.txt
 
+```{bash, eval=FALSE}
 
+```
 
+```{r}
+
+```
+
+-------
+-------
 
 # Summary PrediXcan
 
@@ -129,33 +135,15 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 ```
 
-## testing 
-
-```{bash, eval=TRUE}
-
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
-export DATA=$PRE/s-predixcan/data
-export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
-
-echo $PRE
-echo $DATA
-echo $MODEL
-echo $METAXCAN
-echo $OUTPUT
-
-```
-
 ## run s-predixcan 
 
 ```{bash, eval=FALSE}
 
-export PRE=/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI
+export PRE="/home/rstudio/QGT-Columbia-HKI"
 export DATA=$PRE/s-predixcan/data
 export MODEL=$PRE/models
-export METAXCAN=$PRE/MetaXcan-master/software
-export OUTPUT=$PRE/results
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export RESULTS=$PRE/results
 
 python $METAXCAN/SPrediXcan.py \
 --gwas_file  $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
@@ -164,17 +152,23 @@ python $METAXCAN/SPrediXcan.py \
 --covariance $MODEL/gtex_v8_mashr/mashr_Whole_Blood.txt.gz \
 --keep_non_rsid --additional_output --model_db_snp_key varID \
 --throw \
---output_file $OUTPUT/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
+--output_file $RESULTS/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
 
 ```
 
 ## plot and interpret s-predixcan results
 
-```{r}
+```{r, eval=FALSE}
 
-
+spredixcan_association = read_csv(glue::glue("{results.dir}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
+dim(spredixcan_association)
+spredixcan_association %>% arrange(pvalue) %>% head
+spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
 
 ```
+
+SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
+
 
 ## run multixcan (optional)
 
@@ -184,15 +178,15 @@ python $METAXCAN/SMulTiXcan.py \
 --models_folder $DATA/models/eqtl/mashr \
 --models_name_pattern "mashr_(.*).db" \
 --snp_covariance $DATA/models/gtex_v8_expression_mashr_snp_covariance.txt.gz \
---metaxcan_folder $OUTPUT/spredixcan/eqtl/ \
+--metaxcan_folder $RESULTS/spredixcan/eqtl/ \
 --metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
 --metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
---gwas_file $OUTPUT/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file $RESULTS/processed_summary_imputation/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
 --cutoff_condition_number 30 \
 --verbosity 7 \
 --throw \
---output $OUTPUT/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
+--output $RESULTS/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
 
 ```
 
