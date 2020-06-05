@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreed427aee02c72daa61f997704fe6db760b4c96519targetblankd427aeea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/d427aee02c72daa61f997704fe6db760b4c96519" target="_blank">d427aee</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea3aa03eabde07481472c1e7e9333298978627411targetblanka3aa03ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a3aa03eabde07481472c1e7e9333298978627411" target="_blank">a3aa03e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreed427aee02c72daa61f997704fe6db760b4c96519targetblankd427aeea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea3aa03eabde07481472c1e7e9333298978627411targetblanka3aa03ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/d427aee02c72daa61f997704fe6db760b4c96519" target="_blank">d427aee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a3aa03eabde07481472c1e7e9333298978627411" target="_blank">a3aa03e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -567,6 +567,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/a3aa03eabde07481472c1e7e9333298978627411/analysis/analysis_plan.Rmd" target="_blank">a3aa03e</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+prerequisites added
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/09f5daef68b4080823d8a3f054e4a8fc29f4a894/analysis/analysis_plan.Rmd" target="_blank">09f5dae</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+fastenloc
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/ccb1167f935aefc2aaeea4e93fe1c1ea284c06d1/analysis/analysis_plan.Rmd" target="_blank">ccb1167</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+knit
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/ccb1167f935aefc2aaeea4e93fe1c1ea284c06d1/docs/analysis_plan.html" target="_blank">ccb1167</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-05
+</td>
+<td>
+knit
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -744,6 +812,29 @@ wflow_rename(“analysis/predixcan_analysis.Rmd”, “analysis/analysis_plan.Rm
 </div>
 </div>
 </div>
+<div id="set-up" class="section level2">
+<h2>set up</h2>
+<ul>
+<li>install anaconda/miniconda</li>
+<li>define imlabtools conda environment</li>
+<li>download metaxcan repo</li>
+<li>download torus repo</li>
+<li>download fastenloc repo</li>
+<li>download TMWR repo</li>
+<li>download prediction models from predictdb.org</li>
+</ul>
+<p>workaround: in the Rstudio server (<a href="http://104.154.186.85:8787/" class="uri">http://104.154.186.85:8787/</a>) For the terminal to work properly we need to run &gt; source /home/rstudio/.bashrc &gt; conda activate imlabtools</p>
+</div>
+<div id="analysis-plan" class="section level2">
+<h2>analysis plan</h2>
+<ul>
+<li>predict whole blood expression</li>
+<li>run association between predicted expression and a simulated phenotype</li>
+<li>calculate association between expression levels and coronary artery disease risk using s-predixcan</li>
+<li>fine-map the coronary artery disease gwas results using torus (need some preformatting)</li>
+<li>calculate colocalization probability using fastenloc</li>
+<li>run transcriptome-wide mendelian randomization in one locus of interest</li>
+</ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.4
@@ -753,6 +844,7 @@ wflow_rename(“analysis/predixcan_analysis.Rmd”, “analysis/analysis_plan.Rm
 <pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</code></pre>
+</div>
 <div id="preliminary-information" class="section level1">
 <h1>Preliminary information</h1>
 <p>Data and copies of repositories can be downloaded from <a href="https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum">Box here</a></p>
@@ -892,34 +984,40 @@ python $METAXCAN/SMulTiXcan.py \
 </div>
 <div id="colocalization-methods" class="section level1">
 <h1>Colocalization methods</h1>
-<div id="fine-map-gwas-results--" class="section level2">
-<h2>fine-map GWAS results -</h2>
+<div id="fine-map-gwas-results" class="section level2">
+<h2>fine-map GWAS results</h2>
 <p>We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.</p>
 <pre class="bash"><code>
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
+TORUSOFT=$PRE/repos/torus-master/src/torus.static
 
-torus -d /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip /Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI/fastenloc/data/Height.gwas.pip
+$TORUSOFT -d $PRE/fastenloc/data/Height.torus.zval.gz --load_zval -dump_pip $PRE/fastenloc/data/Height.gwas.pip
+cd $PRE/fastenloc/data
 gzip Height.gwas.pip
+cd $PRE
 </code></pre>
-</div>
-<div id="estimate-priors" class="section level2">
-<h2>estimate priors</h2>
-<p>is this done internally by fastENLOC?</p>
 </div>
 <div id="calculate-colocalization-with-fastenloc" class="section level2">
 <h2>calculate colocalization with fastENLOC</h2>
-<pre class="bash"><code>## tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+<pre class="bash"><code>## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
-export EQTLGZ=eqtl_annotation_gzipped
-export GWASGZ=gwas_data_gzipped
+export eqtl_annotation_gzipped=$PRE/fastenloc/data/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/fastenloc/data/Height.gwas.pip.gz
 export TISSUE=Whole_Blood
-fastenloc -eqtl EQTLGZ -gwas GWASGZ -t tissue_name #[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
+export FASTENLOCSOFT=$PRE/repos/fastenloc-master/src/fastenloc.static
+
+cd $RESULTS/fastenloc/
+$FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
+
+#[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
 </code></pre>
 </div>
 <div id="analyze-results" class="section level2">
 <h2>analyze results</h2>
 <pre class="r"><code>## optional - compare with s-predixcan results</code></pre>
+<p>-[] prepare</p>
+<hr />
 </div>
 </div>
 <div id="mendelian-randomization-methods" class="section level1">

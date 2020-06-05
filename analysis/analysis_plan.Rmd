@@ -15,13 +15,21 @@ editor_options:
 - download torus repo
 - download fastenloc repo
 - download TMWR repo
+- download prediction models from predictdb.org
 
 
 workaround: in the Rstudio server (http://104.154.186.85:8787/) For the terminal to work properly we need to run
 > source /home/rstudio/.bashrc
 > conda activate imlabtools
 
+## analysis plan
 
+- predict whole blood expression
+- run association between predicted expression and a simulated phenotype
+- calculate association between expression levels and coronary artery disease risk using s-predixcan
+- fine-map the coronary artery disease gwas results using torus (need some preformatting)
+- calculate colocalization probability using fastenloc
+- run transcriptome-wide mendelian randomization in one locus of interest
 
 ```{r preliminary definitions}
 
@@ -76,7 +84,7 @@ python3 $METAXCAN/Predict.py \
 
 ## assess prediction performance (optional)
 
-```{r}
+```{r, eval=FALSE}
 
 predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
