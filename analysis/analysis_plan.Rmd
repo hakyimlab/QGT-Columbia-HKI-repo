@@ -283,6 +283,7 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 ```
 
 ## run  TWMR (for a locus)
+![TWMR](../extras/figures/TWMR.png)
 
 ```{bash, eval=FALSE}
 
