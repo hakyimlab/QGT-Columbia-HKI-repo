@@ -7,7 +7,10 @@ editor_options:
   chunk_output_type: console
 ---
 
-## set up
+## set up 
+
+This information is also on the slides
+- download from Box data and software 
 
 - install anaconda/miniconda
 - define imlabtools conda environment
@@ -62,6 +65,8 @@ results.dir=glue::glue("{pre}/results")
 ```
 
 ## predict expression 
+
+![Visual summary of predixcan runs](../extras/figures/predixcan-run.png)
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
@@ -154,6 +159,9 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 # Summary PrediXcan
 
+![Visual summary of s-predixcan](../extras/figures/gwas-PrediXcan-spredixcan.png)
+
+
 ```{r}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
@@ -217,6 +225,9 @@ python $METAXCAN/SMulTiXcan.py \
 ```
 
 # Colocalization methods
+
+![Visual summary of colocalization](../extras/figures/colocalization-run.png)
+
 
 ## fine-map GWAS results
 We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
