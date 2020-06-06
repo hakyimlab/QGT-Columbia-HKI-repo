@@ -47,6 +47,11 @@ Data and copies of repositories can be downloaded from [Box here](https://uchica
 
 The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
 
+# Before you start 
+- the imlabtools environment has to be activated on the terminal by typing
+> conda activate imlabtools
+- Notice that the bash chunks need to be copy pasted on the terminal 
+
 # Transcriptome-wide association methods
 
 ```{r preliminaries}
