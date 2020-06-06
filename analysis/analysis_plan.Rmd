@@ -10,24 +10,30 @@ editor_options:
 ## set up 
 
 This information is also on the slides
-- download from Box data and software 
+
+- download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
+  This will have copies of all the software repositories and the models
 
 - install anaconda/miniconda
 - define imlabtools conda environment
-- download the folder from [Box here]() -[ ] TODO: add box link with updated folder 
-this will have copies of all the software repositories and the models
+- download software (copies of the repos are included in the course folder QCT-Columbia-HKI/repos/)
   - download metaxcan repo
   - download torus repo
   - download fastenloc repo
   - download TMWR repo
-  - download prediction models from predictdb.org
+- download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)
 
+The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+rendered [here as an html page]()
 
-workaround: in the experimental Rstudio server (http://104.154.186.85) For the terminal to work properly we need to run
-> source /home/rstudio/.bashrc
+# Preliminary information
+
+# Before you start 
+- the imlabtools environment has to be activated on the terminal by typing
 > conda activate imlabtools
+- Notice that the bash chunks need to be copy pasted on the terminal 
 
-## analysis plan
+## Summary of analysis plan
 
 - predict whole blood expression
 - run association between predicted expression and a simulated phenotype
@@ -36,21 +42,12 @@ workaround: in the experimental Rstudio server (http://104.154.186.85) For the t
 - calculate colocalization probability using fastenloc
 - run transcriptome-wide mendelian randomization in one locus of interest
 
+
 ```{r preliminary definitions}
 
 library(tidyverse)
 
 ```
-
-# Preliminary information
-Data and copies of repositories can be downloaded from [Box here](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum)
-
-The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
-
-# Before you start 
-- the imlabtools environment has to be activated on the terminal by typing
-> conda activate imlabtools
-- Notice that the bash chunks need to be copy pasted on the terminal 
 
 # Transcriptome-wide association methods
 
@@ -71,7 +68,7 @@ results.dir=glue::glue("{pre}/results")
 
 ## predict expression 
 
-![Visual summary of predixcan runs](figures/PrediXcan-run.png)
+![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
@@ -166,7 +163,7 @@ in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_270
 
 # Summary PrediXcan
 
-![Visual summary of s-predixcan](../extras/figures/gwas-PrediXcan-spredixcan.png)
+![Visual summary of s-predixcan](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png)
 
 
 ```{r}
@@ -236,7 +233,7 @@ python $METAXCAN/SMulTiXcan.py \
 
 # Colocalization methods
 
-![Visual summary of colocalization](../extras/figures/colocalization-run.png)
+![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
 
 
 ## fine-map GWAS results
@@ -294,7 +291,7 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 ```
 
 ## run  TWMR (for a locus)
-![TWMR](../extras/figures/TWMR.png)
+![TWMR](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/TWMR.png)
 
 ```{bash, eval=FALSE}
 
