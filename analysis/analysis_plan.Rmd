@@ -71,7 +71,7 @@ results.dir=glue::glue("{pre}/results")
 
 ## predict expression 
 
-![Visual summary of predixcan runs](../extras/figures/PrediXcan-run.png)
+![Visual summary of predixcan runs](figures/PrediXcan-run.png)
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
