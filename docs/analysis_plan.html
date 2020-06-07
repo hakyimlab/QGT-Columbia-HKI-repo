@@ -422,7 +422,7 @@ div.tocify {
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>QGT-Columbia-HKI/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>QGT-Columbia-lab/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreeefbfceb36ada5f9e4569a78c67bdc0ebdbcd93fctargetblankefbfceba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/efbfceb36ada5f9e4569a78c67bdc0ebdbcd93fc" target="_blank">efbfceb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree2257a0ffb347a9a5cd1137e163c96800ed4ebba8targetblank2257a0fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/2257a0ffb347a9a5cd1137e163c96800ed4ebba8" target="_blank">2257a0f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreeefbfceb36ada5f9e4569a78c67bdc0ebdbcd93fctargetblankefbfceba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree2257a0ffb347a9a5cd1137e163c96800ed4ebba8targetblank2257a0fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/efbfceb36ada5f9e4569a78c67bdc0ebdbcd93fc" target="_blank">efbfceb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/2257a0ffb347a9a5cd1137e163c96800ed4ebba8" target="_blank">2257a0f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/2257a0ffb347a9a5cd1137e163c96800ed4ebba8/analysis/analysis_plan.Rmd" target="_blank">2257a0f</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-06
+</td>
+<td>
+raw figure links
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/2257a0ffb347a9a5cd1137e163c96800ed4ebba8/docs/analysis_plan.html" target="_blank">2257a0f</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-06
+</td>
+<td>
+raw figure links
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1018,36 +1052,74 @@ wflow_rename(“analysis/predixcan_analysis.Rmd”, “analysis/analysis_plan.Rm
 </div>
 </div>
 <div id="set-up" class="section level2">
-<h2>set up</h2>
+<h2>Set up</h2>
 <p>This information is also on the slides</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+download data and software <a href="https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum">from Box</a>. This will have copies of all the software repositories and the models</li>
+</ul>
+<p>Linux is the operating system of choice to run bioinformatics software. Here are offering two options</p>
 <ul>
-<li><p>download data and software <a href="https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum">from Box</a>. This will have copies of all the software repositories and the models</p></li>
-<li><p>install anaconda/miniconda</p></li>
-<li><p>define imlabtools conda environment</p></li>
-<li><p>download software (copies of the repos are included in the course folder QCT-Columbia-HKI/repos/)</p>
-<ul>
+<li>Option 1: full setup, recommended for the linux-savvy with full setup</li>
+<li>OPtion 2: pre-installed RStudio in Google cloud, recommended for people less familiar with linux</li>
+</ul>
+<p>The latest version of the analysis plan markdown document that generated this page is on <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd">github here</a> rendered <a href="https://hakyimlab.github.io/QGT-Columbia-HKI/analysis_plan.html">here as an html page</a></p>
+</div>
+<div id="option-1" class="section level1">
+<h1>Option 1</h1>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+install anaconda/miniconda</li>
+<li><input type="checkbox" disabled="" />
+define imlabtools conda environment <a href="https://github.com/hakyimlab/MetaXcan/blob/master/README.md#example-conda-environment-setup">how to here</a>, which will install all the python modules needed for this analysis session</li>
+<li><input type="checkbox" disabled="" checked="" />
+download software (copies of the repos are already included in the course folder QCT-Columbia-HKI/repos/)<ul>
 <li>download metaxcan repo</li>
 <li>download torus repo</li>
 <li>download fastenloc repo</li>
 <li>download TMWR repo</li>
 </ul></li>
-<li><p>download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)</p></li>
+<li><input type="checkbox" disabled="" checked="" />
+download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)</li>
+<li><input type="checkbox" disabled="" />
+install R/RStudio/tidyverse package</li>
+<li><input type="checkbox" disabled="" />
+(optional) install workflowr package in R</li>
+<li><input type="checkbox" disabled="" />
+git clone <a href="https://github.com/hakyimlab/QGT-Columbia-HKI.git" class="uri">https://github.com/hakyimlab/QGT-Columbia-HKI.git</a></li>
+<li><input type="checkbox" disabled="" />
+start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)</li>
 </ul>
-<p>The latest version of the analysis plan that generated this page is on <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd">github here</a> rendered <a href="">here as an html page</a></p>
 </div>
-<div id="preliminary-information" class="section level1">
-<h1>Preliminary information</h1>
-</div>
-<div id="before-you-start" class="section level1">
-<h1>Before you start</h1>
-<ul>
-<li>the imlabtools environment has to be activated on the terminal by typing &gt; conda activate imlabtools</li>
-<li>Notice that the bash chunks need to be copy pasted on the terminal</li>
+<div id="option-2" class="section level1">
+<h1>Option 2</h1>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+claim your Rstudio server IP address ()</li>
+<li><input type="checkbox" disabled="" />
+connect to the Rstudio server using the url you claimed (<a href="http://xxx.xxx.xxx.xxx:8787" class="uri">http://xxx.xxx.xxx.xxx:8787</a>)</li>
 </ul>
+</div>
+<div id="both-options" class="section level1">
+<h1>Both options</h1>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+update the analysis document</li>
+</ul>
+<pre class="bash"><code>PRE=&quot;/home/student/&quot;
+cd $PRE/../lab/
+git pull </code></pre>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+activate the the imlabtools environment</li>
+</ul>
+<pre class="bash"><code>conda activate imlabtools</code></pre>
+<p>** Notice that the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.</p>
 <div id="summary-of-analysis-plan" class="section level2">
 <h2>Summary of analysis plan</h2>
 <ul>
 <li>predict whole blood expression</li>
+<li>check how well the prediction works with GEUVADIS expression data</li>
 <li>run association between predicted expression and a simulated phenotype</li>
 <li>calculate association between expression levels and coronary artery disease risk using s-predixcan</li>
 <li>fine-map the coronary artery disease gwas results using torus (need some preformatting)</li>
@@ -1055,12 +1127,12 @@ wflow_rename(“analysis/predixcan_analysis.Rmd”, “analysis/analysis_plan.Rm
 <li>run transcriptome-wide mendelian randomization in one locus of interest</li>
 </ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ✓ tibble  3.0.0     ✓ dplyr   0.8.5
 ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -1068,8 +1140,9 @@ x dplyr::lag()    masks stats::lag()</code></pre>
 <div id="transcriptome-wide-association-methods" class="section level1">
 <h1>Transcriptome-wide association methods</h1>
 <pre class="r"><code>print(getwd())</code></pre>
-<pre><code>[1] &quot;/Users/haekyungim/Github/QGT-Columbia-HKI&quot;</code></pre>
-<pre class="r"><code>pre=&quot;/home/student/QGT-Columbia-HKI&quot;
+<pre><code>[1] &quot;/Users/haekyungim/Github/QGT-Columbia-lab&quot;</code></pre>
+<pre class="r"><code>pre=&quot;~/Box/LargeFiles/QGT-Columbia-HKI&quot;
+#pre=&quot;/home/student/QGT-Columbia-HKI&quot;
 model.dir=glue::glue(&quot;{pre}/models&quot;)
 metaxcan.dir=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
 fastenloc.dir=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
@@ -1083,13 +1156,11 @@ results.dir=glue::glue(&quot;{pre}/results&quot;)</code></pre>
 <p class="caption">Visual summary of predixcan runs</p>
 </div>
 <pre class="bash"><code>
-conda activate imlabtools
-
-export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
-export DATA=$PRE/data/predixcan
-export MODEL=$PRE/models
-export METAXCAN=$PRE/repos/MetaXcan-master/software
-export RESULTS=$PRE/results
+PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+DATA=$PRE/data/predixcan
+MODEL=$PRE/models
+METAXCAN=$PRE/repos/MetaXcan-master/software
+RESULTS=$PRE/results
 
 printf &quot;Predict expression\n\n&quot;
 python3 $METAXCAN/Predict.py \
@@ -1101,7 +1172,8 @@ python3 $METAXCAN/Predict.py \
 --prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
 --prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
 --verbosity 9 \
---throw</code></pre>
+--throw
+</code></pre>
 </div>
 <div id="assess-prediction-performance-optional" class="section level2">
 <h2>assess prediction performance (optional)</h2>

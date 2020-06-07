@@ -7,35 +7,61 @@ editor_options:
   chunk_output_type: console
 ---
 
-## set up 
+## Set up 
 
 This information is also on the slides
 
-- download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
+- [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
   This will have copies of all the software repositories and the models
 
-- install anaconda/miniconda
-- define imlabtools conda environment
-- download software (copies of the repos are included in the course folder QCT-Columbia-HKI/repos/)
+Linux is the operating system of choice to run bioinformatics software. Here are offering two options
+
+- Option 1: full setup, recommended for the linux-savvy with full setup
+- OPtion 2: pre-installed RStudio in Google cloud, recommended for people less familiar with linux 
+
+The latest version of the analysis plan markdown document that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
+rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/analysis_plan.html)
+
+# Option 1
+
+- [ ] install anaconda/miniconda
+- [ ] define imlabtools conda environment [how to here](https://github.com/hakyimlab/MetaXcan/blob/master/README.md#example-conda-environment-setup), which will install all the python modules needed for this analysis session
+- [x] download software (copies of the repos are already included in the course folder QCT-Columbia-HKI/repos/)
   - download metaxcan repo
   - download torus repo
   - download fastenloc repo
   - download TMWR repo
-- download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)
+- [x] download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)
+- [ ] install R/RStudio/tidyverse package
+- [ ] (optional) install workflowr package in R
+- [ ] git clone https://github.com/hakyimlab/QGT-Columbia-HKI.git
+- [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
 
-The latest version of the analysis plan that generated this page is on [github here](https://github.com/hakyimlab/QGT-Columbia-HKI/blob/master/analysis/analysis_plan.Rmd)
-rendered [here as an html page]()
+# Option 2
+- [ ] claim your Rstudio server IP address ()
+- [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787)
 
-# Preliminary information
+# Both options
 
-# Before you start 
-- the imlabtools environment has to be activated on the terminal by typing
-> conda activate imlabtools
-- Notice that the bash chunks need to be copy pasted on the terminal 
+- [ ] update the analysis document
+
+```{bash eval=FALSE}
+PRE="/home/student/"
+cd $PRE/../lab/
+git pull 
+```
+
+- [ ] activate the the imlabtools environment
+```{bash, eval=FALSE}
+conda activate imlabtools
+```
+
+** Notice that the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.
 
 ## Summary of analysis plan
 
 - predict whole blood expression
+- check how well the prediction works with GEUVADIS expression data
 - run association between predicted expression and a simulated phenotype
 - calculate association between expression levels and coronary artery disease risk using s-predixcan
 - fine-map the coronary artery disease gwas results using torus (need some preformatting)
@@ -55,7 +81,8 @@ library(tidyverse)
 
 print(getwd())
 
-pre="/home/student/QGT-Columbia-HKI"
+pre="~/Box/LargeFiles/QGT-Columbia-HKI"
+#pre="/home/student/QGT-Columbia-HKI"
 model.dir=glue::glue("{pre}/models")
 metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
 fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
@@ -72,13 +99,11 @@ results.dir=glue::glue("{pre}/results")
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
-conda activate imlabtools
-
-export PRE="/home/student/QGT-Columbia-HKI"
-export DATA=$PRE/data/predixcan
-export MODEL=$PRE/models
-export METAXCAN=$PRE/repos/MetaXcan-master/software
-export RESULTS=$PRE/results
+PRE="/home/student/QGT-Columbia-HKI"
+DATA=$PRE/data/predixcan
+MODEL=$PRE/models
+METAXCAN=$PRE/repos/MetaXcan-master/software
+RESULTS=$PRE/results
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -91,7 +116,45 @@ python3 $METAXCAN/Predict.py \
 --prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
 --verbosity 9 \
 --throw
+
 ```
+
+
+
+## testing
+```{bash}
+PRE="/Users/haekyungim/Box/LargeFiles/QGT-Columbia-HKI"
+DATA=$PRE/data/predixcan
+MODEL=$PRE/models
+METAXCAN=$PRE/repos/MetaXcan-master/software
+RESULTS=$PRE/results
+
+printf "Predict expression\n\n"
+python3 $METAXCAN/Predict.py \
+--model_db_path  /Users/haekyungim/Downloads/data/models/gtex_v8_mashr/mashr_Whole_Blood.db \
+--vcf_genotypes /Users/haekyungim/Downloads/data/1000G_hg37/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz \
+--vcf_mode genotyped \
+--variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
+--on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
+--prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
+--verbosity 9 \
+--throw
+
+
+python3 $METAXCAN/Predict.py \
+--model_db_path $PRE/models/gtex_v8_mashr/mashr_Whole_Blood.db \
+--vcf_genotypes /Users/haekyungim/Downloads/tempo/filtered.vcf.gz \
+--vcf_mode genotyped  \
+--variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
+--on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
+--prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
+--verbosity 9 --throw
+
+```
+
+
 
 ## assess prediction performance (optional)
 
