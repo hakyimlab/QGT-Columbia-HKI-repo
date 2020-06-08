@@ -71,7 +71,7 @@ conda activate imlabtools
 
 ```{r preliminary definitions}
 
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 ```
 
@@ -81,23 +81,15 @@ library(tidyverse)
 
 print(getwd())
 
-# pre="~/Box/LargeFiles/QGT-Columbia-HKI"
-# #pre="/home/student/QGT-Columbia-HKI"
-# model.dir=glue::glue("{pre}/models")
-# metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
-# fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
-# torus.dir=glue::glue("{pre}/repos/torus-master")
-# twmr.dir=glue::glue("{pre}/repos/TWMR-master")
-# results.dir=glue::glue("{pre}/results")
-
-
-MODEL=glue::glue("{pre}/models")
-DATA=glue::glue("{pre}/data")
-RESULTS=glue::glue("{pre}/results")
-METAXCAN=glue::glue("{pre}/repos/MetaXcan-master/software")
-FASTENLOC=glue::glue("{pre}/repos/fastenloc-master")
-TORUS=glue::glue("{pre}/repos/torus-master")
-TWMR=glue::glue("{pre}/repos/TWMR-master")
+##PRE="~/Box/LargeFiles/QGT-Columbia-HKI"
+PRE="/home/student/QGT-Columbia-HKI"
+MODEL=glue::glue("{PRE}/models")
+DATA=glue::glue("{PRE}/data")
+RESULTS=glue::glue("{PRE}/results")
+METAXCAN=glue::glue("{PRE}/repos/MetaXcan-master/software")
+FASTENLOC=glue::glue("{PRE}/repos/fastenloc-master")
+TORUS=glue::glue("{PRE}/repos/torus-master")
+TWMR=glue::glue("{PRE}/repos/TWMR-master")
 
 ```
 
@@ -218,7 +210,7 @@ predixcan_association %>% inner_join(truebetas,by=c("gene"="gene_id")) %>% ggplo
 
 ```{r}
 
-library(qqman)
+suppressPackageStartupMessages(library(qqman))
 
 ```
 
@@ -236,7 +228,7 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ```{r}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
-# $PRE/s-predixcan/data/
+# $PRE/spredixcan/data/
 
 ```
 
@@ -299,11 +291,12 @@ python $METAXCAN/SMulTiXcan.py \
 
 # Colocalization methods
 
+- Colocalization methods seek to estimate the probability that the complex trait and expression causal variants are the same. We favor methods that calculate the probability of causality for each trait (posterior inclusion probability), called fine-mapping methods. Here we use torus for fine-mapping and fastENLOC for colocalization.
+
 ![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
 
-
 ## fine-map GWAS results
-We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
+We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
 
 ```{bash run torus, eval=FALSE}
 
