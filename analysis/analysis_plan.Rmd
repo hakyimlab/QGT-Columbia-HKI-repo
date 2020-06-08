@@ -38,7 +38,6 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 - [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
 
 # Option 2
-
 - [ ] claim your Rstudio server IP address ()
 - [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787)
 
@@ -53,7 +52,6 @@ git pull
 ```
 
 - [ ] activate the the imlabtools environment
-
 ```{bash, eval=FALSE}
 conda activate imlabtools
 ```
@@ -83,8 +81,12 @@ source("code/extra_functions.R")
 
 print(getwd())
 
-# pre="/home/student/QGT-Columbia-HKI"
-pre="/Users/owenmelia/data/QGT-Columbia-HKI"
+lab="/home/student/lab"
+CODE=glue::glue("{lab}/code")
+source(glue::glue("{CODE}/extra_functions.R"))
+
+pre="/home/student/QGT-Columbia-HKI"
+
 model.dir=glue::glue("{pre}/models")
 metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
 fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
@@ -103,8 +105,9 @@ TWMR=glue::glue("{pre}/repos/TWMR-master")
 
 
 ```{bash}
-<!-- export PRE="/home/student/QGT-Columbia-HKI" -->
-export PRE="/Users/owenmelia/data/QGT-Columbia-HKI"
+export PRE="/home/student/QGT-Columbia-HKI"
+export LAB="/home/student/lab"
+export CODE=$LAB/code
 export DATA=$PRE/data
 export MODEL=$PRE/models
 export RESULTS=$PRE/results
@@ -167,6 +170,7 @@ head(prediction_summary)
 ```{bash, eval=FALSE}
 
 export PHENO="sim.infinitesimal_pve0.1"
+
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
@@ -177,6 +181,7 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 --throw
 
 export PHENO="sim.spike_n_slab_0.01_pve0.1"
+
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
@@ -186,8 +191,8 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 --verbosity 9 \
 --throw
 
-
 export PHENO="sim.spike_n_slab_0.1_pve0.05"
+
 printf "association\n\n"
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
@@ -216,16 +221,13 @@ predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogr
 ## compare distribution against the null (uniform)
 gg_qqplot(predixcan_association$pvalue, max_yval = 40)
 
+
 truebetas = read_tsv(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"))
 truebetas = (predixcan_association %>% 
                inner_join(truebetas,by=c("gene"="gene_id")) %>%
                select(c('predicted_beta'='effect', 'true_beta'='effect_size','pvalue')))
 
-
-
 truebetas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
-
-
 ```
 
 ## Exercise
@@ -234,6 +236,7 @@ truebetas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 
 ```{r}
 # truebetas %>% head()
+
 
 ```
 
@@ -321,14 +324,23 @@ python $METAXCAN/SMulTiXcan.py \
 ![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
 
 
+## GWAS summary statistics to torus format
+
+```{bash, eval=FALSE}
+
+python $CODE/gwas_to_torus_zscore.py \
+-input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+-input_ld_regions $DATA/spredixcan/eur_ld_hg19.txt.gz \
+-output_fp $DATA/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
+
+```
+
 ## fine-map GWAS results
 We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
 
 ```{bash, eval=FALSE}
 
-#torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
-#gzip Height.gwas.pip
-TORUSOFT=torus
+export TORUSOFT=torus
 
 $TORUSOFT -d $PRE/data/fastenloc/Height.torus.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
 cd $PRE/data/fastenloc
@@ -336,6 +348,18 @@ gzip Height.gwas.pip
 cd $PRE 
 
 ```
+
+We can take a quick look at the z-values and finemapping PIPs:
+
+The inputs have columns SNP_ID, LOCUS_ID, ZVAL, and the outputs have columns SNP_ID, LOCUS_ID, PVAL, PIP (???)
+```{bash, eval=FALSE}
+cd $PRE/data/fastenloc
+zless Height.torus.zval.gz
+
+zless Height.gwas.pip
+```
+
+
 
 ## calculate colocalization with fastENLOC
 
@@ -362,9 +386,13 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 
 ## optional - compare with s-predixcan results
 
-```
+fastenloc_results = load_fastenloc_coloc_result(glue::glue("{RESULTS}/fastenloc/enloc.sig.out"))
 
--[] prepare 
+spredixcan_and_fastenloc = inner_join(spredixcan_association, fastenloc_results, by=c('gene'='Signal'))
+
+ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
+
+```
 
 
 ----------
