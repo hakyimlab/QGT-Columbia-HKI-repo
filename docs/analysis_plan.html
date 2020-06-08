@@ -416,7 +416,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-06
+<strong>Last updated:</strong> 2020-06-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree2257a0ffb347a9a5cd1137e163c96800ed4ebba8targetblank2257a0fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/2257a0ffb347a9a5cd1137e163c96800ed4ebba8" target="_blank">2257a0f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea2b9918760e8105c91a8a5ae96bb35040e5eac7ctargetblanka2b9918a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a2b9918760e8105c91a8a5ae96bb35040e5eac7c" target="_blank">a2b9918</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree2257a0ffb347a9a5cd1137e163c96800ed4ebba8targetblank2257a0fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea2b9918760e8105c91a8a5ae96bb35040e5eac7ctargetblanka2b9918a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/2257a0ffb347a9a5cd1137e163c96800ed4ebba8" target="_blank">2257a0f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a2b9918760e8105c91a8a5ae96bb35040e5eac7c" target="_blank">a2b9918</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/a2b9918760e8105c91a8a5ae96bb35040e5eac7c/analysis/analysis_plan.Rmd" target="_blank">a2b9918</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-07
+</td>
+<td>
+testing, reducing size of genotype file
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/a2b9918760e8105c91a8a5ae96bb35040e5eac7c/docs/analysis_plan.html" target="_blank">a2b9918</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-07
+</td>
+<td>
+testing, reducing size of genotype file
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1127,12 +1161,12 @@ activate the the imlabtools environment</li>
 <li>run transcriptome-wide mendelian randomization in one locus of interest</li>
 </ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ✓ tibble  3.0.0     ✓ dplyr   0.8.5
 ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -1148,26 +1182,44 @@ metaxcan.dir=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
 fastenloc.dir=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
 torus.dir=glue::glue(&quot;{pre}/repos/torus-master&quot;)
 twmr.dir=glue::glue(&quot;{pre}/repos/TWMR-master&quot;)
-results.dir=glue::glue(&quot;{pre}/results&quot;)</code></pre>
+results.dir=glue::glue(&quot;{pre}/results&quot;)
+
+
+MODEL=glue::glue(&quot;{pre}/models&quot;)
+DATA=glue::glue(&quot;{pre}/data&quot;)
+RESULTS=glue::glue(&quot;{pre}/results&quot;)
+METAXCAN=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
+FASTENLOC=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
+TORUS=glue::glue(&quot;{pre}/repos/torus-master&quot;)
+TWMR=glue::glue(&quot;{pre}/repos/TWMR-master&quot;)</code></pre>
+<pre class="bash"><code>export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+export DATA=$PRE/data
+export MODEL=$PRE/models
+export RESULTS=$PRE/results
+export METAXCAN=$PRE/repos/MetaXcan-master/software</code></pre>
 <div id="predict-expression" class="section level2">
 <h2>predict expression</h2>
 <div class="figure">
 <img src="https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png" alt="" />
 <p class="caption">Visual summary of predixcan runs</p>
 </div>
+<ul>
+<li><p>Remember you need to copy and paste this code chunk into the terminal to run it. Also make sure you activated the imlabtools environment which has all the necessary python modules.</p></li>
+<li><p>Make sure all the paths and file names are correct. This run should take about one minute.</p></li>
+</ul>
 <pre class="bash"><code>
-PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
-DATA=$PRE/data/predixcan
-MODEL=$PRE/models
-METAXCAN=$PRE/repos/MetaXcan-master/software
-RESULTS=$PRE/results
+&lt;!-- PRE=&quot;/home/student/QGT-Columbia-HKI&quot; --&gt;
+&lt;!-- DATA=$PRE/data --&gt;
+&lt;!-- MODEL=$PRE/models --&gt;
+&lt;!-- METAXCAN=$PRE/repos/MetaXcan-master/software --&gt;
+&lt;!-- RESULTS=$PRE/results --&gt;
 
 printf &quot;Predict expression\n\n&quot;
 python3 $METAXCAN/Predict.py \
 --model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
---vcf_genotypes $DATA/genotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+--vcf_genotypes $DATA/predixcan/genotype/filtered.vcf.gz \
 --vcf_mode genotyped \
---variant_mapping $DATA/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
+--variant_mapping $DATA/predixcan/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
 --on_the_fly_mapping METADATA &quot;chr{}_{}_{}_{}_b38&quot; \
 --prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
 --prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
@@ -1190,36 +1242,68 @@ head(prediction_summary)
 
 ## select a few genes and plot predicted vs observed expression</code></pre>
 </div>
-<div id="run-association-with-phenotype" class="section level2">
-<h2>run association with phenotype</h2>
+<div id="run-association-with-a-phenotype" class="section level2">
+<h2>run association with a phenotype</h2>
 <pre class="bash"><code>
-export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
-export DATA=$PRE/data/predixcan
-export MODEL=$PRE/models
-export METAXCAN=$PRE/repos/MetaXcan-master/software
-export RESULTS=$PRE/results
-
+PHENO=&quot;sim.infinitesimal_pve0.1&quot;
 printf &quot;association\n\n&quot;
 python3 $METAXCAN/PrediXcanAssociation.py \
 --expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
---input_phenos_file $DATA/phenotype/random_pheno_1000G_hg38.txt \
+--input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
 --input_phenos_column pheno \
---output $RESULTS/predixcan/random_pheno/Whole_Blood__association.txt \
+--output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
+--verbosity 9 \
+--throw
+
+PHENO=&quot;sim.spike_n_slab_0.01_pve0.1&quot;
+printf &quot;association\n\n&quot;
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
+--input_phenos_column pheno \
+--output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
+--verbosity 9 \
+--throw
+
+
+PHENO=&quot;sim.spike_n_slab_0.1_pve0.05&quot;
+printf &quot;association\n\n&quot;
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
+--input_phenos_column pheno \
+--output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
 --verbosity 9 \
 --throw
 </code></pre>
 </div>
-<div id="read-results" class="section level2">
-<h2>read results</h2>
-<pre class="r"><code>predixcan_association = read_tsv(glue::glue(&quot;{results.dir}/predixcan/random_pheno/Whole_Blood__association.txt&quot;))
+<div id="read-association-results" class="section level2">
+<h2>read association results</h2>
+<pre class="r"><code>## read association results
+PHENO=&quot;sim.spike_n_slab_0.01_pve0.1&quot;
+
+
+predixcan_association = read_tsv(glue::glue(&quot;{results.dir}/predixcan/{PHENO}/Whole_Blood__association.txt&quot;))
+## take a look at the results
 dim(predixcan_association)
 predixcan_association %&gt;% arrange(pvalue) %&gt;% head
-predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_histogram(bins=20)</code></pre>
+predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_histogram(bins=20)
+## compare distribution against the null (uniform)
+qq(predixcan_association$pvalue)
+
+truebetas = read_tsv(glue::glue(&quot;{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt&quot;))
+predixcan_association %&gt;% inner_join(truebetas,by=c(&quot;gene&quot;=&quot;gene_id&quot;)) %&gt;% ggplot(aes(effect,effect_size))+geom_point()+geom_abline()</code></pre>
 </div>
 <div id="exercise" class="section level2">
 <h2>Exercise</h2>
-<p>-[ ] Run association with another phenotype in $PRE/predixcan/data/phenotype/ALL.chr22.shapeit2_integrated_snvindels_v2a_27022019.GRCh38_x_en_Whole_Blood.simulated_phenotype.spike_n_slab_0.5_x_pve0.6.txt</p>
-<pre class="bash"><code></code></pre>
+<p>-[ ] show top genes -[ ] compare with true effect sizes</p>
+<pre class="r"><code>library(qqman)</code></pre>
+<pre><code></code></pre>
+<pre><code>For example usage please run: vignette(&#39;qqman&#39;)</code></pre>
+<pre><code></code></pre>
+<pre><code>Citation appreciated but not required:</code></pre>
+<pre><code>Turner, S.D. qqman: an R package for visualizing GWAS results using Q-Q and manhattan plots. biorXiv DOI: 10.1101/005165 (2014).</code></pre>
+<pre><code></code></pre>
 </div>
 <div id="section" class="section level2">
 <h2>——-</h2>
@@ -1227,6 +1311,7 @@ predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_h
 </div>
 <div id="summary-predixcan" class="section level1">
 <h1>Summary PrediXcan</h1>
+<p>Now we will use the summary results from a GWAS of coronary artery disease to calculate the association between the genetic component of the expression of genes and coronary artery disease risk. We will use the SPrediXcan.py.</p>
 <div class="figure">
 <img src="https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png" alt="" />
 <p class="caption">Visual summary of s-predixcan</p>
@@ -1373,26 +1458,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5     purrr_0.3.4    
-[5] readr_1.3.1     tidyr_1.0.2     tibble_3.0.0    ggplot2_3.3.0  
-[9] tidyverse_1.3.0
+ [1] qqman_0.1.4     forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5    
+ [5] purrr_0.3.4     readr_1.3.1     tidyr_1.0.2     tibble_3.0.0   
+ [9] ggplot2_3.3.0   tidyverse_1.3.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.0.0 xfun_0.13        haven_2.2.0      lattice_0.20-41 
  [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
  [9] yaml_2.2.1       rlang_0.4.5      later_1.0.0      pillar_1.4.3    
 [13] withr_2.1.2      glue_1.4.1       DBI_1.1.0        dbplyr_1.4.2    
-[17] readxl_1.3.1     modelr_0.1.6     lifecycle_0.2.0  cellranger_1.1.0
-[21] munsell_0.5.0    gtable_0.3.0     workflowr_1.6.2  rvest_0.3.5     
-[25] evaluate_0.14    knitr_1.28       httpuv_1.5.2     fansi_0.4.1     
-[29] broom_0.5.5      Rcpp_1.0.4.6     promises_1.1.0   backports_1.1.6 
-[33] scales_1.1.0     jsonlite_1.6.1   fs_1.4.1         hms_0.5.3       
-[37] digest_0.6.25    stringi_1.4.6    rprojroot_1.3-2  grid_3.6.3      
-[41] cli_2.0.2        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
-[45] whisker_0.4      pkgconfig_2.0.3  ellipsis_0.3.0   xml2_1.3.1      
-[49] reprex_0.3.0     lubridate_1.7.8  rstudioapi_0.11  assertthat_0.2.1
-[53] rmarkdown_2.1    httr_1.4.1       R6_2.4.1         nlme_3.1-147    
-[57] git2r_0.26.1     compiler_3.6.3  </code></pre>
+[17] calibrate_1.7.5  readxl_1.3.1     modelr_0.1.6     lifecycle_0.2.0 
+[21] cellranger_1.1.0 munsell_0.5.0    gtable_0.3.0     workflowr_1.6.2 
+[25] rvest_0.3.5      evaluate_0.14    knitr_1.28       httpuv_1.5.2    
+[29] fansi_0.4.1      broom_0.5.5      Rcpp_1.0.4.6     promises_1.1.0  
+[33] backports_1.1.6  scales_1.1.0     jsonlite_1.6.1   fs_1.4.1        
+[37] hms_0.5.3        digest_0.6.25    stringi_1.4.6    rprojroot_1.3-2 
+[41] grid_3.6.3       cli_2.0.2        tools_3.6.3      magrittr_1.5    
+[45] crayon_1.3.4     whisker_0.4      pkgconfig_2.0.3  MASS_7.3-51.5   
+[49] ellipsis_0.3.0   xml2_1.3.1       reprex_0.3.0     lubridate_1.7.8 
+[53] rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
+[57] R6_2.4.1         nlme_3.1-147     git2r_0.26.1     compiler_3.6.3  </code></pre>
 </div>
 </div>
 </div>
