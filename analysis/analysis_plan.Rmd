@@ -14,7 +14,7 @@ This information is also on the slides
 
 - install anaconda/miniconda
 - define imlabtools conda environment
-- download the folder from [Box here]() -[ ] TODO: add box link with updated folder 
+- download the folder from [Box here](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum) 
 this will have copies of all the software repositories and the models
   - download metaxcan repo
   - download torus repo
@@ -39,7 +39,7 @@ workaround: in the experimental Rstudio server (http://104.154.186.85) For the t
 ```{r preliminary definitions}
 
 library(tidyverse)
-
+source("code/extra_functions.R")
 ```
 
 # Preliminary information
@@ -53,21 +53,22 @@ The latest version of the analysis plan that generated this page is on [github h
 
 print(getwd())
 
-pre="/home/student/QGT-Columbia-HKI"
+# pre="/home/student/QGT-Columbia-HKI"
+pre="/Users/owenmelia/data/QGT-Columbia-HKI"
 model.dir=glue::glue("{pre}/models")
 metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
 fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
 torus.dir=glue::glue("{pre}/repos/torus-master")
 twmr.dir=glue::glue("{pre}/repos/TWMR-master")
 results.dir=glue::glue("{pre}/results")
+```
 
 ```{bash setup}
 cd ~
 source .bashrc
+conda activate imlabtools
 ```
 
-
-```
 
 ## predict expression 
 
@@ -77,7 +78,8 @@ source .bashrc
 
 conda activate imlabtools
 
-export PRE="/home/student/QGT-Columbia-HKI"
+<!-- export PRE="/home/student/QGT-Columbia-HKI" -->
+export PRE="/Users/owenmelia/data/QGT-Columbia-HKI"
 export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
@@ -119,7 +121,8 @@ head(prediction_summary)
 
 ```{bash, eval=FALSE}
 
-export PRE="/home/student/QGT-Columbia-HKI"
+<!-- export PRE="/home/student/QGT-Columbia-HKI" -->
+export PRE="/Users/owenmelia/data/QGT-Columbia-HKI"
 export DATA=$PRE/data/predixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
@@ -145,6 +148,7 @@ dim(predixcan_association)
 predixcan_association %>% arrange(pvalue) %>% head
 predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
 
+gg_qqplot(predixcan_association$pvalue)
 
 ```
 
