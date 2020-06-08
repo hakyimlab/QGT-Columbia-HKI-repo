@@ -118,7 +118,7 @@ export METAXCAN=$PRE/repos/MetaXcan-master/software
 
 - Make sure all the paths and file names are correct. This run should take about one minute.
 
-```{bash predict genetic component of expression,eval=FALSE}
+```{bash predict genetic component of expression, eval=FALSE}
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -136,7 +136,7 @@ python3 $METAXCAN/Predict.py \
 
 ## assess prediction performance (optional)
 
-```{r, eval=FALSE}
+```{r assess prediction performance, eval=FALSE}
 
 predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
@@ -147,7 +147,7 @@ head(prediction_summary)
 
 ## merge with GEUVADIS expression data
 
-## calculate spearman correlation
+## calculate Spearman correlation
 
 ## select a few genes and plot predicted vs observed expression
 
@@ -155,7 +155,7 @@ head(prediction_summary)
 
 ## run association with a phenotype
 
-```{bash, eval=FALSE}
+```{bash run predixcan association, eval=FALSE}
 
 PHENO="sim.infinitesimal_pve0.1"
 printf "association\n\n"
@@ -192,13 +192,13 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 
 ## read association results
 
-```{r, eval=FALSE}
+```{r read predixcan association results, eval=FALSE}
 
 ## read association results
 PHENO="sim.spike_n_slab_0.01_pve0.1"
 
 
-predixcan_association = read_tsv(glue::glue("{results.dir}/predixcan/{PHENO}/Whole_Blood__association.txt"))
+predixcan_association = read_tsv(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"))
 ## take a look at the results
 dim(predixcan_association)
 predixcan_association %>% arrange(pvalue) %>% head
@@ -242,7 +242,7 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 
 ## run s-predixcan 
 
-```{bash, eval=FALSE}
+```{bash run s-predixcan, eval=FALSE}
 
 export PRE="/home/student/QGT-Columbia-HKI"
 export DATA=$PRE/data/spredixcan
@@ -263,9 +263,9 @@ python $METAXCAN/SPrediXcan.py \
 
 ## plot and interpret s-predixcan results
 
-```{r, eval=FALSE}
+```{r analyze s-predixcan results, eval=FALSE}
 
-spredixcan_association = read_csv(glue::glue("{results.dir}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
+spredixcan_association = read_csv(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
 dim(spredixcan_association)
 spredixcan_association %>% arrange(pvalue) %>% head
 spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
@@ -274,10 +274,9 @@ spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histog
 
 SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
 
-
 ## run multixcan (optional)
 
-```{bash, eval=FALSE}
+```{bash run multixcan, eval=FALSE}
 
 export MODEL=$PRE/models
 export DATA=$PRE/data/spredixcan
@@ -306,7 +305,7 @@ python $METAXCAN/SMulTiXcan.py \
 ## fine-map GWAS results
 We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
 
-```{bash, eval=FALSE}
+```{bash run torus, eval=FALSE}
 
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
@@ -321,7 +320,7 @@ cd $PRE
 
 ## calculate colocalization with fastENLOC
 
-```{bash, eval=FALSE}
+```{bash run fastENLOC, eval=FALSE}
 ## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
 export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
@@ -339,28 +338,20 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 
 ## analyze results 
 
-```{r}
+```{r analyze torus results}
 
 ## optional - compare with s-predixcan results
 
 ```
 
--[] prepare 
-
 
 ----------
 # Mendelian randomization methods
 
-## run SMR (optional)
-
-```{bash, eval=FALSE}
-
-```
-
 ## run  TWMR (for a locus)
 ![TWMR](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/TWMR.png)
 
-```{bash, eval=FALSE}
+```{bash run TWMR, eval=FALSE}
 
 export TWMR=$PRE/repos/TWMR-master
 export OUTPUT=$PRE/results
@@ -376,4 +367,7 @@ cd $PRE
 
 ```
 
+```{r analyze TWMR results, eval=FALSE}
+
+```
 
