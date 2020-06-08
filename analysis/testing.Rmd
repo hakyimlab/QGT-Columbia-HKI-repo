@@ -1,0 +1,39 @@
+---
+title: "testing"
+author: "Hae Kyung Im"
+date: "2020-06-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r query model weights}
+
+install.packages("RSQLite")
+library("RSQLite")
+sqlite <- dbDriver("SQLite")
+dbname <- "/Users/haekyungim/Downloads/data/models/gtex_v8_mashr/mashr_Whole_Blood.db" ## add full path if db file not in current directory
+## connect to db
+db = dbConnect(sqlite,dbname)
+## list tables
+dbListTables(db)
+dbListFields(db, "weights")
+dbListFields(db, "extra")
+## convenience query function
+query <- function(...) dbGetQuery(db, ...)
+## example queries
+query('select count(*) from weights')
+query('select * from weights where gene = "GATA6" ')
+query('select * from weights limit 10')
+
+```
+
+
+## filtering down the number of variants in the 1000G genotypes
+```{bash}
+./bcftools filter --include 'EUR_AF>0.001' --output ~/Downloads/tempo/filtered.vcf.gz $GENO
+gzip filtered.vcf
+```
+
