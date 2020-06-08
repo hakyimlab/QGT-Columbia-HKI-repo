@@ -81,14 +81,14 @@ library(tidyverse)
 
 print(getwd())
 
-pre="~/Box/LargeFiles/QGT-Columbia-HKI"
-#pre="/home/student/QGT-Columbia-HKI"
-model.dir=glue::glue("{pre}/models")
-metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
-fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
-torus.dir=glue::glue("{pre}/repos/torus-master")
-twmr.dir=glue::glue("{pre}/repos/TWMR-master")
-results.dir=glue::glue("{pre}/results")
+# pre="~/Box/LargeFiles/QGT-Columbia-HKI"
+# #pre="/home/student/QGT-Columbia-HKI"
+# model.dir=glue::glue("{pre}/models")
+# metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
+# fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
+# torus.dir=glue::glue("{pre}/repos/torus-master")
+# twmr.dir=glue::glue("{pre}/repos/TWMR-master")
+# results.dir=glue::glue("{pre}/results")
 
 
 MODEL=glue::glue("{pre}/models")
@@ -101,7 +101,7 @@ TWMR=glue::glue("{pre}/repos/TWMR-master")
 
 ```
 
-```{bash}
+```{bash folder name variables}
 export PRE="/home/student/QGT-Columbia-HKI"
 export DATA=$PRE/data
 export MODEL=$PRE/models
@@ -120,12 +120,6 @@ export METAXCAN=$PRE/repos/MetaXcan-master/software
 
 ```{bash predict genetic component of expression,eval=FALSE}
 
-<!-- PRE="/home/student/QGT-Columbia-HKI" -->
-<!-- DATA=$PRE/data -->
-<!-- MODEL=$PRE/models -->
-<!-- METAXCAN=$PRE/repos/MetaXcan-master/software -->
-<!-- RESULTS=$PRE/results -->
-
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
 --model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
@@ -139,7 +133,6 @@ python3 $METAXCAN/Predict.py \
 --throw
 
 ```
-
 
 ## assess prediction performance (optional)
 
@@ -252,7 +245,7 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ```{bash, eval=FALSE}
 
 export PRE="/home/student/QGT-Columbia-HKI"
-export DATA=$PRE/data/s-predixcan
+export DATA=$PRE/data/spredixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -287,7 +280,7 @@ SORT1, considered to be a causal gene for LDL cholesterol and as a consequence o
 ```{bash, eval=FALSE}
 
 export MODEL=$PRE/models
-export DATA=$PRE/data/s-predixcan
+export DATA=$PRE/data/spredixcan
 
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
