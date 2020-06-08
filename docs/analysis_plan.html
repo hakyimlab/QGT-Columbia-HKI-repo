@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea2b9918760e8105c91a8a5ae96bb35040e5eac7ctargetblanka2b9918a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a2b9918760e8105c91a8a5ae96bb35040e5eac7c" target="_blank">a2b9918</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreec9cedba014a5e937ed45885a53e74d07ee3e1704targetblankc9cedbaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/c9cedba014a5e937ed45885a53e74d07ee3e1704" target="_blank">c9cedba</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreea2b9918760e8105c91a8a5ae96bb35040e5eac7ctargetblanka2b9918a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreec9cedba014a5e937ed45885a53e74d07ee3e1704targetblankc9cedbaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/a2b9918760e8105c91a8a5ae96bb35040e5eac7c" target="_blank">a2b9918</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/c9cedba014a5e937ed45885a53e74d07ee3e1704" target="_blank">c9cedba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/c9cedba014a5e937ed45885a53e74d07ee3e1704/analysis/analysis_plan.Rmd" target="_blank">c9cedba</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+added brief explanation to chunks
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/f754512802211ed81459c431842d37e2244c092d/analysis/analysis_plan.Rmd" target="_blank">f754512</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+removed - in spredixcan folder name
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/f754512802211ed81459c431842d37e2244c092d/docs/analysis_plan.html" target="_blank">f754512</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+removed - in spredixcan folder name
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/b52e06aaa77c689d4c3a95cb7917b22e418c766b/analysis/analysis_plan.Rmd" target="_blank">b52e06a</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+edits
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/b52e06aaa77c689d4c3a95cb7917b22e418c766b/docs/analysis_plan.html" target="_blank">b52e06a</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+edits
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1160,38 +1245,22 @@ activate the the imlabtools environment</li>
 <li>calculate colocalization probability using fastenloc</li>
 <li>run transcriptome-wide mendelian randomization in one locus of interest</li>
 </ul>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>✓ ggplot2 3.3.0     ✓ purrr   0.3.4
-✓ tibble  3.0.0     ✓ dplyr   0.8.5
-✓ tidyr   1.0.2     ✓ stringr 1.4.0
-✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>suppressPackageStartupMessages(library(tidyverse))</code></pre>
 </div>
 </div>
 <div id="transcriptome-wide-association-methods" class="section level1">
 <h1>Transcriptome-wide association methods</h1>
 <pre class="r"><code>print(getwd())</code></pre>
 <pre><code>[1] &quot;/Users/haekyungim/Github/QGT-Columbia-lab&quot;</code></pre>
-<pre class="r"><code>pre=&quot;~/Box/LargeFiles/QGT-Columbia-HKI&quot;
-#pre=&quot;/home/student/QGT-Columbia-HKI&quot;
-model.dir=glue::glue(&quot;{pre}/models&quot;)
-metaxcan.dir=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
-fastenloc.dir=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
-torus.dir=glue::glue(&quot;{pre}/repos/torus-master&quot;)
-twmr.dir=glue::glue(&quot;{pre}/repos/TWMR-master&quot;)
-results.dir=glue::glue(&quot;{pre}/results&quot;)
-
-
-MODEL=glue::glue(&quot;{pre}/models&quot;)
-DATA=glue::glue(&quot;{pre}/data&quot;)
-RESULTS=glue::glue(&quot;{pre}/results&quot;)
-METAXCAN=glue::glue(&quot;{pre}/repos/MetaXcan-master/software&quot;)
-FASTENLOC=glue::glue(&quot;{pre}/repos/fastenloc-master&quot;)
-TORUS=glue::glue(&quot;{pre}/repos/torus-master&quot;)
-TWMR=glue::glue(&quot;{pre}/repos/TWMR-master&quot;)</code></pre>
+<pre class="r"><code>##PRE=&quot;~/Box/LargeFiles/QGT-Columbia-HKI&quot;
+PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
+MODEL=glue::glue(&quot;{PRE}/models&quot;)
+DATA=glue::glue(&quot;{PRE}/data&quot;)
+RESULTS=glue::glue(&quot;{PRE}/results&quot;)
+METAXCAN=glue::glue(&quot;{PRE}/repos/MetaXcan-master/software&quot;)
+FASTENLOC=glue::glue(&quot;{PRE}/repos/fastenloc-master&quot;)
+TORUS=glue::glue(&quot;{PRE}/repos/torus-master&quot;)
+TWMR=glue::glue(&quot;{PRE}/repos/TWMR-master&quot;)</code></pre>
 <pre class="bash"><code>export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
 export DATA=$PRE/data
 export MODEL=$PRE/models
@@ -1208,12 +1277,6 @@ export METAXCAN=$PRE/repos/MetaXcan-master/software</code></pre>
 <li><p>Make sure all the paths and file names are correct. This run should take about one minute.</p></li>
 </ul>
 <pre class="bash"><code>
-&lt;!-- PRE=&quot;/home/student/QGT-Columbia-HKI&quot; --&gt;
-&lt;!-- DATA=$PRE/data --&gt;
-&lt;!-- MODEL=$PRE/models --&gt;
-&lt;!-- METAXCAN=$PRE/repos/MetaXcan-master/software --&gt;
-&lt;!-- RESULTS=$PRE/results --&gt;
-
 printf &quot;Predict expression\n\n&quot;
 python3 $METAXCAN/Predict.py \
 --model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
@@ -1238,7 +1301,7 @@ head(prediction_summary)
 
 ## merge with GEUVADIS expression data
 
-## calculate spearman correlation
+## calculate Spearman correlation
 
 ## select a few genes and plot predicted vs observed expression</code></pre>
 </div>
@@ -1283,7 +1346,7 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 PHENO=&quot;sim.spike_n_slab_0.01_pve0.1&quot;
 
 
-predixcan_association = read_tsv(glue::glue(&quot;{results.dir}/predixcan/{PHENO}/Whole_Blood__association.txt&quot;))
+predixcan_association = read_tsv(glue::glue(&quot;{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt&quot;))
 ## take a look at the results
 dim(predixcan_association)
 predixcan_association %&gt;% arrange(pvalue) %&gt;% head
@@ -1297,13 +1360,7 @@ predixcan_association %&gt;% inner_join(truebetas,by=c(&quot;gene&quot;=&quot;ge
 <div id="exercise" class="section level2">
 <h2>Exercise</h2>
 <p>-[ ] show top genes -[ ] compare with true effect sizes</p>
-<pre class="r"><code>library(qqman)</code></pre>
-<pre><code></code></pre>
-<pre><code>For example usage please run: vignette(&#39;qqman&#39;)</code></pre>
-<pre><code></code></pre>
-<pre><code>Citation appreciated but not required:</code></pre>
-<pre><code>Turner, S.D. qqman: an R package for visualizing GWAS results using Q-Q and manhattan plots. biorXiv DOI: 10.1101/005165 (2014).</code></pre>
-<pre><code></code></pre>
+<pre class="r"><code>suppressPackageStartupMessages(library(qqman))</code></pre>
 </div>
 <div id="section" class="section level2">
 <h2>——-</h2>
@@ -1317,12 +1374,12 @@ predixcan_association %&gt;% inner_join(truebetas,by=c(&quot;gene&quot;=&quot;ge
 <p class="caption">Visual summary of s-predixcan</p>
 </div>
 <pre class="r"><code>## harmonized and imputed GWAS result for coronary artery disease is available in 
-# $PRE/s-predixcan/data/</code></pre>
+# $PRE/spredixcan/data/</code></pre>
 <div id="run-s-predixcan" class="section level2">
 <h2>run s-predixcan</h2>
 <pre class="bash"><code>
 export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
-export DATA=$PRE/data/s-predixcan
+export DATA=$PRE/data/spredixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -1339,7 +1396,7 @@ python $METAXCAN/SPrediXcan.py \
 </div>
 <div id="plot-and-interpret-s-predixcan-results" class="section level2">
 <h2>plot and interpret s-predixcan results</h2>
-<pre class="r"><code>spredixcan_association = read_csv(glue::glue(&quot;{results.dir}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv&quot;))
+<pre class="r"><code>spredixcan_association = read_csv(glue::glue(&quot;{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv&quot;))
 dim(spredixcan_association)
 spredixcan_association %&gt;% arrange(pvalue) %&gt;% head
 spredixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_histogram(bins=20)</code></pre>
@@ -1349,7 +1406,7 @@ spredixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_
 <h2>run multixcan (optional)</h2>
 <pre class="bash"><code>
 export MODEL=$PRE/models
-export DATA=$PRE/data/s-predixcan
+export DATA=$PRE/data/spredixcan
 
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
@@ -1369,13 +1426,16 @@ python $METAXCAN/SMulTiXcan.py \
 </div>
 <div id="colocalization-methods" class="section level1">
 <h1>Colocalization methods</h1>
+<ul>
+<li>Colocalization methods seek to estimate the probability that the complex trait and expression causal variants are the same. We favor methods that calculate the probability of causality for each trait (posterior inclusion probability), called fine-mapping methods. Here we use torus for fine-mapping and fastENLOC for colocalization.</li>
+</ul>
 <div class="figure">
 <img src="https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png" alt="" />
 <p class="caption">Visual summary of colocalization</p>
 </div>
 <div id="fine-map-gwas-results" class="section level2">
 <h2>fine-map GWAS results</h2>
-<p>We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.</p>
+<p>We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.</p>
 <pre class="bash"><code>
 #torus -d Height.torus.zval.gz --load_zval -dump_pip Height.gwas.pip
 #gzip Height.gwas.pip
@@ -1406,16 +1466,11 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 <div id="analyze-results" class="section level2">
 <h2>analyze results</h2>
 <pre class="r"><code>## optional - compare with s-predixcan results</code></pre>
-<p>-[] prepare</p>
 <hr />
 </div>
 </div>
 <div id="mendelian-randomization-methods" class="section level1">
 <h1>Mendelian randomization methods</h1>
-<div id="run-smr-optional" class="section level2">
-<h2>run SMR (optional)</h2>
-<pre class="bash"><code></code></pre>
-</div>
 <div id="run-twmr-for-a-locus" class="section level2">
 <h2>run TWMR (for a locus)</h2>
 <div class="figure">

@@ -71,8 +71,8 @@ conda activate imlabtools
 
 ```{r preliminary definitions}
 
-library(tidyverse)
-source("code/extra_functions.R")
+suppressPackageStartupMessages(library(tidyverse))
+
 ```
 
 # Transcriptome-wide association methods
@@ -103,8 +103,7 @@ TORUS=glue::glue("{pre}/repos/torus-master")
 TWMR=glue::glue("{pre}/repos/TWMR-master")
 ```
 
-
-```{bash}
+```{bash folder name variables}
 export PRE="/home/student/QGT-Columbia-HKI"
 export LAB="/home/student/lab"
 export CODE=$LAB/code
@@ -114,7 +113,6 @@ export RESULTS=$PRE/results
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 ```
 
-
 ## predict expression 
 
 ![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
@@ -123,13 +121,7 @@ export METAXCAN=$PRE/repos/MetaXcan-master/software
 
 - Make sure all the paths and file names are correct. This run should take about one minute.
 
-```{bash predict genetic component of expression,eval=FALSE}
-
-<!-- PRE="/home/student/QGT-Columbia-HKI" -->
-<!-- DATA=$PRE/data -->
-<!-- MODEL=$PRE/models -->
-<!-- METAXCAN=$PRE/repos/MetaXcan-master/software -->
-<!-- RESULTS=$PRE/results -->
+```{bash predict genetic component of expression, eval=FALSE}
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -145,10 +137,9 @@ python3 $METAXCAN/Predict.py \
 
 ```
 
-
 ## assess prediction performance (optional)
 
-```{r, eval=FALSE}
+```{r assess prediction performance, eval=FALSE}
 
 predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
@@ -159,7 +150,7 @@ head(prediction_summary)
 
 ## merge with GEUVADIS expression data
 
-## calculate spearman correlation
+## calculate Spearman correlation
 
 ## select a few genes and plot predicted vs observed expression
 
@@ -167,7 +158,7 @@ head(prediction_summary)
 
 ## run association with a phenotype
 
-```{bash, eval=FALSE}
+```{bash run predixcan association, eval=FALSE}
 
 export PHENO="sim.infinitesimal_pve0.1"
 
@@ -206,13 +197,13 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 
 ## read association results
 
-```{r, eval=FALSE}
+```{r read predixcan association results, eval=FALSE}
 
 ## read association results
 PHENO="sim.spike_n_slab_0.01_pve0.1"
 
 
-predixcan_association = read_tsv(glue::glue("{results.dir}/predixcan/{PHENO}/Whole_Blood__association.txt"))
+predixcan_association = read_tsv(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"))
 
 ## take a look at the results
 dim(predixcan_association)
@@ -237,6 +228,7 @@ truebetas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 ```{r}
 # truebetas %>% head()
 
+suppressPackageStartupMessages(library(qqman))
 
 ```
 
@@ -254,17 +246,16 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ```{r}
 
 ## harmonized and imputed GWAS result for coronary artery disease is available in 
-# $PRE/s-predixcan/data/
+# $PRE/spredixcan/data/
 
 ```
 
 ## run s-predixcan 
 
-```{bash, eval=FALSE}
+```{bash run s-predixcan, eval=FALSE}
 
-<!-- export PRE="/home/student/QGT-Columbia-HKI" -->
-export PRE="/Users/owenmelia/data/QGT-Columbia-HKI"
-export DATA=$PRE/data/s-predixcan
+export PRE="/home/student/QGT-Columbia-HKI"
+export DATA=$PRE/data/spredixcan
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
@@ -282,9 +273,9 @@ python $METAXCAN/SPrediXcan.py \
 
 ## plot and interpret s-predixcan results
 
-```{r, eval=FALSE}
+```{r analyze s-predixcan results, eval=FALSE}
 
-spredixcan_association = read_csv(glue::glue("{results.dir}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
+spredixcan_association = read_csv(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
 dim(spredixcan_association)
 spredixcan_association %>% arrange(-1 * pvalue) %>% head
 spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
@@ -295,13 +286,12 @@ gg_qqplot(spredixcan_association$pvalue)
 
 SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
 
-
 ## run multixcan (optional)
 
-```{bash, eval=FALSE}
+```{bash run multixcan, eval=FALSE}
 
 export MODEL=$PRE/models
-export DATA=$PRE/data/s-predixcan
+export DATA=$PRE/data/spredixcan
 
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
@@ -321,8 +311,9 @@ python $METAXCAN/SMulTiXcan.py \
 
 # Colocalization methods
 
-![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
+- Colocalization methods seek to estimate the probability that the complex trait and expression causal variants are the same. We favor methods that calculate the probability of causality for each trait (posterior inclusion probability), called fine-mapping methods. Here we use torus for fine-mapping and fastENLOC for colocalization.
 
+![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
 
 ## GWAS summary statistics to torus format
 
@@ -336,9 +327,9 @@ python $CODE/gwas_to_torus_zscore.py \
 ```
 
 ## fine-map GWAS results
-We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus.
+We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
 
-```{bash, eval=FALSE}
+```{bash run torus, eval=FALSE}
 
 export TORUSOFT=torus
 
@@ -363,7 +354,7 @@ zless Height.gwas.pip
 
 ## calculate colocalization with fastENLOC
 
-```{bash, eval=FALSE}
+```{bash run fastENLOC, eval=FALSE}
 ## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
 export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
@@ -382,7 +373,7 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 
 ## analyze results 
 
-```{r}
+```{r analyze torus results}
 
 ## optional - compare with s-predixcan results
 
@@ -394,20 +385,13 @@ ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
 
 ```
 
-
 ----------
 # Mendelian randomization methods
-
-## run SMR (optional)
-
-```{bash, eval=FALSE}
-
-```
 
 ## run  TWMR (for a locus)
 ![TWMR](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/TWMR.png)
 
-```{bash, eval=FALSE}
+```{bash run TWMR, eval=FALSE}
 
 export TWMR=$PRE/repos/TWMR-master
 export OUTPUT=$PRE/results
@@ -423,4 +407,7 @@ cd $PRE
 
 ```
 
+```{r analyze TWMR results, eval=FALSE}
+
+```
 
