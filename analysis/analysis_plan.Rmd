@@ -47,7 +47,7 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 
 ```{bash eval=FALSE}
 PRE="/home/student/"
-cd $PRE/../lab/
+cd $PRE/lab/
 git pull 
 ```
 
@@ -77,14 +77,17 @@ suppressPackageStartupMessages(library(tidyverse))
 
 # Transcriptome-wide association methods
 
+- [ ] define some variables to access the data more easily within the R session. Run the following r chunk
+
+
 ```{r preliminaries}
 
 print(getwd())
 
 lab="/home/student/lab"
 CODE=glue::glue("{lab}/code")
-#source(glue::glue("{CODE}/extra_functions.R"))
-source(glue::glue("code/extra_functions.R"))
+source(glue::glue("{CODE}/extra_functions.R"))
+#source(glue::glue("code/extra_functions.R"))
 
 PRE="/home/student/QGT-Columbia-HKI"
 MODEL=glue::glue("{PRE}/models")
@@ -95,6 +98,9 @@ FASTENLOC=glue::glue("{PRE}/repos/fastenloc-master")
 TORUS=glue::glue("{PRE}/repos/torus-master")
 TWMR=glue::glue("{PRE}/repos/TWMR-master")
 ```
+
+- [ ] define some variables to access the data more easily in the terminal. Run the following bash chunk. You will need to copy and paste the following chunk in the terminal
+
 
 ```{bash folder name variables, eval=FALSE}
 export PRE="/home/student/QGT-Columbia-HKI"
@@ -130,17 +136,29 @@ python3 $METAXCAN/Predict.py \
 
 ```
 
-## assess prediction performance (optional)
+## check predicted values
 
 ```{r assess prediction performance, eval=FALSE}
 
+## read matrix of predicted expression
 predicted_expression = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
 head(predicted_expression[,1:5])
+
+## read summary of prediction, number of SNPs per gene, cross validated prediction performance
 prediction_summary = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"))
+## number of genes with a prediction model
 dim(prediction_summary)
 head(prediction_summary)
 
+print("distribution of prediction performance r2")
+summary(prediction_summary$pred_perf_r2)
+
+```
+
+## assess prediction performance (optional)
+
+```{r assess prediction performance, eval=FALSE}
 ## merge with GEUVADIS expression data
 
 ## calculate Spearman correlation
@@ -215,15 +233,27 @@ truebetas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 ```
 
 ## Exercise
--[ ] show top genes
--[ ] compare with true effect sizes
+- [ ] show top genes
+- [ ] compare with true effect sizes
+- [ ] interpret
 
 ```{r}
 # truebetas %>% head()
 
-suppressPackageStartupMessages(library(qqman))
+#suppressPackageStartupMessages(library(qqman))
 
 ```
+
+## Exercise
+
+```{r}
+
+## get chr and position of genes (transcription start site)
+
+## do you see examples of LD contamination?
+
+```
+
 
 
 -------
@@ -248,13 +278,13 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ```{bash run s-predixcan, eval=FALSE}
 
 export PRE="/home/student/QGT-Columbia-HKI"
-export DATA=$PRE/data/spredixcan
+export DATA=$PRE/data
 export MODEL=$PRE/models
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 export RESULTS=$PRE/results
 
 python $METAXCAN/SPrediXcan.py \
---gwas_file  $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file  $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore \
 --model_db_path $MODEL/gtex_v8_mashr/mashr_Whole_Blood.db \
 --covariance $MODEL/gtex_v8_mashr/mashr_Whole_Blood.txt.gz \
@@ -270,21 +300,29 @@ python $METAXCAN/SPrediXcan.py \
 
 spredixcan_association = read_csv(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
 dim(spredixcan_association)
-spredixcan_association %>% arrange(-1 * pvalue) %>% head
+spredixcan_association %>% arrange(pvalue) %>% head
 spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
 
 gg_qqplot(spredixcan_association$pvalue)
 
 ```
 
-SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
+- [ ] SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
+
+## Exercise
+
+- [ ] run s-predixcan with liver model, do you find SORT1? Is it significant?
+
+- [ ] compare zscores in liver and whole blood.
+
+
 
 ## run multixcan (optional)
 
 ```{bash run multixcan, eval=FALSE}
 
 export MODEL=$PRE/models
-export DATA=$PRE/data/spredixcan
+export DATA=$PRE/data
 
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
@@ -293,7 +331,7 @@ python $METAXCAN/SMulTiXcan.py \
 --metaxcan_folder $RESULTS/spredixcan/eqtl/ \
 --metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
 --metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
---gwas_file $DATA/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--gwas_file $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
 --cutoff_condition_number 30 \
 --verbosity 7 \
@@ -312,9 +350,11 @@ python $METAXCAN/SMulTiXcan.py \
 
 ```{bash, eval=FALSE}
 
+##TODO CAD GWAS is in hg38
+
 python $CODE/gwas_to_torus_zscore.py \
 -input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
--input_ld_regions $DATA/spredixcan/eur_ld_hg19.txt.gz \
+-input_ld_regions $DATA/spredixcan/eur_ld_hg38.txt.gz \
 -output_fp $DATA/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
 
 ```
@@ -330,7 +370,7 @@ python $CODE/gwas_to_torus_zscore.py \
 
 export TORUSOFT=torus
 
-$TORUSOFT -d $PRE/data/fastenloc/Height.torus.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
+$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
 cd $PRE/data/fastenloc
 gzip Height.gwas.pip
 cd $PRE 
