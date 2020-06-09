@@ -1,5 +1,3 @@
 # QGT-Columbia-HKI
 
-A [workflowr][] project.
-
-[workflowr]: https://github.com/jdblischak/workflowr
+Material for the Quantitative Genomics Training course second day 6/12/2020. More information [here](https://hakyimlab.github.io/QGT-Columbia-HKI/analysis_plan.html)
