@@ -9,8 +9,6 @@ editor_options:
 
 ## Set up 
 
-This information is also on the slides
-
 - [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
   This will have copies of all the software repositories and the models
 
@@ -64,7 +62,7 @@ conda activate imlabtools
 - check how well the prediction works with GEUVADIS expression data
 - run association between predicted expression and a simulated phenotype
 - calculate association between expression levels and coronary artery disease risk using s-predixcan
-- fine-map the coronary artery disease gwas results using torus (need some preformatting)
+- fine-map the coronary artery disease gwas results using torus
 - calculate colocalization probability using fastenloc
 - run transcriptome-wide mendelian randomization in one locus of interest
 
@@ -80,7 +78,7 @@ suppressPackageStartupMessages(library(tidyverse))
 - [ ] define some variables to access the data more easily within the R session. Run the following r chunk
 
 
-```{r preliminaries}
+```{r preliminaries, eval=FALSE}
 
 print(getwd())
 
@@ -138,7 +136,7 @@ python3 $METAXCAN/Predict.py \
 
 ## check predicted values
 
-```{r assess prediction performance, eval=FALSE}
+```{r check prediction performance, eval=FALSE}
 
 ## read matrix of predicted expression
 predicted_expression = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt"))
@@ -410,7 +408,7 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 
 ## analyze results 
 
-```{r analyze torus results}
+```{r analyze torus results, eval=FALSE}
 
 ## optional - compare with s-predixcan results
 
