@@ -138,10 +138,24 @@ python3 $METAXCAN/Predict.py \
 
 ```{r check prediction performance, eval=FALSE}
 
-## read matrix of predicted expression
-predicted_expression = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt"))
-dim(predicted_expression)
-head(predicted_expression[,1:5])
+prediction_fp = glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt")
+## Read the Predict.py output into a dataframe
+predicted_expression = read.table(file=prediction_fp, sep="\t", quote="", comment.char="", skip = 1, header = TRUE)
+# Retain the column names
+cols = read.table(file=prediction_fp, sep="\t", quote="", comment.char="", nrows = 1)
+# Fill the column names
+colnames(predicted_expression) = unname(unlist(cols[1,]))
+## Melt the data so each row is FID, IID, gene_id, predicted_expression
+predicted_expression = predicted_expression %>%
+  pivot_longer(
+    cols = starts_with("ENSG"),
+    names_to = "gene_id",
+    values_to = "predicted_expression",
+    values_drop_na = TRUE
+  )
+## Remove the decimal points from the gene_id's
+predicted_expression$gene_id = gsub("\\..*","",predicted_expression$gene_id)
+head(predicted_expression)
 
 ## read summary of prediction, number of SNPs per gene, cross validated prediction performance
 prediction_summary = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"))
@@ -157,6 +171,7 @@ summary(prediction_summary$pred_perf_r2)
 ## assess prediction performance (optional)
 
 ```{r assess prediction performance, eval=FALSE}
+
 ## merge with GEUVADIS expression data
 
 ## calculate Spearman correlation
