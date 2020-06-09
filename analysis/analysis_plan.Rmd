@@ -363,14 +363,13 @@ python $CODE/gwas_to_torus_zscore.py \
 
 - torus has been precompiled and placed within the PATH
 
-
 ```{bash run torus, eval=FALSE}
 
 export TORUSOFT=torus
 
-$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/Height.gwas.pip
+$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.pip
 cd $PRE/data/fastenloc
-gzip Height.gwas.pip
+gzip CAD.gwas.pip
 cd $PRE 
 
 ```
