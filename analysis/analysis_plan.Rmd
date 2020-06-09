@@ -384,15 +384,13 @@ zless Height.torus.zval.gz
 zless Height.gwas.pip
 ```
 
-
-
 ## calculate colocalization with fastENLOC
 
 ```{bash run fastENLOC, eval=FALSE}
 ## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
 export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
-export gwas_data_gzipped=$PRE/data/fastenloc/Height.gwas.pip.gz
+export gwas_data_gzipped=$PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
 export TISSUE=Whole_Blood
 export FASTENLOCSOFT=fastenloc
 export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
