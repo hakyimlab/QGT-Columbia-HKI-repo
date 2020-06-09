@@ -83,27 +83,20 @@ print(getwd())
 
 lab="/home/student/lab"
 CODE=glue::glue("{lab}/code")
-source(glue::glue("{CODE}/extra_functions.R"))
+#source(glue::glue("{CODE}/extra_functions.R"))
+source(glue::glue("code/extra_functions.R"))
 
-pre="/home/student/QGT-Columbia-HKI"
-
-model.dir=glue::glue("{pre}/models")
-metaxcan.dir=glue::glue("{pre}/repos/MetaXcan-master/software")
-fastenloc.dir=glue::glue("{pre}/repos/fastenloc-master")
-torus.dir=glue::glue("{pre}/repos/torus-master")
-twmr.dir=glue::glue("{pre}/repos/TWMR-master")
-results.dir=glue::glue("{pre}/results")
-
-MODEL=glue::glue("{pre}/models")
-DATA=glue::glue("{pre}/data")
-RESULTS=glue::glue("{pre}/results")
-METAXCAN=glue::glue("{pre}/repos/MetaXcan-master/software")
-FASTENLOC=glue::glue("{pre}/repos/fastenloc-master")
-TORUS=glue::glue("{pre}/repos/torus-master")
-TWMR=glue::glue("{pre}/repos/TWMR-master")
+PRE="/home/student/QGT-Columbia-HKI"
+MODEL=glue::glue("{PRE}/models")
+DATA=glue::glue("{PRE}/data")
+RESULTS=glue::glue("{PRE}/results")
+METAXCAN=glue::glue("{PRE}/repos/MetaXcan-master/software")
+FASTENLOC=glue::glue("{PRE}/repos/fastenloc-master")
+TORUS=glue::glue("{PRE}/repos/torus-master")
+TWMR=glue::glue("{PRE}/repos/TWMR-master")
 ```
 
-```{bash folder name variables}
+```{bash folder name variables, eval=FALSE}
 export PRE="/home/student/QGT-Columbia-HKI"
 export LAB="/home/student/lab"
 export CODE=$LAB/code
@@ -141,10 +134,10 @@ python3 $METAXCAN/Predict.py \
 
 ```{r assess prediction performance, eval=FALSE}
 
-predicted_expression = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__predict.txt"))
+predicted_expression = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt"))
 dim(predicted_expression)
 head(predicted_expression[,1:5])
-prediction_summary = read_tsv(glue::glue("{results.dir}/predixcan/Whole_Blood__summary.txt"))
+prediction_summary = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"))
 dim(prediction_summary)
 head(prediction_summary)
 
@@ -327,7 +320,11 @@ python $CODE/gwas_to_torus_zscore.py \
 ```
 
 ## fine-map GWAS results
-We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
+
+- We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
+
+- torus has been precompiled and placed within the PATH
+
 
 ```{bash run torus, eval=FALSE}
 
