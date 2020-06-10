@@ -440,7 +440,28 @@ cd $PRE
 
 ```
 
+```{r run TWMR, eval=FALSE}
+# Load the 'analyseMR' function
+source(glue::glue("{CODE}/TWMR_script.R"))
+
+# Collect the list of genes available to run
+gene_lst <- list.files(TWMR)
+gene_lst <- gene_lst[str_detect(gene_lst, "ENS.*")]
+gene_lst <- (gsub("\\..*", "", gene_lst) %>% unique)
+
+# Set the gene and run. The function writes output to a file.
+for (gene in gene_lst) {
+  analyseMR(gene, TWMR)
+}
+
+
+```
+
 ```{r analyze TWMR results, eval=FALSE}
+
+twmr_results <- load_twmr_results(TWMR, gencode_df)
+twmr_results_fp = glue::glue("{TWMR}/{GENE}.alpha")
+twmr_results <- read.table(twmr_results_fp, header=TRUE)
 
 ```
 
