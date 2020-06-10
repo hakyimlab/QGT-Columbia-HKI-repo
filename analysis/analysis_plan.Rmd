@@ -126,14 +126,19 @@ export METAXCAN=$PRE/repos/MetaXcan-master/software
 # Transcriptome-wide association methods
 ![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
 
-
 ## predict expression 
 
 ![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
 
+- We will predict expression of genes in whole blood using the Predict.py code in the METAXCAN folder.
+
+- Prediction models are located in the MODEL folder. Additional models for different tissues and transcriptome studies can be downloaded from [predictdb.org](http://predictdb.org)
+
 - Remember you need to copy and paste this code chunk into the terminal to run it. Also make sure you activated the imlabtools environment which has all the necessary python modules. 
 
-- Make sure all the paths and file names are correct. This run should take about one minute.
+- Make sure all the paths and file names are correct
+
+- This run should take about one minute.
 
 ```{bash predict genetic component of expression, eval=FALSE}
 
@@ -150,6 +155,7 @@ python3 $METAXCAN/Predict.py \
 --throw
 
 ```
+
 
 ## check predicted values
 
@@ -170,9 +176,6 @@ predicted_expression = predicted_expression %>%
     values_to = "predicted_expression",
     values_drop_na = TRUE
   )
-## Remove the decimal points from the gene_id's
-predicted_expression$gene_id = gsub("\\..*","",predicted_expression$gene_id)
-head(predicted_expression)
 
 ## read summary of prediction, number of SNPs per gene, cross validated prediction performance
 prediction_summary = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"))
@@ -188,6 +191,14 @@ summary(prediction_summary$pred_perf_r2)
 ## assess prediction performance (optional)
 
 ```{r assess prediction performance, eval=FALSE}
+
+## read observed expression data from GEUVADIS 
+
+
+
+## Remove the decimal points from the gene_id's
+predicted_expression$gene_id = gsub("\\..*","",predicted_expression$gene_id)
+head(predicted_expression)
 
 ## merge with GEUVADIS expression data
 
