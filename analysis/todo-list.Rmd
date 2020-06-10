@@ -1,0 +1,20 @@
+---
+title: "todo-list"
+author: "Hae Kyung Im"
+date: "2020-06-10"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## TODO list
+
+
+- [  ] check mismatch between fastenloc and spredixcan genes
+- [  ] create a useful example dataset for TWMR (Owen)
+- [  ] add TWMR questions to 
+
+
+## lower priority TODO list
+
+- [ ] update R of the Rstudio server
