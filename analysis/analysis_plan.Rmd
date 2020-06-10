@@ -147,6 +147,8 @@ export TWMR=$PRE/repos/TWMR-master
 
 - This run should take about one minute.
 
+- [ ] copy and paste the following block to the terminal and hit enter
+
 ```{bash predict genetic component of expression, eval=FALSE}
 
 printf "Predict expression\n\n"
@@ -164,7 +166,7 @@ python3 $METAXCAN/Predict.py \
 ```
 
 
-## check predicted values
+- [ ] check predicted values (run the following chunk using the green arrow)
 
 ```{r check prediction performance, eval=FALSE}
 
@@ -289,9 +291,6 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ## run s-predixcan 
 
 ```{bash run s-predixcan, eval=FALSE}
-
-
-
 python $METAXCAN/SPrediXcan.py \
 --gwas_file  $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 --snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore \
@@ -328,8 +327,9 @@ gg_qqplot(spredixcan_association$pvalue)
 
 ## run multixcan (optional)
 
-```{bash run multixcan, eval=FALSE}
+- multixcan aggregates information across multiple tissues to boost the power to detect association. It was developed movivated by the fact that eQTLs are shared across multiple tissues, i.e. many genetic variants that regulate expression are common across tissues.
 
+```{bash run multixcan, eval=FALSE}
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
 --models_name_pattern "mashr_(.*).db" \
@@ -359,14 +359,11 @@ python $METAXCAN/SMulTiXcan.py \
 - we precalculated this for you so there is no need to recalculate
 
 ```{bash, eval=FALSE}
-
-##TODO CAD GWAS is in hg38
-
+## notice that the GWAS results are in hg38
 python $CODE/gwas_to_torus_zscore.py \
 -input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 -input_ld_regions $DATA/spredixcan/eur_ld_hg38.txt.gz \
 -output_fp $DATA/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
-
 ```
 
 ## fine-map GWAS results
@@ -376,14 +373,12 @@ python $CODE/gwas_to_torus_zscore.py \
 - torus has been precompiled and placed within the PATH
 
 ```{bash run torus, eval=FALSE}
-
 export TORUSOFT=torus
 
 $TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE/data/fastenloc
 gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE 
-
 ```
 
 We can take a quick look at the z-values and finemapping PIPs:
@@ -416,14 +411,13 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 ## analyze results 
 
 ```{r analyze torus results, eval=FALSE}
-
 ## optional - compare with s-predixcan results
 
 fastenloc_results = load_fastenloc_coloc_result(glue::glue("{RESULTS}/fastenloc/enloc.sig.out"))
-
 spredixcan_and_fastenloc = inner_join(spredixcan_association, fastenloc_results, by=c('gene'='Signal'))
-
 ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
+
+## which genes are both colocalized (rcp>0.10) and significantly associated (pvalue<0.05/number of tests)
 
 
 ```
