@@ -440,7 +440,20 @@ cd $PRE
 
 ```
 
+```{r run TWMR, eval=FALSE}
+# Load the 'analyseMR' function
+source(glue::glue("{CODE}/TWMR_script.R"))
+
+# Set the gene and run. The function writes output to a file.
+GENE="ENSG00000002919"
+analyseMR(GENE, TWMR)
+
+
+```
+
 ```{r analyze TWMR results, eval=FALSE}
+twmr_results_fp = glue::glue("{TWMR}/{GENE}.alpha")
+twmr_results <- read.table(twmr_results_fp, header=TRUE)
 
 ```
 
