@@ -282,12 +282,7 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 ![Visual summary of s-predixcan](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png)
 
 
-```{r}
-
-## harmonized and imputed GWAS result for coronary artery disease is available in 
-# $PRE/spredixcan/data/
-
-```
+- harmonized and imputed GWAS result for coronary artery disease is available in $PRE/spredixcan/data/
 
 ## run s-predixcan 
 
@@ -364,6 +359,10 @@ python $METAXCAN/SMulTiXcan.py \
 
 ## GWAS summary statistics to torus format
 
+- the following code will format GWAS summary statistics into a format that the fine-mapping method torus can understand.
+
+- we precalculated this for you so there is no need to recalculate
+
 ```{bash, eval=FALSE}
 
 ##TODO CAD GWAS is in hg38
@@ -385,9 +384,9 @@ python $CODE/gwas_to_torus_zscore.py \
 
 export TORUSOFT=torus
 
-$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.pip
+$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE/data/fastenloc
-gzip CAD.gwas.pip
+gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE 
 
 ```
