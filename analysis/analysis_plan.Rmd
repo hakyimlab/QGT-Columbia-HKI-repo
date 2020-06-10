@@ -2,7 +2,7 @@
 title: "QGT-Columbia-analysis-plan"
 author: "Hae Kyung Im"
 contributors: "Owen Melia, Yanyu Liang, Tyson Miller"
-date: "2020-06-03"
+date: "2020-06-10"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -96,12 +96,14 @@ suppressPackageStartupMessages(library(tidyverse))
 
 print(getwd())
 
-lab="/home/student/lab"
+# lab="/home/student/lab"
+lab="~/projects/QGT-Columbia-HKI"
 CODE=glue::glue("{lab}/code")
-source(glue::glue("{CODE}/extra_functions.R"))
-#source(glue::glue("code/extra_functions.R"))
+source(glue::glue("{CODE}/load_data_functions.R"))
+source(glue::glue("{CODE}/plotting_utils_functions.R"))
 
-PRE="/home/student/QGT-Columbia-HKI"
+# PRE="/home/student/QGT-Columbia-HKI"
+PRE="~/data/QGT-Columbia-HKI/"
 MODEL=glue::glue("{PRE}/models")
 DATA=glue::glue("{PRE}/data")
 RESULTS=glue::glue("{PRE}/results")
@@ -109,6 +111,9 @@ METAXCAN=glue::glue("{PRE}/repos/MetaXcan-master/software")
 FASTENLOC=glue::glue("{PRE}/repos/fastenloc-master")
 TORUS=glue::glue("{PRE}/repos/torus-master")
 TWMR=glue::glue("{PRE}/repos/TWMR-master")
+
+# This is a reference table we'll use a lot throughout the lab. It contains information about the genes.
+gencode_df = load_gencode_df()
 ```
 
 - [ ] define some variables to access the data more easily in the terminal. Run the following bash chunk. You will need to copy and paste the following chunk in the terminal
@@ -164,23 +169,14 @@ python3 $METAXCAN/Predict.py \
 ```{r check prediction performance, eval=FALSE}
 
 prediction_fp = glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt")
-## Read the Predict.py output into a dataframe
-predicted_expression = read.table(file=prediction_fp, sep="\t", quote="", comment.char="", skip = 1, header = TRUE)
-# Retain the column names
-cols = read.table(file=prediction_fp, sep="\t", quote="", comment.char="", nrows = 1)
-# Fill the column names
-colnames(predicted_expression) = unname(unlist(cols[1,]))
-## Melt the data so each row is FID, IID, gene_id, predicted_expression
-predicted_expression = predicted_expression %>%
-  pivot_longer(
-    cols = starts_with("ENSG"),
-    names_to = "gene_id",
-    values_to = "predicted_expression",
-    values_drop_na = 
-  )
+
+## Read the Predict.py output into a dataframe. This function reorganizes the data and adds gene names.
+predicted_expression = load_predicted_expression(prediction_fp, gencode_df)
+
+head(predicted_expression)
 
 ## read summary of prediction, number of SNPs per gene, cross validated prediction performance
-prediction_summary = read_tsv(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"))
+prediction_summary = load_prediction_summary(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"), gencode_df)
 ## number of genes with a prediction model
 dim(prediction_summary)
 head(prediction_summary)
@@ -198,7 +194,6 @@ summary(prediction_summary$pred_perf_r2)
 ## from https://uchicago.box.com/s/4y7xle5l0pnq9d1fwmthe2ewhogrnlrv
 
 ## Remove the version number from the gene_id's (ENSG000XXX.ver)
-predicted_expression$gene_id = gsub("\\..*","",predicted_expression$gene_id)
 head(predicted_expression)
 
 ## merge predicted expression with observed expression data (by IID and gene)
@@ -243,7 +238,8 @@ More predicted phenotypes can be [downloaded from here](https://uchicago.box.com
 ## read association results
 PHENO="sim.spike_n_slab_0.01_pve0.1"
 
-predixcan_association = read_tsv(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"))
+predixcan_association = load_predixcan_association(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"),
+                                                   gencode_df)
 
 ## take a look at the results
 dim(predixcan_association)
@@ -256,11 +252,16 @@ gg_qqplot(predixcan_association$pvalue, max_yval = 40)
 
 
 ```{r read true effect sizes, eval=FALSE}
-truebetas = read_tsv(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"))
+truebetas = load_truebetas(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"), gencode_df)
 betas = (predixcan_association %>% 
                inner_join(truebetas,by=c("gene"="gene_id")) %>%
-               select(c('predicted_beta'='effect', 'true_beta'='effect_size','pvalue')))
-
+               select(c('predicted_beta'='effect', 
+                        'true_beta'='effect_size',
+                        'pvalue', 
+                        'gene_id'='gene', 
+                        'gene_name'='gene_name.x', 
+                        'region_id'='region_id.x')))
+betas %>% arrange(pvalue) %>% head
 betas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 ```
 
@@ -306,7 +307,7 @@ python $METAXCAN/SPrediXcan.py \
 
 ```{r analyze s-predixcan results, eval=FALSE}
 
-spredixcan_association = read_csv(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"))
+spredixcan_association = load_spredixcan_association(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"), gencode_df)
 dim(spredixcan_association)
 spredixcan_association %>% arrange(pvalue) %>% head
 spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)

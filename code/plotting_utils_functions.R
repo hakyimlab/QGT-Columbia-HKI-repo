@@ -1,5 +1,5 @@
 scatter_base_theme_ = function(base_size=15) {
-  theme_bw(base_size = base_size) + 
+  theme_bw(base_size = base_size) +
     theme(panel.border = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
@@ -32,10 +32,4 @@ gg_qqplot <- function(ps, ci = 0.95, max_yval = 30) {
     ylab(log10Po) +
     geom_hline(yintercept = -log10(bf)) +
     scatter_base_theme_()
-}
-
-load_fastenloc_coloc_result<- function(fp) {
-  df <- read.table(fp, header=TRUE)
-  df$Signal <- str_replace(df$Signal, ":", ".")
-  return(df)
 }
