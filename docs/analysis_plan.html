@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreee65d4510fb4591f14e1ebd792d1180894289530ftargetblanke65d451a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/e65d4510fb4591f14e1ebd792d1180894289530f" target="_blank">e65d451</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree64a96f74cfbe7652454de53d86fdc708effc385dtargetblank64a96f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/64a96f74cfbe7652454de53d86fdc708effc385d" target="_blank">64a96f7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreee65d4510fb4591f14e1ebd792d1180894289530ftargetblanke65d451a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree64a96f74cfbe7652454de53d86fdc708effc385dtargetblank64a96f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/e65d4510fb4591f14e1ebd792d1180894289530f" target="_blank">e65d451</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/64a96f74cfbe7652454de53d86fdc708effc385d" target="_blank">64a96f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/64a96f74cfbe7652454de53d86fdc708effc385d/analysis/analysis_plan.Rmd" target="_blank">64a96f7</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+edits
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/64a96f74cfbe7652454de53d86fdc708effc385d/docs/analysis_plan.html" target="_blank">64a96f7</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+edits
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1751,7 +1785,7 @@ predicted_expression = predicted_expression %&gt;%
     cols = starts_with(&quot;ENSG&quot;),
     names_to = &quot;gene_id&quot;,
     values_to = &quot;predicted_expression&quot;,
-    values_drop_na = TRUE
+    values_drop_na = 
   )
 
 ## read summary of prediction, number of SNPs per gene, cross validated prediction performance
@@ -1765,34 +1799,28 @@ summary(prediction_summary$pred_perf_r2)</code></pre>
 </div>
 <div id="assess-prediction-performance-optional" class="section level2">
 <h2>assess prediction performance (optional)</h2>
-<pre class="r"><code>## read observed expression data from GEUVADIS 
+<pre class="r"><code>## download and read observed expression data from GEUVADIS 
+## from https://uchicago.box.com/s/4y7xle5l0pnq9d1fwmthe2ewhogrnlrv
 
-
-
-## Remove the decimal points from the gene_id&#39;s
+## Remove the version number from the gene_id&#39;s (ENSG000XXX.ver)
 predicted_expression$gene_id = gsub(&quot;\\..*&quot;,&quot;&quot;,predicted_expression$gene_id)
 head(predicted_expression)
 
-## merge with GEUVADIS expression data
+## merge predicted expression with observed expression data (by IID and gene)
 
-## calculate Spearman correlation
+## plot observes vs predicted expressioni for 
+## ERAP1 (ENSG00000164307)
+## PEX6 (ENSG00000124587)
 
-## select a few genes and plot predicted vs observed expression</code></pre>
+## calculate spearman correlation for all genes
+
+## what&#39;s the best performing gene?</code></pre>
 </div>
-<div id="run-association-with-a-phenotype" class="section level2">
-<h2>run association with a phenotype</h2>
+<div id="run-association-with-a-simulated-phenotype" class="section level2">
+<h2>run association with a simulated phenotype</h2>
+<p><span class="math inline">\(Y = \sum_k T_k \beta_k + \epsilon\)</span></p>
+<p>with random effects <span class="math inline">\(\beta_k \sim (1-\pi)\cdot \delta_0 + \pi\cdot N(0,1)\)</span></p>
 <pre class="bash"><code>
-export PHENO=&quot;sim.infinitesimal_pve0.1&quot;
-
-printf &quot;association\n\n&quot;
-python3 $METAXCAN/PrediXcanAssociation.py \
---expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
---input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
---input_phenos_column pheno \
---output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
---verbosity 9 \
---throw
-
 export PHENO=&quot;sim.spike_n_slab_0.01_pve0.1&quot;
 
 printf &quot;association\n\n&quot;
@@ -1803,24 +1831,13 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 --output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
 --verbosity 9 \
 --throw
-
-export PHENO=&quot;sim.spike_n_slab_0.1_pve0.05&quot;
-
-printf &quot;association\n\n&quot;
-python3 $METAXCAN/PrediXcanAssociation.py \
---expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
---input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
---input_phenos_column pheno \
---output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
---verbosity 9 \
---throw
 </code></pre>
+<p>More predicted phenotypes can be <a href="https://uchicago.box.com/s/xxzuzjamscpc365ui9ge98le0qwy11wz">downloaded from here</a>. The naming of the phenotypes provides information about the genic architecture: the number after pve is the proportion of variance of Y explained by the genetic component of expression. The number after spike_n_slab represents the probability that a gene is causal <span class="math inline">\(\pi\)</span>(i.e. prob <span class="math inline">\(\beta \ne 0\)</span>)</p>
 </div>
 <div id="read-association-results" class="section level2">
 <h2>read association results</h2>
 <pre class="r"><code>## read association results
 PHENO=&quot;sim.spike_n_slab_0.01_pve0.1&quot;
-
 
 predixcan_association = read_tsv(glue::glue(&quot;{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt&quot;))
 
@@ -1833,11 +1850,11 @@ gg_qqplot(predixcan_association$pvalue, max_yval = 40)
 
 
 truebetas = read_tsv(glue::glue(&quot;{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt&quot;))
-truebetas = (predixcan_association %&gt;% 
+betas = (predixcan_association %&gt;% 
                inner_join(truebetas,by=c(&quot;gene&quot;=&quot;gene_id&quot;)) %&gt;%
                select(c(&#39;predicted_beta&#39;=&#39;effect&#39;, &#39;true_beta&#39;=&#39;effect_size&#39;,&#39;pvalue&#39;)))
 
-truebetas %&gt;% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()</code></pre>
+betas %&gt;% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()</code></pre>
 </div>
 <div id="exercise" class="section level2">
 <h2>Exercise</h2>
@@ -1849,18 +1866,11 @@ compare with true effect sizes</li>
 <li><input type="checkbox" disabled="" />
 interpret</li>
 </ul>
-<pre class="r"><code># truebetas %&gt;% head()
+<pre class="r"><code># betas %&gt;% head()
 
-#suppressPackageStartupMessages(library(qqman))</code></pre>
-</div>
-<div id="exercise-1" class="section level2">
-<h2>Exercise</h2>
-<pre class="r"><code>## get chr and position of genes (transcription start site)
+## get chr and position of genes (transcription start site)
 
 ## do you see examples of LD contamination?</code></pre>
-</div>
-<div id="section" class="section level2">
-<h2>——-</h2>
 </div>
 </div>
 <div id="summary-predixcan" class="section level1">
@@ -1904,7 +1914,7 @@ gg_qqplot(spredixcan_association$pvalue)</code></pre>
 SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)</li>
 </ul>
 </div>
-<div id="exercise-2" class="section level2">
+<div id="exercise-1" class="section level2">
 <h2>Exercise</h2>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" />
