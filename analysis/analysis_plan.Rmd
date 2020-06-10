@@ -87,8 +87,6 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ```
 
-# Transcriptome-wide association methods
-![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
 
 - [ ] define some variables to access the data more easily within the R session. Run the following r chunk
 
@@ -124,6 +122,10 @@ export MODEL=$PRE/models
 export RESULTS=$PRE/results
 export METAXCAN=$PRE/repos/MetaXcan-master/software
 ```
+
+# Transcriptome-wide association methods
+![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
+
 
 ## predict expression 
 
