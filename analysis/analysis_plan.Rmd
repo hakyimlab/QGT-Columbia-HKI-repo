@@ -251,7 +251,10 @@ predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogr
 ## compare distribution against the null (uniform)
 gg_qqplot(predixcan_association$pvalue, max_yval = 40)
 
+```
 
+
+```{r read true effect sizes, eval=FALSE}
 truebetas = read_tsv(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"))
 betas = (predixcan_association %>% 
                inner_join(truebetas,by=c("gene"="gene_id")) %>%
@@ -260,18 +263,12 @@ betas = (predixcan_association %>%
 betas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 ```
 
-## Exercise
-- [ ] show top genes
-- [ ] compare with true effect sizes
-- [ ] interpret
 
 ```{r, eval=FALSE}
 
-# betas %>% head()
-
 ## get chr and position of genes (transcription start site)
 
-## do you see examples of LD contamination?
+## do you see examples of potential LD contamination?
 
 ```
 
@@ -397,7 +394,7 @@ cd $PRE
 
 We can take a quick look at the z-values and finemapping PIPs:
 
-The inputs have columns SNP_ID, LOCUS_ID, ZVAL, and the outputs have columns SNP_ID, LOCUS_ID, PVAL, PIP (???)
+The inputs have columns SNP_ID, LOCUS_ID, ZVAL, and the outputs have columns SNP_ID, LOCUS_ID, PVAL, PIP 
 ```{bash, eval=FALSE}
 cd $PRE/data/fastenloc
 zless Height.torus.zval.gz
