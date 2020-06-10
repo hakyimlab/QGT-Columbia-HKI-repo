@@ -19,7 +19,7 @@ editor_options:
 - [ ] update R of the Rstudio server
 
 
-## write before the QGT session
+## Right before the QGT session
 
 - [ ] instantiate 25+ R Studio servers in GCP introstatgen project
 - [ ] create tabs for each student and copy the questions 
