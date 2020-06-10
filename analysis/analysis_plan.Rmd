@@ -12,7 +12,7 @@ editor_options:
 - [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
   This will have copies of all the software repositories and the models
 
-Linux is the operating system of choice to run bioinformatics software. Here are offering two options
+Linux is the operating system of choice to run bioinformatics software. We are offering two options
 
 - Option 1: full setup, recommended for the linux-savvy with full setup
 - Option 2: pre-installed RStudio in Google cloud, recommended for people less familiar with linux
@@ -36,34 +36,11 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 - [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
 
 # Option 2
-- [ ] claim your Rstudio server IP address ()
-- [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787)
-
-# Initial notices
-
-- We ask you to fully participate in the hands on activities and to encourage that we may ask you to share your screen for pedagogic purposes.
-
-- As you run the analysis and programs, we ask you to respond the questions in [this document](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066).
-Find the tab with your name and fill out the questions as you go along.
-
-- If you have any concerns about this, please ask me or one of the TAs for assistance.
+- [ ] claim your Rstudio server IP address and get the username and password here (https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
+- [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787) using a web browser
+- [ ] log into the server using the username and password of the server you claimed
 
 # Both options
-
-- [ ] update the analysis document
-
-```{bash eval=FALSE}
-PRE="/home/student/"
-cd $PRE/lab/
-git pull 
-```
-
-- [ ] activate the the imlabtools environment
-```{bash, eval=FALSE}
-conda activate imlabtools
-```
-
-** Notice that the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.
 
 ## Summary of analysis plan
 
@@ -75,8 +52,36 @@ conda activate imlabtools
 - calculate colocalization probability using fastenloc
 - run transcriptome-wide mendelian randomization in one locus of interest
 
+## Initial remarks
 
-```{r preliminary definitions}
+- We ask you to actively participate in today's hands on activities. **Notice that we may ask you to share your screen for pedagogic purposes.**
+
+- As you run the analysis and programs, we ask you to **respond the questions in [this document](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066).**
+Find the tab with your name and fill out the questions as you go along.
+
+- You are welcome to check other people's answers as guidelines but please make sure you write down your own answers.
+
+- If you have any concerns about this, please ask me or one of the TAs for assistance. We are here to help you learn.
+
+## Preliminary definitions
+
+- [ ] Go to the terminal tab on the RStudio server and update the analysis document to the most recent version. The commands are shown below. Copy the text (without the lines with apostrophes: ```), paste them to the *terminal*, and hit enter.
+
+```{bash eval=FALSE}
+PRE="/home/student/"
+cd $PRE/lab/
+git pull 
+```
+
+- [ ] activate the the imlabtools environment, which will make sure all the necessary python modules are available to the software we will be running.
+```{bash, eval=FALSE}
+conda activate imlabtools
+```
+
+**Reminder: the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.**
+
+- [ ] execute the following chunk (you can use the green arrow below to the right)
+```{r preliminary definitions, eval=FALSE}
 
 suppressPackageStartupMessages(library(tidyverse))
 
