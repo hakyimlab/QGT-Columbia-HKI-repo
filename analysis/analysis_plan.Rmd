@@ -37,7 +37,7 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 - [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
 
 # Option 2
-- [ ] claim your Rstudio server IP address and get the username and password here (https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
+- [ ] claim your Rstudio server IP address and get the username and password [here](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
 - [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787) using a web browser
 - [ ] log into the server using the username and password of the server you claimed
 
