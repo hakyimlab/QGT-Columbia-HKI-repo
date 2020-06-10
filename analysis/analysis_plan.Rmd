@@ -372,14 +372,12 @@ python $CODE/gwas_to_torus_zscore.py \
 - torus has been precompiled and placed within the PATH
 
 ```{bash run torus, eval=FALSE}
-
 export TORUSOFT=torus
 
 $TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE/data/fastenloc
 gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE 
-
 ```
 
 We can take a quick look at the z-values and finemapping PIPs:
@@ -412,14 +410,13 @@ $FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSU
 ## analyze results 
 
 ```{r analyze torus results, eval=FALSE}
-
 ## optional - compare with s-predixcan results
 
 fastenloc_results = load_fastenloc_coloc_result(glue::glue("{RESULTS}/fastenloc/enloc.sig.out"))
-
 spredixcan_and_fastenloc = inner_join(spredixcan_association, fastenloc_results, by=c('gene'='Signal'))
-
 ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
+
+## which genes are both colocalized (rcp>0.10) and significantly associated (pvalue<0.05/number of tests)
 
 
 ```
