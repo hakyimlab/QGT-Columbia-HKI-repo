@@ -50,7 +50,7 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 - calculate association between expression levels and coronary artery disease risk using s-predixcan
 - fine-map the coronary artery disease gwas results using torus
 - calculate colocalization probability using fastenloc
-- run transcriptome-wide mendelian randomization in one locus of interest
+- run transcriptome-wide mendelian randomization in one locus of interestgi
 
 ## Initial remarks
 
@@ -88,6 +88,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 # Transcriptome-wide association methods
+![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
 
 - [ ] define some variables to access the data more easily within the R session. Run the following r chunk
 
