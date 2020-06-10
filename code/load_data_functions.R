@@ -90,4 +90,19 @@ load_spredixcan_association <- function(fp, gencode_df){
   return(df)
 }
 
-
+load_twmr_results <- function(dir, gencode_df){
+  twmr_df <- data.frame(gene=character(),
+                        alpha=numeric(),
+                        P=numeric(),
+                        Nsnps=numeric(),
+                        Ngene=numeric())
+  gene_lst <- list.files(dir)
+  gene_lst <- gene_lst[str_detect(gene_lst, "\\.alpha")]
+  for (file in gene_lst) {
+    df_i <- read.table(file.path(dir, file), header=TRUE)
+    twmr_df <- rbind(twmr_df, df_i)
+  }
+  
+  twmr_df <- left_join(twmr_df, gencode_df, by=c('gene'='gene_id'))
+  return(twmr_df)
+}
