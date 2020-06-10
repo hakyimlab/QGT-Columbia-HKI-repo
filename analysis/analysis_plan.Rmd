@@ -39,6 +39,15 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 - [ ] claim your Rstudio server IP address ()
 - [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787)
 
+# Initial notices
+
+- We ask you to fully participate in the hands on activities and to encourage that we may ask you to share your screen for pedagogic purposes.
+
+- As you run the analysis and programs, we ask you to respond the questions in [this document](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066).
+Find the tab with your name and fill out the questions as you go along.
+
+- If you have any concerns about this, please ask me or one of the TAs for assistance.
+
 # Both options
 
 - [ ] update the analysis document
