@@ -398,7 +398,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -407,7 +407,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -416,10 +416,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-09
+<strong>Last updated:</strong> 2020-06-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>QGT-Columbia-lab/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -435,12 +435,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -507,16 +507,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree64a96f74cfbe7652454de53d86fdc708effc385dtargetblank64a96f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/64a96f74cfbe7652454de53d86fdc708effc385d" target="_blank">64a96f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreef5ab5b9f948300aa76f2405d7dfbdc60e679b8c5targetblankf5ab5b9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/f5ab5b9f948300aa76f2405d7dfbdc60e679b8c5" target="_blank">f5ab5b9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItree64a96f74cfbe7652454de53d86fdc708effc385dtargetblank64a96f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhakyimlabQGTColumbiaHKItreef5ab5b9f948300aa76f2405d7dfbdc60e679b8c5targetblankf5ab5b9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/64a96f74cfbe7652454de53d86fdc708effc385d" target="_blank">64a96f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/hakyimlab/QGT-Columbia-HKI/tree/f5ab5b9f948300aa76f2405d7dfbdc60e679b8c5" target="_blank">f5ab5b9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -527,9 +527,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    extras/.DS_Store
-
-Unstaged changes:
-    Modified:   analysis/analysis_plan.Rmd
 
 </code></pre>
 <p>
@@ -568,6 +565,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/f5ab5b9f948300aa76f2405d7dfbdc60e679b8c5/analysis/analysis_plan.Rmd" target="_blank">f5ab5b9</a>
+</td>
+<td>
+HKI qgt test
+</td>
+<td>
+2020-06-10
+</td>
+<td>
+edits
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/b2b8f8b22bb8c9e7c0fb298be66e12c25c47756c/analysis/analysis_plan.Rmd" target="_blank">b2b8f8b</a>
+</td>
+<td>
+HKI qgt test
+</td>
+<td>
+2020-06-10
+</td>
+<td>
+torus
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/13520bc90c11ba328a73abb4f3149be5267d1730/analysis/analysis_plan.Rmd" target="_blank">13520bc</a>
+</td>
+<td>
+HKI qgt test
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+edits
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/hakyimlab/QGT-Columbia-HKI/blob/7df918e886105e22940b0d5463a2cbe6a2d4b2a5/analysis/analysis_plan.Rmd" target="_blank">7df918e</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+edits
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/hakyimlab/QGT-Columbia-HKI/7df918e886105e22940b0d5463a2cbe6a2d4b2a5/docs/analysis_plan.html" target="_blank">7df918e</a>
+</td>
+<td>
+Hae Kyung Im
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+edits
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1734,7 +1816,8 @@ export CODE=$LAB/code
 export DATA=$PRE/data
 export MODEL=$PRE/models
 export RESULTS=$PRE/results
-export METAXCAN=$PRE/repos/MetaXcan-master/software</code></pre>
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export TWMR=$PRE/repos/TWMR-master</code></pre>
 </div>
 </div>
 <div id="transcriptome-wide-association-methods" class="section level1">
@@ -1846,31 +1929,16 @@ dim(predixcan_association)
 predixcan_association %&gt;% arrange(pvalue) %&gt;% head
 predixcan_association %&gt;% arrange(pvalue) %&gt;% ggplot(aes(pvalue)) + geom_histogram(bins=20)
 ## compare distribution against the null (uniform)
-gg_qqplot(predixcan_association$pvalue, max_yval = 40)
-
-
-truebetas = read_tsv(glue::glue(&quot;{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt&quot;))
+gg_qqplot(predixcan_association$pvalue, max_yval = 40)</code></pre>
+<pre class="r"><code>truebetas = read_tsv(glue::glue(&quot;{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt&quot;))
 betas = (predixcan_association %&gt;% 
                inner_join(truebetas,by=c(&quot;gene&quot;=&quot;gene_id&quot;)) %&gt;%
                select(c(&#39;predicted_beta&#39;=&#39;effect&#39;, &#39;true_beta&#39;=&#39;effect_size&#39;,&#39;pvalue&#39;)))
 
 betas %&gt;% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()</code></pre>
-</div>
-<div id="exercise" class="section level2">
-<h2>Exercise</h2>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-show top genes</li>
-<li><input type="checkbox" disabled="" />
-compare with true effect sizes</li>
-<li><input type="checkbox" disabled="" />
-interpret</li>
-</ul>
-<pre class="r"><code># betas %&gt;% head()
+<pre class="r"><code>## get chr and position of genes (transcription start site)
 
-## get chr and position of genes (transcription start site)
-
-## do you see examples of LD contamination?</code></pre>
+## do you see examples of potential LD contamination?</code></pre>
 </div>
 </div>
 <div id="summary-predixcan" class="section level1">
@@ -1880,16 +1948,13 @@ interpret</li>
 <img src="https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png" alt="" />
 <p class="caption">Visual summary of s-predixcan</p>
 </div>
-<pre class="r"><code>## harmonized and imputed GWAS result for coronary artery disease is available in 
-# $PRE/spredixcan/data/</code></pre>
+<ul>
+<li>harmonized and imputed GWAS result for coronary artery disease is available in $PRE/spredixcan/data/</li>
+</ul>
 <div id="run-s-predixcan" class="section level2">
 <h2>run s-predixcan</h2>
 <pre class="bash"><code>
-export PRE=&quot;/home/student/QGT-Columbia-HKI&quot;
-export DATA=$PRE/data
-export MODEL=$PRE/models
-export METAXCAN=$PRE/repos/MetaXcan-master/software
-export RESULTS=$PRE/results
+
 
 python $METAXCAN/SPrediXcan.py \
 --gwas_file  $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
@@ -1914,7 +1979,7 @@ gg_qqplot(spredixcan_association$pvalue)</code></pre>
 SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)</li>
 </ul>
 </div>
-<div id="exercise-1" class="section level2">
+<div id="exercise" class="section level2">
 <h2>Exercise</h2>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" />
@@ -1926,9 +1991,6 @@ compare zscores in liver and whole blood.</p></li>
 <div id="run-multixcan-optional" class="section level2">
 <h2>run multixcan (optional)</h2>
 <pre class="bash"><code>
-export MODEL=$PRE/models
-export DATA=$PRE/data
-
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
 --models_name_pattern &quot;mashr_(.*).db&quot; \
@@ -1956,6 +2018,10 @@ python $METAXCAN/SMulTiXcan.py \
 </div>
 <div id="gwas-summary-statistics-to-torus-format" class="section level2">
 <h2>GWAS summary statistics to torus format</h2>
+<ul>
+<li><p>the following code will format GWAS summary statistics into a format that the fine-mapping method torus can understand.</p></li>
+<li><p>we precalculated this for you so there is no need to recalculate</p></li>
+</ul>
 <pre class="bash"><code>
 ##TODO CAD GWAS is in hg38
 
@@ -1974,17 +2040,15 @@ python $CODE/gwas_to_torus_zscore.py \
 <pre class="bash"><code>
 export TORUSOFT=torus
 
-$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.pip
+$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE/data/fastenloc
-gzip CAD.gwas.pip
+gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE 
 </code></pre>
 <p>We can take a quick look at the z-values and finemapping PIPs:</p>
-<p>The inputs have columns SNP_ID, LOCUS_ID, ZVAL, and the outputs have columns SNP_ID, LOCUS_ID, PVAL, PIP (???)</p>
 <pre class="bash"><code>cd $PRE/data/fastenloc
-zless Height.torus.zval.gz
-
-zless Height.gwas.pip</code></pre>
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz</code></pre>
 </div>
 <div id="calculate-colocalization-with-fastenloc" class="section level2">
 <h2>calculate colocalization with fastENLOC</h2>
@@ -1994,7 +2058,7 @@ export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.
 export gwas_data_gzipped=$PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
 export TISSUE=Whole_Blood
 export FASTENLOCSOFT=fastenloc
-export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
+##export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
 
 mkdir $RESULTS/fastenloc/
 cd $RESULTS/fastenloc/
@@ -2024,8 +2088,6 @@ ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()</code>
 <p class="caption">TWMR</p>
 </div>
 <pre class="bash"><code>
-export TWMR=$PRE/repos/TWMR-master
-export OUTPUT=$PRE/results
 GENE=ENSG00000002919
 
 cd $TWMR
