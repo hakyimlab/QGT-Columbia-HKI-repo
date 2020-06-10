@@ -96,14 +96,12 @@ suppressPackageStartupMessages(library(tidyverse))
 
 print(getwd())
 
-# lab="/home/student/lab"
-lab="~/projects/QGT-Columbia-HKI"
+lab="/home/student/lab"
 CODE=glue::glue("{lab}/code")
 source(glue::glue("{CODE}/load_data_functions.R"))
 source(glue::glue("{CODE}/plotting_utils_functions.R"))
 
-# PRE="/home/student/QGT-Columbia-HKI"
-PRE="~/data/QGT-Columbia-HKI/"
+PRE="/home/student/QGT-Columbia-HKI"
 MODEL=glue::glue("{PRE}/models")
 DATA=glue::glue("{PRE}/data")
 RESULTS=glue::glue("{PRE}/results")
