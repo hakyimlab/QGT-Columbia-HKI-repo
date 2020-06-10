@@ -122,6 +122,7 @@ export DATA=$PRE/data
 export MODEL=$PRE/models
 export RESULTS=$PRE/results
 export METAXCAN=$PRE/repos/MetaXcan-master/software
+export TWMR=$PRE/repos/TWMR-master
 ```
 
 # Transcriptome-wide association methods
@@ -288,11 +289,7 @@ Now we will use the summary results from a GWAS of coronary artery disease to ca
 
 ```{bash run s-predixcan, eval=FALSE}
 
-export PRE="/home/student/QGT-Columbia-HKI"
-export DATA=$PRE/data
-export MODEL=$PRE/models
-export METAXCAN=$PRE/repos/MetaXcan-master/software
-export RESULTS=$PRE/results
+
 
 python $METAXCAN/SPrediXcan.py \
 --gwas_file  $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
@@ -331,9 +328,6 @@ gg_qqplot(spredixcan_association$pvalue)
 ## run multixcan (optional)
 
 ```{bash run multixcan, eval=FALSE}
-
-export MODEL=$PRE/models
-export DATA=$PRE/data
 
 python $METAXCAN/SMulTiXcan.py \
 --models_folder $MODEL/gtex_v8_mashr \
@@ -393,12 +387,10 @@ cd $PRE
 
 We can take a quick look at the z-values and finemapping PIPs:
 
-The inputs have columns SNP_ID, LOCUS_ID, ZVAL, and the outputs have columns SNP_ID, LOCUS_ID, PVAL, PIP 
 ```{bash, eval=FALSE}
 cd $PRE/data/fastenloc
-zless Height.torus.zval.gz
-
-zless Height.gwas.pip
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
 ```
 
 ## calculate colocalization with fastENLOC
@@ -410,7 +402,7 @@ export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.
 export gwas_data_gzipped=$PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
 export TISSUE=Whole_Blood
 export FASTENLOCSOFT=fastenloc
-export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
+##export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
 
 mkdir $RESULTS/fastenloc/
 cd $RESULTS/fastenloc/
@@ -432,6 +424,7 @@ spredixcan_and_fastenloc = inner_join(spredixcan_association, fastenloc_results,
 
 ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
 
+
 ```
 
 ----------
@@ -442,8 +435,6 @@ ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
 
 ```{bash run TWMR, eval=FALSE}
 
-export TWMR=$PRE/repos/TWMR-master
-export OUTPUT=$PRE/results
 GENE=ENSG00000002919
 
 cd $TWMR
