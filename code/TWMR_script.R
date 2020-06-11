@@ -29,7 +29,7 @@ analyseMR <- function(gene, dir, Ngwas=239087, N_eQTLs=32000){
 	     df_dg <- GCG_inv %*% t(beta) %*% C_inv
 	     df_dG <- (GCG_inv %x% (t(gamma) %*% C_inv %*% ((beta %*% GCG_inv %*% t(beta)) %*% C_inv + diag(nrow(beta))))) + ((-t(gamma) %*% C_inv %*% beta %*% GCG_inv) %x% (GCG_inv %*% t(beta) %*% C_inv))
 	     J <- cbind(df_dG, df_dg)
-	 SEs<-c(rep(1/sqrt(32000),length(beta[1,])*length(beta[,1])),rep(1/sqrt(Ngwas),length(gamma[,1])))
+	 SEs<-c(rep(1/sqrt(N_eQTLs),length(beta[1,])*length(beta[,1])),rep(1/sqrt(Ngwas),length(gamma[,1])))
 	 R<-diag(length(beta[1,])+1)
 	 Sigma <- (SEs %*% t(SEs)) * (C %x% R)
 	     V <- J %*% Sigma %*% t(J)

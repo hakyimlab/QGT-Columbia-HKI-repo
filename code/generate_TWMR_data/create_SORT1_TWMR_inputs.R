@@ -13,7 +13,7 @@ weights_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/models/SORT1_liver_locus_p
 
 out_ld <- "/Users/owenmelia/data/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000134243.ld"
 out_matrix <- "/Users/owenmelia/data/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000134243.matrix"
-
+out_dir <- "/Users/owenmelia/data/QGT-Columbia-HKI/repos/TWMR-master/"
 K_SORT1 <- "ENSG00000134243"
 
 # --------------------------------------------------------------------------------------
@@ -103,6 +103,20 @@ writer(SORT1_matrix, out_matrix)
 
 writer(SORT1_ld, out_ld, c=FALSE)
 
+
+write_permutations <- function(dir, m, ld ){
+  gene_names <- names(m)[str_detect(names(m), 'ENS.*')]
+  for ( gene in gene_names ){
+    cols <- c("GENES", gene, setdiff(gene_names, gene), "BETA_GWAS")
+    m_i <- m[, cols]
+    fp_matrix <- file.path(dir, paste(gene, 'matrix', sep="."))
+    fp_ld <- file.path(dir, paste(gene, 'ld', sep="."))
+    writer(m_i, fp_matrix)
+    writer(ld, fp_ld, c=FALSE)
+  }
+}
+
+write_permutations(out_dir, SORT1_matrix, SORT1_ld)
 
 # --------------------------------------------------------------------------------------
 # TEST
