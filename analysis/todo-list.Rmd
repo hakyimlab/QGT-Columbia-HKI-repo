@@ -16,11 +16,13 @@ editor_options:
 - [ ] create tabs for each student in the [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066) and copy the questions 
 
 
+## Right before the QGT session
+
+- [ ] instantiate 25+ R Studio servers in GCP introstatgen project
+
+
 ## lower priority TODO list
 
 - [ ] update R of the Rstudio server
 
 
-## Right before the QGT session
-
-- [ ] instantiate 25+ R Studio servers in GCP introstatgen project
