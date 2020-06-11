@@ -9,7 +9,7 @@ library(Matrix)
 cov_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/models/SORT1_cov.txt.gz"
 eqtl_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/models/SORT1_eqtl.csv"
 cad_gwas_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/data/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt"
-weights_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/models/SORT1_locus_predictive_snps.csv"
+weights_fp <- "/Users/owenmelia/data/QGT-Columbia-HKI/models/SORT1_liver_locus_predictive_snps.csv"
 
 out_ld <- "/Users/owenmelia/data/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000134243.ld"
 out_matrix <- "/Users/owenmelia/data/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000134243.matrix"
@@ -27,10 +27,8 @@ weights <- read.csv(weights_fp)
 # --------------------------------------------------------------------------------------
 # DEFINE FUNCTIONS TO GENERATE TABLES
 
-keep_snps <- (weights %>% 
-                filter(gene %!in% c("ENSG00000143106.12", "ENSG00000031698.12")))$varID
-keep_genes <- (weights %>% filter(gene %!in% c("ENSG00000143106.12", "ENSG00000031698.12")))$gene
-
+keep_snps <- weights$varID
+keep_genes <- c("ENSG00000134222.16", "ENSG00000143126.7", "ENSG00000134243.11")
 eqtl_to_matrix <- function(eqtl, trait_effects, keep_snps, keep_genes){
   eqtl <- eqtl %>% filter(variant_id %in% keep_snps & gene_id %in% keep_genes)
   eqtl$gene_id <- gsub("\\..*", "", eqtl$gene_id)
@@ -43,6 +41,7 @@ eqtl_to_matrix <- function(eqtl, trait_effects, keep_snps, keep_genes){
   trait_effects <- (trait_effects %>% select(c(panel_variant_id, effect_size)))
 
   out_df <- left_join(out_df, trait_effects, by=c('GENES'='panel_variant_id')) %>% rename('BETA_GWAS'='effect_size')
+  print(out_df)
   out_df <- drop_na(out_df)
   return(out_df)
 }
@@ -91,7 +90,7 @@ fix_singularity <- function(df){
   return(df %>% select(-c(ENSG00000134222)))
 }
 
-SORT1_matrix <- fix_singularity(SORT1_matrix)
+# SORT1_matrix <- fix_singularity(SORT1_matrix)
 # --------------------------------------------------------------------------------------
 # WRITE DATA
 
