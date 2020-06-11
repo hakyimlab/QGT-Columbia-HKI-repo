@@ -13,6 +13,8 @@ editor_options:
 - [ ] create a useful example dataset for TWMR (Owen)
 - [ ] add TWMR questions to [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
 
+- [ ] create tabs for each student in the [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066) and copy the questions 
+
 
 ## lower priority TODO list
 
@@ -22,4 +24,3 @@ editor_options:
 ## Right before the QGT session
 
 - [ ] instantiate 25+ R Studio servers in GCP introstatgen project
-- [ ] create tabs for each student and copy the questions 
