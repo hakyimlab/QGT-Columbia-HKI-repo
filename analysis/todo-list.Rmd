@@ -11,7 +11,7 @@ editor_options:
 
 - [x] check mismatch between fastenloc and spredixcan genes
 - [ ] create a useful example dataset for TWMR (Owen)
-- [ ] add TWMR questions to [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
+- [x] add TWMR questions to [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066)
 
 - [ ] create tabs for each student in the [google doc](https://docs.google.com/spreadsheets/d/1PKVfywvTu1RZuDCyHV4xt_cCngzhmjzw60_dHzLbLrc/edit#gid=145770066) and copy the questions 
 
