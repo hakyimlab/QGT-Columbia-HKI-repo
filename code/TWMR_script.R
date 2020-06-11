@@ -1,8 +1,9 @@
-analyseMR <- function(gene, dir){
+analyseMR <- function(gene, dir, Ngwas=239087, N_eQTLs=32000){
 	# This code is lightly adapted from https://github.com/eleporcu/TWMR
-	Ngwas<-239087
-	N_eQTLs<-32000
+  
 	out<-c("gene","alpha","SE","P","Nsnps","Ngene")
+	
+	# Load eqtl matrix
 	file<-file.path(dir, paste(gene,"matrix",sep="."))
 	print(paste("Loading", file, sep=" "))
 	filecluster<-read.table(file,header=T,sep=" ",dec=".")
