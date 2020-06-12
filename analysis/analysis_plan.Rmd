@@ -89,8 +89,6 @@ suppressPackageStartupMessages(library(tidyverse))
 
 
 - [ ] define some variables to access the data more easily within the R session. Run the following r chunk
-
-
 ```{r preliminaries, eval=FALSE}
 
 print(getwd())
@@ -249,31 +247,22 @@ gg_qqplot(predixcan_association$pvalue, max_yval = 40)
 
 ```
 
+## compare estimated effects with true effect sizes
 
 ```{r read true effect sizes, eval=FALSE}
 truebetas = load_truebetas(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"), gencode_df)
 betas = (predixcan_association %>% 
                inner_join(truebetas,by=c("gene"="gene_id")) %>%
-               select(c('predicted_beta'='effect', 
+               select(c('estimated_beta'='effect', 
                         'true_beta'='effect_size',
                         'pvalue', 
                         'gene_id'='gene', 
                         'gene_name'='gene_name.x', 
                         'region_id'='region_id.x')))
 betas %>% arrange(pvalue) %>% head
+## do you see examples of potential LD contamination?
 betas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
 ```
-
-
-```{r, eval=FALSE}
-
-## get chr and position of genes (transcription start site)
-
-## do you see examples of potential LD contamination?
-
-```
-
-
 
 
 # Summary PrediXcan
