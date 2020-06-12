@@ -345,7 +345,7 @@ python $METAXCAN/SMulTiXcan.py \
 - we precalculated this for you so there is no need to recalculate
 
 ```{bash, eval=FALSE}
-## notice that the GWAS results are in hg38
+## We ran this formatting for you because it takes over 10 minutes.
 python $CODE/gwas_to_torus_zscore.py \
 -input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
 -input_ld_regions $DATA/spredixcan/eur_ld_hg38.txt.gz \
@@ -413,20 +413,6 @@ ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
 
 ## run  TWMR (for a locus)
 ![TWMR](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/TWMR.png)
-
-```{bash run TWMR, eval=FALSE}
-
-GENE=ENSG00000002919
-
-cd $TWMR
-
-R < $TWMR/MR.R --no-save $GENE
-
-cd $PRE
-
-## output: /home/student/QGT-Columbia-HKI/repos/TWMR-master/ENSG00000002919.alpha
-
-```
 
 ```{r run TWMR, eval=FALSE}
 # Load the 'analyseMR' function
