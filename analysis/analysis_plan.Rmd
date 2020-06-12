@@ -226,7 +226,7 @@ python3 $METAXCAN/PrediXcanAssociation.py \
 
 ```
 
-More predicted phenotypes can be [downloaded from here](https://uchicago.box.com/s/xxzuzjamscpc365ui9ge98le0qwy11wz). The naming of the phenotypes provides information about the genic architecture: the number after pve is the proportion of variance of Y explained by the genetic component of expression. The number after spike_n_slab represents the probability that a gene is causal $\pi$(i.e. prob $\beta \ne 0$)
+More predicted phenotypes can be found in `$DATA/predixcan/phenotype/`. The naming of the phenotypes provides information about the genic architecture: the number after pve is the proportion of variance of Y explained by the genetic component of expression. The number after spike_n_slab represents the probability that a gene is causal $\pi$(i.e. prob $\beta \ne 0$)
 
 ## read association results
 
@@ -261,7 +261,7 @@ betas = (predixcan_association %>%
                         'region_id'='region_id.x')))
 betas %>% arrange(pvalue) %>% head
 ## do you see examples of potential LD contamination?
-betas %>% ggplot(aes(predicted_beta, true_beta))+geom_point()+geom_abline()
+betas %>% ggplot(aes(estimated_beta, true_beta))+geom_point()+geom_abline()
 ```
 
 
