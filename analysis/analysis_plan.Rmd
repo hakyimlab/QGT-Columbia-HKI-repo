@@ -10,9 +10,6 @@ editor_options:
 
 ## Set up 
 
-- [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
-  This will have copies of all the software repositories and the models
-
 Linux is the operating system of choice to run bioinformatics software. We are offering two options
 
 - Option 1: full setup, recommended for the linux-savvy with full setup
@@ -25,6 +22,8 @@ rendered [here as an html page](https://hakyimlab.github.io/QGT-Columbia-HKI/ana
 
 - [ ] install anaconda/miniconda
 - [ ] define imlabtools conda environment [how to here](https://github.com/hakyimlab/MetaXcan/blob/master/README.md#example-conda-environment-setup), which will install all the python modules needed for this analysis session
+- [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
+  This will have copies of all the software repositories and the models
 - [x] download software (copies of the repos are already included in the course folder QCT-Columbia-HKI/repos/)
   - download metaxcan repo
   - download torus repo
