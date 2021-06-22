@@ -8,4 +8,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+
+Index
+
+- [2020 QGT Analysis Plan](2020_analysis_plan.html)
+- [2021 QGT Analysis Plan](2021_analysis_plan.html)
