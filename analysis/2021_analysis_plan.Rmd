@@ -28,11 +28,10 @@ Here we will perform some of the analyses we discussed in the lecture this morni
 ## Initial remarks
 
 - We ask you to actively participate in today's hands on activities. **Notice that we may ask you to share your screen for pedagogic purposes.**
+- If you have any concerns about this, please ask me or one of the TAs for assistance. We are here to help you learn.
 - As you run the analysis and programs, we ask you to **find the tab with your name and respond the questions in [this document](https://docs.google.com/spreadsheets/d/1W_bFGB_ctLtUB3WTgAee4PohzKR-2lOKw9kTI0RVJr8/edit?usp=sharing).**
 Find the tab with your name and fill out the questions as you go along.
 - You are welcome to check other people's answers as guidelines but please make sure you write down your own answers.
-
-- If you have any concerns about this, please ask me or one of the TAs for assistance. We are here to help you learn.
 
 ## Preliminary definitions
 
@@ -63,7 +62,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 
-- [ ] define some variables to access the data more easily within the R session. Run the following r chunk
+- [ ] To define some variables to access the data more easily within the R session, run the following r chunk
 ```{r preliminaries, eval=FALSE}
 
 print(getwd())
@@ -107,7 +106,7 @@ Now we will perform a transcriptome-wide association analysis using the PrediXca
 
 
 We start by predicting the expression levels of genes using the genotype data and the prediction weights and then perform an association between the predicted expression and the phenotype (denoted trait in the figure below).
-![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
 
 ## predict expression 
 
@@ -215,8 +214,7 @@ More predicted phenotypes can be found in `$DATA/predixcan/phenotype/`. The nami
 ## read association results
 PHENO="sim.spike_n_slab_0.01_pve0.1"
 
-predixcan_association = load_predixcan_association(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"),
-                                                   gencode_df)
+predixcan_association = load_predixcan_association(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"), gencode_df)
 
 ## take a look at the results
 dim(predixcan_association)
@@ -249,10 +247,10 @@ betas %>% ggplot(aes(estimated_beta, true_beta))+geom_point()+geom_abline()
 
 Now we will use the summary results from a GWAS of coronary artery disease to calculate the association between the genetic component of the expression of genes and coronary artery disease risk. We will use the SPrediXcan.py.
 
-![Visual summary of s-predixcan](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png)
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png)
 
 
-- harmonized and imputed GWAS result for coronary artery disease is available in $PRE/spredixcan/data/
+The GWAS results (harmonized and imputed) for coronary artery disease are available in $PRE/spredixcan/data/
 
 ## run s-predixcan 
 
@@ -316,13 +314,13 @@ python $METAXCAN/SMulTiXcan.py \
 
 - Colocalization methods seek to estimate the probability that the complex trait and expression causal variants are the same. We favor methods that calculate the probability of causality for each trait (posterior inclusion probability), called fine-mapping methods. Here we use torus for fine-mapping and fastENLOC for colocalization.
 
-![Visual summary of colocalization](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
 
 ## GWAS summary statistics to torus format
 
 - the following code will format GWAS summary statistics into a format that the fine-mapping method torus can understand.
 
-- we precalculated this for you so there is no need to recalculate
+- we precalculated this for you so there is no need to run the following chunk
 
 ```{bash, eval=FALSE}
 ## We ran this formatting for you because it takes over 10 minutes.
@@ -334,7 +332,7 @@ python $CODE/gwas_to_torus_zscore.py \
 
 ## fine-map GWAS results
 
-- We will run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
+- We run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
 
 - torus has been precompiled and placed within the PATH
 
@@ -347,7 +345,7 @@ gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
 cd $PRE 
 ```
 
-We can take a quick look at the z-values and finemapping PIPs:
+We can take a quick look at the z-values and finemapping PIPs (posterior probability of causality):
 
 ```{bash, eval=FALSE}
 cd $PRE/data/fastenloc
@@ -358,7 +356,7 @@ zless CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
 ## calculate colocalization with fastENLOC
 
 ```{bash run fastENLOC, eval=FALSE}
-## check out tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+## you can take a look at the tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
 
 export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
 export gwas_data_gzipped=$PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
@@ -423,26 +421,24 @@ twmr_results <- load_twmr_results(TWMR, gencode_df)
 
 Linux is the operating system of choice to run bioinformatics software. You will need either a computer running linux or or mac os, which has a linux-like environment. 
 
-
 - [ ] install anaconda/miniconda 
 - [ ] define imlabtools conda environment [how to here](https://github.com/hakyimlab/MetaXcan/blob/master/README.md#example-conda-environment-setup), which will install all the python modules needed for this analysis session
 - [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
   This will have copies of all the software repositories and the models
-- [x] download software (copies of the repos are already included in the course folder QCT-Columbia-HKI/repos/)
+- [ ] download software 
   - download metaxcan repo
   - download torus repo
   - download fastenloc repo
   - download TMWR repo
-- [x] download prediction models from predictdb.org (a few models are included in the course folder QCT-Columbia-HKI/repos/)
+- [ ] download prediction models from predictdb.org 
 - [ ] install R/RStudio/tidyverse package
 - [ ] (optional) install workflowr package in R
 - [ ] git clone https://github.com/hakyimlab/QGT-Columbia-HKI.git
 - [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
 
+## How to create RStudio server
 
-# Internal use
-
-- copy Rmd to 
+Check instructions [here](https://lab-notes.hakyimlab.org/post/2020/06/16/introstatgen-r-studio-servers-using-google-cloud/)
 
 # Acknowledgements
 
