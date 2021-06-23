@@ -36,7 +36,7 @@ Find the tab with your name and fill out the questions as you go along.
 
 ## Preliminary definitions
 
-- [ ] Go to the terminal tab on the RStudio server and update the analysis document to the most recent version. The commands are shown below. Copy the text (without the lines with apostrophes: ```), paste them to the *terminal*, and hit enter.
+- [ ] Go to the terminal tab on the RStudio server and run the following commands to update the analysis document to the most recent version.
 
 ```{bash eval=FALSE}
 ## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
@@ -45,14 +45,17 @@ cd $PRE/lab/
 git pull 
 ```
 
+- [ ] Under the Files tab (right bottom panel of RStudio) navigate to the folder Home/lab/analysis and open 2021_analysis_plan.Rmd (click on the file name)
+
 - [ ] activate the the imlabtools environment, which will make sure all the necessary python modules are available to the software we will be running.
 ```{bash, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
 conda activate imlabtools
 ```
 
 **Reminder: the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.**
 
-- [ ] execute the following chunk
+- [ ] execute the following chunk to load the tidyverse package, a convenient set of R packages for analysis
 ```{r preliminary definitions, eval=FALSE}
 
 suppressPackageStartupMessages(library(tidyverse))
@@ -83,10 +86,11 @@ TWMR=glue::glue("{PRE}/repos/TWMR-master")
 gencode_df = load_gencode_df()
 ```
 
-- [ ] define some variables to access the data more easily in the terminal. Run the following bash chunk. You will need to copy and paste the following chunk in the terminal
-
+- [ ] define some variables to access the data more easily in the terminal. Remember we are running R code in the R console and command line code in the terminal.
 
 ```{bash folder name variables, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
+
 export PRE="/home/student/QGT-Columbia-HKI"
 export LAB="/home/student/lab"
 export CODE=$LAB/code
@@ -98,15 +102,18 @@ export TWMR=$PRE/repos/TWMR-master
 ```
 
 # Transcriptome-wide association methods
+Now we will perform a transcriptome-wide association analysis using the PrediXcan suite of tools.
 ![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
+
+
+We start by predicting the expression levels of genes using the genotype data and the prediction weights and then perform an association between the predicted expression and the phenotype (denoted trait in the figure below).
+![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
 
 ## predict expression 
 
-![Visual summary of predixcan runs](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
-
 - We will predict expression of genes in whole blood using the Predict.py code in the METAXCAN folder.
 
-- Prediction models are located in the MODEL folder. Additional models for different tissues and transcriptome studies can be downloaded from [predictdb.org](http://predictdb.org)
+- Prediction models (weights) are located in the MODEL folder. Additional models for different tissues and transcriptome studies can be downloaded from [predictdb.org](http://predictdb.org).
 
 - Remember you need to copy and paste this code chunk into the terminal to run it. Also make sure you activated the imlabtools environment which has all the necessary python modules. 
 
@@ -114,9 +121,10 @@ export TWMR=$PRE/repos/TWMR-master
 
 - This run should take about one minute.
 
-- [ ] copy and paste the following block to the terminal and hit enter
+- [ ] run the following code in the terminal.
 
 ```{bash predict genetic component of expression, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
 
 printf "Predict expression\n\n"
 python3 $METAXCAN/Predict.py \
@@ -133,7 +141,7 @@ python3 $METAXCAN/Predict.py \
 ```
 
 
-- [ ] check predicted values (run the following chunk using the green arrow)
+- [ ] run following code in the console to get information on reported prediction performance.
 
 ```{r check prediction performance, eval=FALSE}
 
@@ -155,7 +163,7 @@ summary(prediction_summary$pred_perf_r2)
 
 ```
 
-## assess prediction performance (optional)
+## assess actual prediction performance (optional)
 
 ```{r assess prediction performance, eval=FALSE}
 

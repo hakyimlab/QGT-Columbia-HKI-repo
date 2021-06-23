@@ -8,22 +8,30 @@ editor_options:
 
 ## TODO list
 
-
-- [x] check mismatch between fastenloc and spredixcan genes
-- [x] create a useful example dataset for TWMR (Owen)
-- [x] add TWMR questions to [google doc](https://docs.google.com/spreadsheets/d/1wjI59ly7FkfJaBC0Z8nEDVcOhapyouZfgzTSrwN4Qjk/edit?usp=sharing)
-
-- [x] create tabs for each student in the [google doc](https://docs.google.com/spreadsheets/d/1wjI59ly7FkfJaBC0Z8nEDVcOhapyouZfgzTSrwN4Qjk/edit?usp=sharing) and copy the questions 
-
-- [ ] copy the excel tabs to the google sheet file
-
 ## Right before the QGT session
 
 - [ ] instantiate 35+ R Studio servers in GCP introstatgen project
 
+-------
+
+- [x]  get list of students
+
+- [ ]  Create google sheet with list of students, Rstudio server IP addresses, and questions ([use example 2021](https://docs.google.com/spreadsheets/d/1W_bFGB_ctLtUB3WTgAee4PohzKR-2lOKw9kTI0RVJr8/edit?usp=sharing))
+
+- [ ]  Google cloud machines
+    - [x]  create shell script and test
+    - [x]  test removing all instances
+    - [ ]  on the day of training, start $N_students instances
+    - [ ]  add ip address to the google sheet ([link](https://docs.google.com/spreadsheets/d/1W_bFGB_ctLtUB3WTgAee4PohzKR-2lOKw9kTI0RVJr8/edit?usp=sharing))
+    - [ ]  at the end of the day, set them to sleep
+    - [ ]  next day, delete all of them unless someone asks to keep it up longer
+    
+- [x]  ask canvas access for TAs: Natasha and Festus in 2021
+
+- [x]  edit list of questions
+
+-------
 
 ## lower priority TODO list
 
 - [ ] update R of the Rstudio server
-
-
