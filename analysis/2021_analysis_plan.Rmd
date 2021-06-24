@@ -323,6 +323,7 @@ python $METAXCAN/SMulTiXcan.py \
 - we precalculated this for you so there is no need to run the following chunk
 
 ```{bash, eval=FALSE}
+## THERE IS NO NEED TO RUN THIS CHUNK
 ## We ran this formatting for you because it takes over 10 minutes.
 python $CODE/gwas_to_torus_zscore.py \
 -input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
