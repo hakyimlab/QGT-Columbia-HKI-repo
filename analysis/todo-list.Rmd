@@ -6,6 +6,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+## necessary update
+
+- [ ] fix multixcan runs
+- [ ] update new prediction model with sort1
+- [ ] create answer key
+
 ## TODO list
 
 ## Right before the QGT session
