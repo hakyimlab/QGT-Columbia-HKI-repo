@@ -441,6 +441,10 @@ Linux is the operating system of choice to run bioinformatics software. You will
 
 Check instructions [here](https://lab-notes.hakyimlab.org/post/2020/06/16/introstatgen-r-studio-servers-using-google-cloud/)
 
+## Slides
+
+Find slides [here](extras/QGT-Columbia-2021-HKI.pdf)
+
 # Acknowledgements
 
 Contributions by Owen Melia, Yanyu Liang, and Tyson Miller
