@@ -443,7 +443,7 @@ Check instructions [here](https://lab-notes.hakyimlab.org/post/2020/06/16/intros
 
 ## Slides
 
-Find slides [here](extras/QGT-Columbia-2021-HKI.pdf)
+Download slides [here](https://github.com/hakyimlab/QGT-Columbia-HKI-repo/blob/master/extras/QGT-Columbia-2021-HKI.pdf)
 
 # Acknowledgements
 
