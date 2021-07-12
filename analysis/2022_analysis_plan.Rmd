@@ -1,0 +1,456 @@
+---
+title: "QGT Analysis Plan - 2021"
+author: "Hae Kyung Im"
+date: "2021-06-22"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+Here we will perform some of the analyses we discussed in the lecture this morning to gain hands on experience. Follow the steps listed below to get your RStudio environment^[note that these servers are different from the Rstudio cloud you used yesterday].
+
+# Getting access to the Rstudio environment
+- [ ] Find your Rstudio server IP address and get the username and password  [here](https://docs.google.com/spreadsheets/d/1W_bFGB_ctLtUB3WTgAee4PohzKR-2lOKw9kTI0RVJr8/edit?usp=sharing)
+- [ ] connect to the Rstudio server using the url you claimed (http://xxx.xxx.xxx.xxx:8787) using a web browser
+- [ ] log into the server using the username and password of the server you claimed
+
+
+## Summary of analysis plan
+
+- predict whole blood expression
+- check how well the prediction works with GEUVADIS expression data
+- run association between predicted expression and a simulated phenotype
+- calculate association between expression levels and coronary artery disease risk using s-predixcan
+- fine-map the coronary artery disease gwas results using torus
+- calculate colocalization probability using fastenloc
+- run transcriptome-wide mendelian randomization in one locus of interestgi
+
+## Initial remarks
+
+- We ask you to actively participate in today's hands on activities. **Notice that we may ask you to share your screen for pedagogic purposes.**
+- If you have any concerns about this, please ask me or one of the TAs for assistance. We are here to help you learn.
+- As you run the analysis and programs, we ask you to **find the tab with your name and respond the questions in [this document](https://docs.google.com/spreadsheets/d/1W_bFGB_ctLtUB3WTgAee4PohzKR-2lOKw9kTI0RVJr8/edit?usp=sharing).**
+Find the tab with your name and fill out the questions as you go along.
+- You are welcome to check other people's answers as guidelines but please make sure you write down your own answers.
+
+## Preliminary definitions
+
+- [ ] Go to the terminal tab on the RStudio server and run the following commands to update the analysis document to the most recent version.
+
+```{bash eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
+PRE="/home/student/"
+cd $PRE/lab/
+git pull 
+```
+
+- [ ] Under the Files tab (right bottom panel of RStudio) navigate to the folder Home/lab/analysis and open 2021_analysis_plan.Rmd (click on the file name)
+
+- [ ] activate the the imlabtools environment, which will make sure all the necessary python modules are available to the software we will be running.
+```{bash, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
+conda activate imlabtools
+```
+
+**Reminder: the bash chunks need to be copy-pasted to the terminal, not performed within the chunk.**
+
+- [ ] execute the following chunk to load the tidyverse package, a convenient set of R packages for analysis
+```{r preliminary definitions, eval=FALSE}
+
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+
+- [ ] To define some variables to access the data more easily within the R session, run the following r chunk
+```{r preliminaries, eval=FALSE}
+
+print(getwd())
+
+lab="/home/student/lab"
+lab="/home/festo/Documents/HakyIm/QGT-Columbia-HKI-repo"
+CODE=glue::glue("{lab}/code")
+source(glue::glue("{CODE}/load_data_functions.R"))
+source(glue::glue("{CODE}/plotting_utils_functions.R"))
+
+PRE="/home/student/QGT-Columbia-HKI"
+PRE="/home/festo/Documents/HakyIm/QGT-Columbia-HKI"
+MODEL=glue::glue("{PRE}/models")
+DATA=glue::glue("{PRE}/data")
+RESULTS=glue::glue("{PRE}/results")
+METAXCAN=glue::glue("{PRE}/repos/MetaXcan-master/software")
+FASTENLOC=glue::glue("{PRE}/repos/fastenloc-master")
+TORUS=glue::glue("{PRE}/repos/torus-master")
+TWMR=glue::glue("{PRE}/repos/TWMR-master")
+
+# This is a reference table we'll use a lot throughout the lab. It contains information about the genes.
+gencode_df = load_gencode_df()
+```
+
+- [ ] define some variables to access the data more easily in the terminal. Remember we are running R code in the R console and command line code in the terminal.
+
+```{bash folder name variables, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
+
+export PRE="/home/student/QGT-Columbia-HKI"
+export LAB="/home/student/lab"
+export LAB="/home/festo/Documents/HakyIm/QGT-Columbia-HKI-repo"
+export PRE="/home/festo/Documents/HakyIm/QGT-Columbia-HKI"
+export CODE=$LAB/code
+export DATA=$PRE/data
+export MODEL=$PRE/models
+export RESULTS=$PRE/results
+export METAXCAN=$PRE/repos/MetaXcan-master/software
+export TWMR=$PRE/repos/TWMR-master
+```
+
+# Transcriptome-wide association methods
+Now we will perform a transcriptome-wide association analysis using the PrediXcan suite of tools.
+![Transcriptome-wide association methods](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/Association-Methods.png)
+
+
+We start by predicting the expression levels of genes using the genotype data and the prediction weights and then perform an association between the predicted expression and the phenotype (denoted trait in the figure below).
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/PrediXcan-run.png)
+
+## predict expression 
+
+- We will predict expression of genes in whole blood using the Predict.py code in the METAXCAN folder.
+
+- Prediction models (weights) are located in the MODEL folder. Additional models for different tissues and transcriptome studies can be downloaded from [predictdb.org](http://predictdb.org).
+
+- Remember you need to copy and paste this code chunk into the terminal to run it. Also make sure you activated the imlabtools environment which has all the necessary python modules. 
+
+- Make sure all the paths and file names are correct
+
+- This run should take about one minute.
+
+- [ ] run the following code in the terminal.
+
+```{bash predict genetic component of expression, eval=FALSE}
+## Copy the lines below using Ctrl-C (or Cmd-C), paste on the terminal, and hit enter
+
+printf "Predict expression\n\n"
+python3 $METAXCAN/Predict.py \
+--model_db_path $PRE/models/gtex_v8_en/en_Whole_Blood.db \
+--vcf_genotypes $DATA/predixcan/genotype/filtered.vcf.gz \
+--vcf_mode genotyped \
+--variant_mapping $DATA/predixcan/gtex_v8_eur_filtered_maf0.01_monoallelic_variants.txt.gz id rsid \
+--on_the_fly_mapping METADATA "chr{}_{}_{}_{}_b38" \
+--prediction_output $RESULTS/predixcan/Whole_Blood__predict.txt \
+--prediction_summary_output $RESULTS/predixcan/Whole_Blood__summary.txt \
+--verbosity 9 \
+--throw
+
+```
+
+
+- [ ] run following code in the console to get information on reported prediction performance.
+
+```{r check prediction performance, eval=FALSE}
+
+prediction_fp = glue::glue("{RESULTS}/predixcan/Whole_Blood__predict.txt")
+
+## Read the Predict.py output into a dataframe. This function reorganizes the data and adds gene names.
+predicted_expression = load_predicted_expression(prediction_fp, gencode_df)
+
+head(predicted_expression)
+
+## read summary of prediction, number of SNPs per gene, cross validated prediction performance
+prediction_summary = load_prediction_summary(glue::glue("{RESULTS}/predixcan/Whole_Blood__summary.txt"), gencode_df)
+## number of genes with a prediction model
+dim(prediction_summary)
+head(prediction_summary)
+
+print("distribution of prediction performance r2")
+summary(prediction_summary$pred_perf_r2)
+
+```
+
+## assess actual prediction performance (optional)
+
+```{r assess prediction performance, eval=FALSE}
+
+## download and read observed expression data from GEUVADIS 
+## from https://uchicago.box.com/s/4y7xle5l0pnq9d1fwmthe2ewhogrnlrv
+
+## Remove the version number from the gene_id's (ENSG000XXX.ver)
+head(predicted_expression)
+
+## merge predicted expression with observed expression data (by IID and gene)
+
+## plot observes vs predicted expressioni for 
+## ERAP1 (ENSG00000164307)
+## PEX6 (ENSG00000124587)
+
+## calculate spearman correlation for all genes
+
+## what's the best performing gene?
+
+```
+
+## run association with a simulated phenotype
+
+$Y = \sum_k T_k \beta_k + \epsilon$ 
+
+with random effects $\beta_k \sim (1-\pi)\cdot \delta_0 + \pi\cdot N(0,1)$
+
+```{bash run predixcan association, eval=FALSE}
+
+export PHENO="sim.spike_n_slab_0.01_pve0.1"
+
+printf "association\n\n"
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file $RESULTS/predixcan/Whole_Blood__predict.txt \
+--input_phenos_file $DATA/predixcan/phenotype/$PHENO.txt \
+--input_phenos_column pheno \
+--output $RESULTS/predixcan/$PHENO/Whole_Blood__association.txt \
+--verbosity 9 \
+--throw
+
+```
+
+More predicted phenotypes can be found in `$DATA/predixcan/phenotype/`. The naming of the phenotypes provides information about the genic architecture: the number after pve is the proportion of variance of Y explained by the genetic component of expression. The number after spike_n_slab represents the probability that a gene is causal $\pi$(i.e. prob $\beta \ne 0$)
+
+## read association results
+
+```{r read predixcan association results, eval=FALSE}
+
+## read association results
+PHENO="sim.spike_n_slab_0.01_pve0.1"
+
+predixcan_association = load_predixcan_association(glue::glue("{RESULTS}/predixcan/{PHENO}/Whole_Blood__association.txt"), gencode_df)
+
+## take a look at the results
+dim(predixcan_association)
+predixcan_association %>% arrange(pvalue) %>% head
+predixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
+## compare distribution against the null (uniform)
+gg_qqplot(predixcan_association$pvalue, max_yval = 40)
+
+```
+
+## compare estimated effects with true effect sizes
+
+```{r read true effect sizes, eval=FALSE}
+truebetas = load_truebetas(glue::glue("{DATA}/predixcan/phenotype/gene-effects/{PHENO}.txt"), gencode_df)
+betas = (predixcan_association %>% 
+               inner_join(truebetas,by=c("gene"="gene_id")) %>%
+               select(c('estimated_beta'='effect', 
+                        'true_beta'='effect_size',
+                        'pvalue', 
+                        'gene_id'='gene', 
+                        'gene_name'='gene_name.x', 
+                        'region_id'='region_id.x')))
+betas %>% arrange(pvalue) %>% head
+## do you see examples of potential LD contamination?
+betas %>% ggplot(aes(estimated_beta, true_beta))+geom_point()+geom_abline()
+```
+
+
+# Summary PrediXcan
+
+Now we will use the summary results from a GWAS of coronary artery disease to calculate the association between the genetic component of the expression of genes and coronary artery disease risk. We will use the SPrediXcan.py.
+
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/gwas-PrediXcan-spredixcan.png)
+
+
+The GWAS results (harmonized and imputed) for coronary artery disease are available in $PRE/spredixcan/data/
+
+## run s-predixcan 
+
+```{bash run s-predixcan, eval=FALSE}
+python $METAXCAN/SPrediXcan.py \
+--gwas_file  $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore \
+--model_db_path $MODEL/gtex_v8_mashr/mashr_Whole_Blood.db \
+--covariance $MODEL/gtex_v8_mashr/mashr_Whole_Blood.txt.gz \
+--keep_non_rsid --additional_output --model_db_snp_key varID \
+--throw \
+--output_file $RESULTS/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv
+
+```
+
+## plot and interpret s-predixcan results
+
+```{r analyze s-predixcan results, eval=FALSE}
+
+spredixcan_association = load_spredixcan_association(glue::glue("{RESULTS}/spredixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE__PM__Whole_Blood.csv"), gencode_df)
+dim(spredixcan_association)
+spredixcan_association %>% arrange(pvalue) %>% head
+spredixcan_association %>% arrange(pvalue) %>% ggplot(aes(pvalue)) + geom_histogram(bins=20)
+
+gg_qqplot(spredixcan_association$pvalue)
+
+```
+
+- [ ] SORT1, considered to be a causal gene for LDL cholesterol and as a consequence of coronary artery disease, is not found here. Why? (tissue)
+
+## Exercise
+
+- [ ] run s-predixcan with liver model, do you find SORT1? Is it significant?
+
+- [ ] compare zscores in liver and whole blood.
+
+
+
+## run multixcan (optional)
+
+- multixcan aggregates information across multiple tissues to boost the power to detect association. It was developed movivated by the fact that eQTLs are shared across multiple tissues, i.e. many genetic variants that regulate expression are common across tissues.
+
+- before you run multixcan ensure you have run s-predixcan for all the tissues you want to run multixcan. In this tutorial ensure you have run s-predixcan with the liver model first before running multixcan. Another thing to note is to ensure similar naming pattern for the output file to ensure the files are captured correctly when running multixcan.
+
+```{bash run multixcan, eval=FALSE}
+python $METAXCAN/SMulTiXcan.py \
+--models_folder $MODEL/gtex_v8_mashr \
+--models_name_pattern "mashr_(.*).db" \
+--snp_covariance $MODEL/gtex_v8_expression_mashr_snp_smultixcan_covariance.txt.gz \
+--metaxcan_folder $RESULTS/spredixcan/eqtl/ \
+--metaxcan_filter "CARDIoGRAM_C4D_CAD_ADDITIVE__PM__(.*).csv" \
+--metaxcan_file_name_parse_pattern "(.*)__PM__(.*).csv" \
+--gwas_file $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+--snp_column panel_variant_id --effect_allele_column effect_allele --non_effect_allele_column non_effect_allele --zscore_column zscore --keep_non_rsid --model_db_snp_key varID \
+--cutoff_condition_number 30 \
+--verbosity 7 \
+--throw \
+--output $RESULTS/smultixcan/eqtl/CARDIoGRAM_C4D_CAD_ADDITIVE_smultixcan.txt
+
+```
+
+# Colocalization methods
+
+- Colocalization methods seek to estimate the probability that the complex trait and expression causal variants are the same. We favor methods that calculate the probability of causality for each trait (posterior inclusion probability), called fine-mapping methods. Here we use torus for fine-mapping and fastENLOC for colocalization.
+
+![](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/colocalization-run.png)
+
+## GWAS summary statistics to torus format
+
+- the following code will format GWAS summary statistics into a format that the fine-mapping method torus can understand.
+
+- we precalculated this for you so there is no need to run the following chunk
+
+```{bash, eval=FALSE}
+## THERE IS NO NEED TO RUN THIS CHUNK
+## We ran this formatting for you because it takes over 10 minutes.
+python $CODE/gwas_to_torus_zscore.py \
+-input_gwas $DATA/spredixcan/imputed_CARDIoGRAM_C4D_CAD_ADDITIVE.txt.gz \
+-input_ld_regions $DATA/spredixcan/eur_ld_hg38.txt.gz \
+-output_fp $DATA/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
+```
+
+## fine-map GWAS results
+
+- We run torus due to time limitation but ideally we would like to run a method that allows multiple causal variants per locus, such as DAP-G or SusieR.
+
+- torus has been precompiled and placed within the PATH
+
+```{bash run torus, eval=FALSE}
+export TORUSOFT=torus
+
+$TORUSOFT -d $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz --load_zval -dump_pip $PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
+cd $PRE/data/fastenloc
+gzip CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip
+cd $PRE 
+```
+
+We can take a quick look at the z-values and finemapping PIPs (posterior probability of causality):
+
+```{bash, eval=FALSE}
+cd $PRE/data/fastenloc
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.zval.gz
+zless CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
+```
+
+## calculate colocalization with fastENLOC
+
+```{bash run fastENLOC, eval=FALSE}
+## you can take a look at the tutorial https://github.com/xqwen/fastenloc/tree/master/tutorial
+
+export eqtl_annotation_gzipped=$PRE/data/fastenloc/FASTENLOC-gtex_v8.eqtl_annot.vcf.gz
+export gwas_data_gzipped=$PRE/data/fastenloc/CARDIoGRAM_C4D_CAD_ADDITIVE.gwas.pip.gz
+export TISSUE=Whole_Blood
+export FASTENLOCSOFT=fastenloc
+##export FASTENLOCSOFT=/Users/owenmelia/projects/finemapping_bin/src/fastenloc/src/fastenloc
+
+mkdir $RESULTS/fastenloc/
+cd $RESULTS/fastenloc/
+$FASTENLOCSOFT -eqtl $eqtl_annotation_gzipped -gwas $gwas_data_gzipped -t $TISSUE 
+
+#[-total_variants total_snp] [-thread n] [-prefix prefix_name] [-s shrinkage]
+
+```
+
+## analyze results 
+
+```{r analyze torus results, eval=FALSE}
+## optional - compare with s-predixcan results
+
+fastenloc_results = load_fastenloc_coloc_result(glue::glue("{RESULTS}/fastenloc/enloc.sig.out"))
+spredixcan_and_fastenloc = inner_join(spredixcan_association, fastenloc_results, by=c('gene'='Signal'))
+ggplot(spredixcan_and_fastenloc, aes(RCP, -log10(pvalue))) + geom_point()
+
+## which genes are both colocalized (rcp>0.10) and significantly associated (pvalue<0.05/number of tests)
+
+
+```
+
+----------
+# Mendelian randomization methods
+
+## run  TWMR (for a locus)
+![TWMR](https://raw.githubusercontent.com/hakyimlab/QGT-Columbia-HKI/master/extras/figures/TWMR.png)
+
+```{r run TWMR, eval=FALSE}
+# Load the 'analyseMR' function
+source(glue::glue("{CODE}/TWMR_script.R"))
+
+# Collect the list of genes available to run
+gene_lst <- list.files(TWMR)
+gene_lst <- gene_lst[str_detect(gene_lst, "ENS.*")]
+gene_lst <- (gsub("\\..*", "", gene_lst) %>% unique)
+
+# Set the gene and run. The function writes output to a file.
+for (gene in gene_lst) {
+  analyseMR(gene, TWMR)
+}
+
+
+```
+
+```{r analyze TWMR results, eval=FALSE}
+
+twmr_results <- load_twmr_results(TWMR, gencode_df)
+
+```
+
+# Optional items
+
+## Setting up your own system 
+
+Linux is the operating system of choice to run bioinformatics software. You will need either a computer running linux or or mac os, which has a linux-like environment. 
+
+- [ ] install anaconda/miniconda 
+- [ ] define imlabtools conda environment [how to here](https://github.com/hakyimlab/MetaXcan/blob/master/README.md#example-conda-environment-setup), which will install all the python modules needed for this analysis session
+- [ ] download data and software [from Box](https://uchicago.box.com/s/zhapf2zfxcpj7thvq4sjnqale3emleum).
+  This will have copies of all the software repositories and the models
+- [ ] download software 
+  - download metaxcan repo
+  - download torus repo
+  - download fastenloc repo
+  - download TMWR repo
+- [ ] download prediction models from predictdb.org 
+- [ ] install R/RStudio/tidyverse package
+- [ ] (optional) install workflowr package in R
+- [ ] git clone https://github.com/hakyimlab/QGT-Columbia-HKI.git
+- [ ] start Rstudio (if you installed workflowr, you can just open the QGT-Columbia-HKI.Rproj)
+
+## How to create RStudio server
+
+Check instructions [here](https://lab-notes.hakyimlab.org/post/2020/06/16/introstatgen-r-studio-servers-using-google-cloud/)
+
+## Slides
+
+Download slides [here](https://github.com/hakyimlab/QGT-Columbia-HKI-repo/blob/master/extras/QGT-Columbia-2021-HKI.pdf)
+
+# Acknowledgements
+
+Contributions by Owen Melia, Yanyu Liang, and Tyson Miller
