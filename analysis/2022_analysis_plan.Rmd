@@ -1,7 +1,7 @@
 ---
-title: "QGT Analysis Plan - 2021"
+title: "QGT Analysis Plan - 2022"
 author: "Hae Kyung Im"
-date: "2021-06-22"
+date: "2021-07-12"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -68,13 +68,11 @@ suppressPackageStartupMessages(library(tidyverse))
 print(getwd())
 
 lab="/home/student/lab"
-lab="/home/festo/Documents/HakyIm/QGT-Columbia-HKI-repo"
 CODE=glue::glue("{lab}/code")
 source(glue::glue("{CODE}/load_data_functions.R"))
 source(glue::glue("{CODE}/plotting_utils_functions.R"))
 
 PRE="/home/student/QGT-Columbia-HKI"
-PRE="/home/festo/Documents/HakyIm/QGT-Columbia-HKI"
 MODEL=glue::glue("{PRE}/models")
 DATA=glue::glue("{PRE}/data")
 RESULTS=glue::glue("{PRE}/results")
@@ -94,8 +92,6 @@ gencode_df = load_gencode_df()
 
 export PRE="/home/student/QGT-Columbia-HKI"
 export LAB="/home/student/lab"
-export LAB="/home/festo/Documents/HakyIm/QGT-Columbia-HKI-repo"
-export PRE="/home/festo/Documents/HakyIm/QGT-Columbia-HKI"
 export CODE=$LAB/code
 export DATA=$PRE/data
 export MODEL=$PRE/models
@@ -297,7 +293,9 @@ gg_qqplot(spredixcan_association$pvalue)
 
 - multixcan aggregates information across multiple tissues to boost the power to detect association. It was developed movivated by the fact that eQTLs are shared across multiple tissues, i.e. many genetic variants that regulate expression are common across tissues.
 
-- before you run multixcan ensure you have run s-predixcan for all the tissues you want to run multixcan. In this tutorial ensure you have run s-predixcan with the liver model first before running multixcan. Another thing to note is to ensure similar naming pattern for the output file to ensure the files are captured correctly when running multixcan.
+- before you run multixcan ensure you have run s-predixcan for all the tissues you want to multixcan. In this tutorial we have two tissues (liver and whole blood), ensure you have run s-predixcan with the two tissues before running multixcan. 
+
+- One thing to note is to ensure similar naming pattern for the output files. This is to ensure the files are captured correctly when running multixcan's filter.
 
 ```{bash run multixcan, eval=FALSE}
 python $METAXCAN/SMulTiXcan.py \
