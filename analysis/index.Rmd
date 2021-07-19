@@ -13,6 +13,7 @@ Index
 
 - [2020 QGT Analysis Plan](2020_analysis_plan.html)
 - [2021 QGT Analysis Plan](2021_analysis_plan.html)
+- [2022 QGT Analysis Plan](2022_analysis_plan.html)
 
 ----
 - [TODO items](todo-list.html)
